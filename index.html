@@ -131,6 +131,31 @@ canvas#trace{width:100%;height:220px;background:var(--bg);border:2px dashed var(
 .roombg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;filter:saturate(.85)}
 .bgth{position:relative;width:100%;aspect-ratio:900/738;border-radius:12px;overflow:hidden;background:var(--veil,var(--surf))}
 .it .bgth .roombg{width:100%;height:100%;margin:0;opacity:1;filter:none}
+/* week strip, meal groups, quick picks, weight */
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.wday{background:var(--surf);border:2px solid var(--line);border-radius:14px;padding:6px 0 8px;display:grid;justify-items:center;gap:2px;min-height:64px}
+.wday.today{border-color:var(--coral);background:color-mix(in srgb,var(--coral) 10%,var(--surf))}
+.wday small{color:var(--mute);font-size:12px;font-weight:700}
+.wday b{font:700 16px 'Mali',sans-serif}
+.dot{width:70%;height:6px;border-radius:9px;background:var(--line);overflow:hidden;display:flex}
+.dot span{display:block;border-radius:9px}
+.dot.good span{background:var(--mint)}.dot.some span{background:var(--butter)}.dot.over span{background:var(--coral)}
+.mg+.mg{margin-top:6px;padding-top:4px;border-top:2px solid var(--line)}
+.mg-h{display:flex;justify-content:space-between;align-items:center;padding:4px 4px 0;font-size:14px}
+.slots{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.slots button{border:2px solid var(--line);background:var(--surf);border-radius:14px;min-height:44px;font-weight:700;font-size:13px;padding:0 2px}
+.slots button.on{background:var(--coral);border-color:var(--coral-d);color:#fff}
+.sheet>*{min-width:0}/* let scrolling rows scroll instead of widening the sheet */
+.cats,.quick{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.cats::-webkit-scrollbar,.quick::-webkit-scrollbar{display:none}
+.cats button{flex:none;border:2px solid var(--line);background:var(--surf);border-radius:999px;padding:4px 12px;min-height:38px;font-weight:700;font-size:14px}
+.cats button.on{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.qk{flex:none;display:grid;text-align:left;gap:2px;background:color-mix(in srgb,var(--butter) 22%,var(--surf));border:2px solid var(--line);border-radius:14px;padding:8px 12px;font-weight:500;max-width:200px}
+.qk small{color:var(--mute);font-size:12px}
+.evchip{background:color-mix(in srgb,var(--butter) 35%,var(--surf));border-radius:999px;padding:2px 10px;font-weight:700;font-size:13px}
+.wchart{width:100%;height:auto;display:block}
+.wchart text{font:600 11px 'Noto Sans Thai',sans-serif;fill:var(--mute)}
+.wlist{display:grid;gap:4px;margin-top:6px}
 .inuse{min-height:40px;display:grid;place-items:center;font-weight:700;font-size:14px;color:var(--mint-d)}
 .hearts{position:absolute;top:8px;left:50%;transform:translateX(-50%);display:flex;gap:2px;background:rgba(255,255,255,.78);border-radius:999px;padding:3px 10px}
 .hearts svg{width:24px;height:24px}
@@ -259,6 +284,12 @@ const T={th:{
  addT:'ให้ {n} กินอะไรดี?',search:'ค้นหาอาหาร',portion:'ปริมาณ',custom:'กรอกเอง',list:'เลือกจากรายการ',cName:'ชื่ออาหาร (ไม่ใส่ก็ได้)',cKcal:'แคลอรี่ (kcal)',feedBtn:'ป้อนเลย',nores:'ไม่พบ ลองกรอกเองนะ',coin:'+{n} เหรียญ',
  wT:'ตู้เสื้อผ้า',buy:'ซื้อ',wear:'ใส่',take:'ถอด',worn:'ใส่อยู่',poor:'เหรียญไม่พอ',
  tabWear:'ชุด',tabBg:'ฉาก',bgUse:'ใช้ฉากนี้',bgOn:'ใช้อยู่',bgs:{room:'ห้องนอน',sea:'ชายทะเล',forest:'ป่า',stars:'ดวงดาว'},
+ slots:{b:'🌅 เช้า',l:'🌞 กลางวัน',d:'🌙 เย็น',s:'🍪 ของว่าง',o:'🍽️ อื่นๆ'},
+ cats:{all:'ทั้งหมด',base:'ข้าว/ไข่',one:'จานเดียว',noodle:'เส้น',side:'กับข้าว',salad:'ยำ/ส้มตำ',intl:'นานาชาติ',snack:'ของว่าง/ขนม',fruit:'ผลไม้',drink:'เครื่องดื่ม',store:'ร้านสะดวกซื้อ'},
+ quick:'กินบ่อย · แตะเพื่อป้อนเลย',wdays:['อา','จ','อ','พ','พฤ','ศ','ส'],noMeals:'ไม่มีบันทึกวันนั้น',why:'ทำไมเป้าเป็นเลขนี้?',
+ wt:{title:'น้ำหนัก',log:'ชั่งน้ำหนัก',save:'บันทึกน้ำหนัก',lost:'ลดไปแล้ว {x} {u}',gained:'เพิ่มขึ้น {x} {u}',same:'เท่ากับตอนเริ่ม',toGo:'เหลืออีก {x} {u}',diff:'ต่างจากตอนเริ่ม {x} {u}',
+  stale:'ไม่ได้ชั่งมา {d} วันแล้ว',evIn:'{e} อีก {d} วัน',evToday:'{e} วันนี้แล้ว! 🎉',plan:'แผน',you:'เธอ',goal:'เป้า',recent:'ที่บันทึกไว้',
+  newTarget:'ปรับเป้าแคลอรี่เป็น {x} kcal/วัน (เดิม {y})',reached:'🎉 ถึงเป้าแล้ว! เก่งมาก',reachedCoin:'🎉 ถึงเป้าแล้ว! เก่งมาก +{c} เหรียญ',keepNow:'ตั้งเป้าเป็นรักษาน้ำหนักนี้',keepSet:'ตั้งเป้าเป็นรักษาน้ำหนักแล้ว ฉันจะช่วยดูให้อยู่ตัวนะ'},
  sT:'ตั้งค่า',lang:'ภาษา',rename:'ชื่อสัตว์เลี้ยง',change:'เปลี่ยนสัตว์',redo:'คำนวณแผนใหม่',reset:'ล้างข้อมูลทั้งหมด',resetAsk:'ลบข้อมูลทั้งหมดแล้วเริ่มใหม่ใช่ไหม?',yes:'ใช่ ลบเลย',no:'ยกเลิก',save:'บันทึก',close:'ปิด',about:'ค่าแคลอรี่เป็นค่าประมาณ',
  acc:{bell:'กระดิ่ง',bowtie:'โบว์ไท',bow:'โบว์',cape:'ผ้าคลุม',cap:'หมวกแก๊ป',crown:'มงกุฎ',flower:'ดอกไม้',glasses:'แว่นตา',party:'หมวกปาร์ตี้',scarf:'ผ้าพันคอ'},
  wearing:'ใส่อยู่',growl:'ก๊อก~ ก๊อก~',hatchTap:'แตะไข่เพื่อให้ฟัก',hatchT:'{n} ฟักออกมาแล้ว!',hi:'สวัสดี!',
@@ -322,56 +353,133 @@ en:{
  addT:'What should {n} eat?',search:'Search food',portion:'Portion',custom:'Custom',list:'From list',cName:'Food name (optional)',cKcal:'Calories (kcal)',feedBtn:'Feed!',nores:'Nothing found — try custom',coin:'+{n} coins',
  wT:'Wardrobe',buy:'Buy',wear:'Wear',take:'Take off',worn:'Wearing',poor:'Not enough coins',
  tabWear:'Outfits',tabBg:'Scenes',bgUse:'Use',bgOn:'In use',bgs:{room:'Bedroom',sea:'Beach',forest:'Forest',stars:'Stars'},
+ slots:{b:'🌅 Breakfast',l:'🌞 Lunch',d:'🌙 Dinner',s:'🍪 Snack',o:'🍽️ Other'},
+ cats:{all:'All',base:'Rice & eggs',one:'One-plate',noodle:'Noodles',side:'Sides',salad:'Salads',intl:'International',snack:'Snacks',fruit:'Fruit',drink:'Drinks',store:'Convenience store'},
+ quick:'Usual picks · tap to feed',wdays:['Su','Mo','Tu','We','Th','Fr','Sa'],noMeals:'Nothing logged that day',why:'Why this goal?',
+ wt:{title:'Weight',log:'Log weight',save:'Save weight',lost:'{x} {u} down',gained:'{x} {u} up',same:'Same as at the start',toGo:'{x} {u} to go',diff:'{x} {u} from the start',
+  stale:'Last weighed {d} days ago',evIn:'{e} in {d} days',evToday:'{e} is today! 🎉',plan:'Plan',you:'You',goal:'Goal',recent:'Logged',
+  newTarget:'Calorie target is now {x} kcal/day (was {y})',reached:'🎉 You reached your goal! Well done',reachedCoin:'🎉 You reached your goal! Well done +{c} coins',keepNow:'Switch to maintaining this weight',keepSet:"Now maintaining. I'll help you stay here."},
  sT:'Settings',lang:'Language',rename:'Pet name',change:'Change pet',redo:'Recalculate plan',reset:'Erase all data',resetAsk:'Erase everything and start over?',yes:'Yes, erase',no:'Cancel',save:'Save',close:'Close',about:'Calories are estimates.',
  acc:{bell:'Bell',bowtie:'Bow tie',bow:'Bow',cape:'Cape',cap:'Cap',crown:'Crown',flower:'Flower',glasses:'Glasses',party:'Party hat',scarf:'Scarf'},
  wearing:'Wearing',growl:'grrr~ grrr~',hatchTap:'Tap the egg to hatch it',hatchT:'{n} hatched!',hi:'Hello!',
  instT:'Install app',instBtn:'Add to Home Screen',instIos:'On iPhone/iPad: tap Share, then "Add to Home Screen"',instDone:'Installed. Works offline',photoOff:'AI photo logging works when opened in Claude',
  pf:'×'}};
-/* [id, emoji, th, en, kcal, protein, fat, carb] */
+/* [id, emoji, th, en, kcal, protein g, fat g, carb g, category]
+   Typical servings; values are rounded estimates in line with common Thai food-energy tables. */
 const FOODS=[
-['rice','🍚','ข้าวสวย 1 ถ้วย','Steamed rice, 1 cup',200,4,0.4,44],
-['fried','🍛','ข้าวผัด 1 จาน','Fried rice, 1 plate',520,14,18,75],
-['kmj','🍗','ข้าวมันไก่ 1 จาน','Hainanese chicken rice',590,25,20,78],
-['kmd','🍖','ข้าวหมูแดง 1 จาน','BBQ pork rice',520,22,14,75],
-['kapao','🍳','ข้าวกะเพราไก่ไข่ดาว','Basil chicken, fried egg, rice',620,28,28,60],
-['khakha','🍖','ข้าวขาหมู 1 จาน','Stewed pork leg rice',690,27,32,72],
-['padthai','🍜','ผัดไทย 1 จาน','Pad Thai',560,20,20,72],
-['noodle','🍜','ก๋วยเตี๋ยวหมู 1 ชาม','Pork noodle soup',330,18,8,47],
-['bami','🍜','บะหมี่เกี๊ยวหมูแดง','Egg noodles, wonton, BBQ pork',390,20,10,55],
-['tomyum','🍲','ต้มยำกุ้ง 1 ถ้วย','Tom yum goong',120,12,5,8],
-['green','🍲','แกงเขียวหวานไก่','Green curry chicken',260,16,18,8],
-['somtam','🥗','ส้มตำไทย 1 จาน','Papaya salad',120,3,4,18],
-['larb','🥬','ลาบหมู 1 จาน','Pork larb',220,20,12,6],
-['grilled','🍗','ไก่ย่าง 1 ชิ้น','Grilled chicken, 1 piece',215,24,13,0],
-['moo','🍢','หมูปิ้ง 1 ไม้','Grilled pork skewer',90,7,6,3],
-['egg','🥚','ไข่ต้ม 1 ฟอง','Boiled egg',75,6,5,0.5],
-['omelet','🍳','ไข่เจียว 1 ฟอง','Thai omelet',190,10,16,1],
-['sticky','🍙','ข้าวเหนียว 1 ห่อ','Sticky rice, 1 pack',220,4,0.5,48],
-['yum','🥗','ยำวุ้นเส้น','Glass noodle salad',200,10,8,22],
-['khaotom','🥣','ข้าวต้มหมู 1 ชาม','Pork rice soup',250,13,5,38],
-['jok','🥣','โจ๊กหมู 1 ชาม','Pork congee',220,12,5,32],
-['sand','🥪','แซนด์วิช 1 ชิ้น','Sandwich',250,10,12,25],
-['toast','🍞','ขนมปังปิ้ง 1 แผ่น','Toast, 1 slice',80,3,1,15],
-['banana','🍌','กล้วย 1 ลูก','Banana',90,1,0.3,23],
-['apple','🍎','แอปเปิล 1 ลูก','Apple',95,0.5,0.3,25],
-['orange','🍊','ส้ม 1 ลูก','Orange',60,1,0,15],
-['mango','🥭','มะม่วงสุก ครึ่งลูก','Ripe mango, half',100,1,0.5,25],
-['mangosticky','🥭','ข้าวเหนียวมะม่วง','Mango sticky rice',480,6,14,82],
-['boba','🧋','ชานมไข่มุก 1 แก้ว','Bubble milk tea',380,3,8,75],
-['thaitea','🧋','ชาเย็น 1 แก้ว','Thai iced tea',280,2,8,50],
-['icedcoffee','☕','กาแฟเย็นหวาน','Sweet iced coffee',200,2,5,35],
-['americano','☕','อเมริกาโน่','Americano',10,0,0,2],
-['soda','🥤','น้ำอัดลม 1 กระป๋อง','Soda, 1 can',140,0,0,35],
-['milk','🥛','นมจืด 1 กล่อง','Plain milk, 1 box',130,7,7,10],
-['yogurt','🥣','โยเกิร์ต 1 ถ้วย','Yogurt cup',100,5,3,14],
-['salad','🥗','สลัดอกไก่','Chicken breast salad',300,30,12,15],
-['chicken','🍗','อกไก่ต้ม 100 ก.','Boiled chicken breast, 100 g',165,31,3.6,0],
-['fish','🐟','ปลานึ่ง 1 จาน','Steamed fish',150,25,5,2],
-['icecream','🍨','ไอศกรีม 1 สกู๊ป','Ice cream, 1 scoop',140,2,7,17],
-['fries','🍟','มันฝรั่งทอด ถุงเล็ก','Fries, small',150,2,9,15],
-['pizza','🍕','พิซซ่า 1 ชิ้น','Pizza, 1 slice',280,12,10,34],
-['burger','🍔','เบอร์เกอร์ 1 ชิ้น','Burger',480,25,24,40],
-['sushi','🍣','ซูชิ 4 ชิ้น','Sushi, 4 pieces',200,9,2,36]
+['rice','🍚','ข้าวสวย 1 ถ้วย','Steamed rice, 1 cup',200,4,0.4,44,'base'],
+['brown','🍚','ข้าวกล้อง 1 ถ้วย','Brown rice, 1 cup',215,5,1.8,45,'base'],
+['sticky','🍙','ข้าวเหนียว 1 ห่อ (100 ก.)','Sticky rice, 1 pack (100 g)',220,4,0.5,48,'base'],
+['toast','🍞','ขนมปังปิ้ง 1 แผ่น','Toast, 1 slice',80,3,1,15,'base'],
+['egg','🥚','ไข่ต้ม 1 ฟอง','Boiled egg',75,6,5,0.5,'base'],
+['friedegg','🍳','ไข่ดาว 1 ฟอง','Fried egg',120,6,10,0.5,'base'],
+['omelet','🍳','ไข่เจียว 1 ฟอง','Thai omelet, 1 egg',190,10,16,1,'base'],
+['fried','🍛','ข้าวผัดหมู 1 จาน','Pork fried rice',520,14,18,75,'one'],
+['khaopadpoo','🦀','ข้าวผัดปู 1 จาน','Crab fried rice',560,20,18,78,'one'],
+['kmj','🍗','ข้าวมันไก่ 1 จาน','Hainanese chicken rice',590,25,20,78,'one'],
+['kmd','🍖','ข้าวหมูแดง 1 จาน','BBQ pork rice',520,22,14,75,'one'],
+['kmk','🥓','ข้าวหมูกรอบ 1 จาน','Crispy pork rice',640,22,28,75,'one'],
+['kapao','🍳','ข้าวกะเพราไก่ไข่ดาว','Basil chicken, fried egg, rice',620,28,28,60,'one'],
+['kapaomoo','🌿','ข้าวกะเพราหมูสับ (ไม่มีไข่)','Basil minced pork on rice',520,22,20,62,'one'],
+['garlicpork','🧄','ข้าวหมูทอดกระเทียม','Garlic pork on rice',610,26,26,66,'one'],
+['khakha','🍖','ข้าวขาหมู 1 จาน','Stewed pork leg rice',690,27,32,72,'one'],
+['khaokluk','🍚','ข้าวคลุกกะปิ 1 จาน','Shrimp-paste fried rice',610,20,22,82,'one'],
+['khaomok','🍗','ข้าวหมกไก่ 1 จาน','Thai chicken biryani',620,27,22,78,'one'],
+['khaopalo','🥚','ข้าวไข่พะโล้ 1 จาน','Five-spice egg & pork on rice',520,22,18,68,'one'],
+['ratkaeng','🍛','ข้าวราดแกง 2 อย่าง','Rice with two curries',600,22,24,72,'one'],
+['omeletrice','🍳','ข้าวไข่เจียว 1 จาน','Omelet on rice',470,14,22,52,'one'],
+['moopingrice','🍢','ข้าวเหนียวหมูปิ้ง 3 ไม้','Sticky rice & 3 pork skewers',490,22,18,60,'one'],
+['khaotom','🥣','ข้าวต้มหมู 1 ชาม','Pork rice soup',250,13,5,38,'one'],
+['jok','🥣','โจ๊กหมู 1 ชาม','Pork congee',220,12,5,32,'one'],
+['padthai','🍜','ผัดไทย 1 จาน','Pad Thai',560,20,20,72,'noodle'],
+['padseeew','🍜','ผัดซีอิ๊ว 1 จาน','Pad see ew',680,22,26,90,'noodle'],
+['radna','🍜','ราดหน้า 1 จาน','Rad na (gravy noodles)',600,20,20,84,'noodle'],
+['kuaykai','🍜','ก๋วยเตี๋ยวคั่วไก่','Wok-fried chicken noodles',560,22,22,66,'noodle'],
+['noodle','🍜','ก๋วยเตี๋ยวหมูน้ำใส 1 ชาม','Pork noodle soup',330,18,8,47,'noodle'],
+['tomyumnoodle','🍜','ก๋วยเตี๋ยวต้มยำ 1 ชาม','Tom yum noodle soup',420,20,14,52,'noodle'],
+['boat','🍜','ก๋วยเตี๋ยวเรือ 1 ชามเล็ก','Boat noodles, small bowl',220,12,7,27,'noodle'],
+['yentafo','🍜','เย็นตาโฟ 1 ชาม','Yen ta fo',380,18,10,54,'noodle'],
+['bami','🍜','บะหมี่เกี๊ยวหมูแดง','Egg noodles, wonton, BBQ pork',390,20,10,55,'noodle'],
+['guayjub','🍜','ก๋วยจั๊บ 1 ชาม','Rolled rice noodle soup',380,20,10,52,'noodle'],
+['khanomjeen','🍝','ขนมจีนน้ำยา 1 จาน','Rice vermicelli with fish curry',430,16,14,60,'noodle'],
+['khaosoi','🍛','ข้าวซอยไก่ 1 ชาม','Khao soi chicken',620,26,30,60,'noodle'],
+['suki','🍲','สุกี้น้ำ 1 ชาม','Thai suki soup',350,24,8,45,'noodle'],
+['tomyum','🍲','ต้มยำกุ้งน้ำใส 1 ถ้วย','Tom yum goong, clear',120,12,5,8,'side'],
+['tomkha','🍲','ต้มข่าไก่ 1 ถ้วย','Tom kha chicken',300,16,22,10,'side'],
+['green','🍲','แกงเขียวหวานไก่ 1 ถ้วย','Green curry chicken',260,16,18,8,'side'],
+['massaman','🍛','แกงมัสมั่นไก่ 1 ถ้วย','Massaman chicken',380,18,26,18,'side'],
+['panang','🍛','พะแนงหมู 1 ถ้วย','Panang pork',320,18,24,8,'side'],
+['jued','🥣','แกงจืดเต้าหู้หมูสับ','Clear soup, tofu & pork',140,12,7,7,'side'],
+['palo','🥚','ไข่พะโล้ 1 ถ้วย','Five-spice egg stew',250,14,14,16,'side'],
+['padpak','🥬','ผักบุ้งไฟแดง 1 จาน','Stir-fried morning glory',180,4,14,9,'side'],
+['grilled','🍗','ไก่ย่าง 1 ชิ้น','Grilled chicken, 1 piece',215,24,13,0,'side'],
+['kaitod','🍗','ไก่ทอด 1 ชิ้น','Fried chicken, 1 piece',290,20,18,11,'side'],
+['moo','🍢','หมูปิ้ง 1 ไม้','Grilled pork skewer',90,7,6,3,'side'],
+['meatball','🍡','ลูกชิ้นปิ้ง 1 ไม้','Grilled meatball skewer',80,5,4,6,'side'],
+['plathod','🐟','ปลาทูทอด 1 ตัว','Fried mackerel',220,20,15,0,'side'],
+['fish','🐟','ปลานึ่งมะนาว 1 จาน','Steamed fish with lime',150,25,5,2,'side'],
+['chicken','🍗','อกไก่ต้ม 100 ก.','Boiled chicken breast, 100 g',165,31,3.6,0,'side'],
+['larb','🥬','ลาบหมู 1 จาน','Pork larb',220,20,12,6,'side'],
+['namtok','🥩','น้ำตกหมู 1 จาน','Spicy grilled pork salad',230,22,12,7,'side'],
+['somtam','🥗','ส้มตำไทย 1 จาน','Papaya salad',120,3,4,18,'salad'],
+['tampoo','🥗','ส้มตำปูปลาร้า 1 จาน','Papaya salad, crab & fermented fish',100,5,2,16,'salad'],
+['yum','🥗','ยำวุ้นเส้น 1 จาน','Glass noodle salad',200,10,8,22,'salad'],
+['yumtalay','🦐','ยำทะเล 1 จาน','Seafood salad',180,20,5,14,'salad'],
+['salad','🥗','สลัดอกไก่','Chicken breast salad',300,30,12,15,'salad'],
+['sand','🥪','แซนด์วิช 1 ชิ้น','Sandwich',250,10,12,25,'intl'],
+['pizza','🍕','พิซซ่า 1 ชิ้น','Pizza, 1 slice',280,12,10,34,'intl'],
+['burger','🍔','เบอร์เกอร์ 1 ชิ้น','Burger',480,25,24,40,'intl'],
+['fries','🍟','เฟรนช์ฟรายส์ ถุงเล็ก','Fries, small',230,3,11,30,'intl'],
+['spaghetti','🍝','สปาเก็ตตี้ซอสมะเขือเทศ','Spaghetti, tomato sauce',450,15,12,70,'intl'],
+['ramen','🍜','ราเมงทงคตสึ 1 ชาม','Tonkotsu ramen',650,28,28,70,'intl'],
+['sushi','🍣','ซูชิ 4 คำ','Sushi, 4 pieces',200,9,2,36,'intl'],
+['dimsum','🥟','ขนมจีบ 4 ลูก','Shumai, 4 pieces',180,10,9,14,'intl'],
+['mangosticky','🥭','ข้าวเหนียวมะม่วง','Mango sticky rice',480,6,14,82,'snack'],
+['bualoy','🍡','บัวลอย 1 ถ้วย','Bua loy in coconut milk',300,4,12,45,'snack'],
+['tubtim','🍧','ทับทิมกรอบ 1 ถ้วย','Tub tim krob',280,2,8,50,'snack'],
+['khanomkrok','🥞','ขนมครก 6 ฝา','Khanom krok, 6 pieces',210,3,12,23,'snack'],
+['patongko','🥖','ปาท่องโก๋ 2 ตัว','Thai doughnut sticks, 2',220,4,12,24,'snack'],
+['roti','🫓','โรตีกล้วยไข่ 1 แผ่น','Banana egg roti',450,9,22,54,'snack'],
+['sangkaya','🍞','ขนมปังสังขยา 1 จาน','Toast with pandan custard',320,6,12,46,'snack'],
+['kluaytod','🍌','กล้วยทอด 5 ชิ้น','Fried banana, 5 pieces',280,2,14,38,'snack'],
+['icecream','🍨','ไอศกรีม 1 สกู๊ป','Ice cream, 1 scoop',140,2,7,17,'snack'],
+['cake','🍰','เค้กช็อกโกแลต 1 ชิ้น','Chocolate cake, 1 slice',380,5,20,46,'snack'],
+['donut','🍩','โดนัท 1 ชิ้น','Doughnut',250,4,13,30,'snack'],
+['corn','🌽','ข้าวโพดต้ม 1 ฝัก','Boiled corn, 1 cob',120,4,1.5,25,'snack'],
+['nuts','🥜','อัลมอนด์ 1 กำมือ (28 ก.)','Almonds, a handful (28 g)',165,6,14,6,'snack'],
+['yogurt','🥣','โยเกิร์ต 1 ถ้วย','Yogurt cup',100,5,3,14,'snack'],
+['banana','🍌','กล้วยหอม 1 ลูก','Banana',90,1,0.3,23,'fruit'],
+['apple','🍎','แอปเปิล 1 ลูก','Apple',95,0.5,0.3,25,'fruit'],
+['orange','🍊','ส้ม 1 ลูก','Orange',60,1,0,15,'fruit'],
+['mango','🥭','มะม่วงสุก ครึ่งลูก','Ripe mango, half',100,1,0.5,25,'fruit'],
+['watermelon','🍉','แตงโม 1 ถ้วย','Watermelon, 1 cup',46,1,0.2,11,'fruit'],
+['papaya','🍈','มะละกอสุก 1 ถ้วย','Ripe papaya, 1 cup',60,0.7,0.4,15,'fruit'],
+['pineapple','🍍','สับปะรด 1 ถ้วย','Pineapple, 1 cup',80,1,0.2,20,'fruit'],
+['guava','🍏','ฝรั่ง ครึ่งลูก','Guava, half',70,2.5,1,14,'fruit'],
+['durian','🍈','ทุเรียน 1 พู (60 ก.)','Durian, 1 piece (60 g)',90,1,3,16,'fruit'],
+['rambutan','🔴','เงาะ 5 ลูก','Rambutan, 5',75,0.6,0.2,18,'fruit'],
+['grapes','🍇','องุ่น 1 ถ้วย','Grapes, 1 cup',105,1,0.2,27,'fruit'],
+['dragonfruit','🐉','แก้วมังกร ครึ่งลูก','Dragon fruit, half',60,1,0.4,13,'fruit'],
+['boba','🧋','ชานมไข่มุก 1 แก้ว','Bubble milk tea',380,3,8,75,'drink'],
+['thaitea','🧋','ชาเย็น 1 แก้ว','Thai iced tea',280,2,8,50,'drink'],
+['greentea','🍵','ชาเขียวนมเย็น 1 แก้ว','Iced green milk tea',280,3,8,49,'drink'],
+['icedcoffee','☕','กาแฟเย็นหวาน 1 แก้ว','Sweet iced coffee',200,2,5,35,'drink'],
+['latte','☕','ลาเต้เย็น (ไม่หวาน)','Iced latte, unsweetened',150,8,7,12,'drink'],
+['cocoa','🍫','โกโก้เย็น 1 แก้ว','Iced cocoa',300,6,10,46,'drink'],
+['americano','☕','อเมริกาโน่','Americano',10,0,0,2,'drink'],
+['soda','🥤','น้ำอัดลม 1 กระป๋อง','Soda, 1 can',140,0,0,35,'drink'],
+['coconut','🥥','น้ำมะพร้าว 1 แก้ว','Coconut water, 1 glass',60,0.5,0.5,14,'drink'],
+['oj','🍊','น้ำส้มคั้น 1 แก้ว','Fresh orange juice',110,2,0.5,26,'drink'],
+['milk','🥛','นมจืด 1 กล่อง','Plain milk, 1 box',130,7,7,10,'drink'],
+['soymilk','🥛','นมถั่วเหลือง 1 กล่อง','Soy milk, 1 box',130,7,4,16,'drink'],
+['beer','🍺','เบียร์ 1 กระป๋อง','Beer, 1 can',150,1.5,0,13,'drink'],
+['mama','🍜','บะหมี่กึ่งสำเร็จรูป 1 ซอง','Instant noodles, 1 pack',300,6,12,42,'store'],
+['toastie','🥪','แซนด์วิชอบ แฮมชีส','Toasted ham & cheese',280,12,12,30,'store'],
+['onigiri','🍙','ข้าวปั้นสาหร่าย 1 ชิ้น','Onigiri',190,5,3,36,'store'],
+['bento','🍱','ข้าวกล่องแช่แข็ง กะเพราไก่','Frozen basil chicken rice box',400,16,14,52,'store'],
+['sausage','🌭','ไส้กรอกจัมโบ้ 1 ชิ้น','Jumbo sausage',180,7,16,2,'store'],
+['salapao','🥟','ซาลาเปาหมูสับ 1 ลูก','Steamed pork bun',240,8,7,36,'store'],
+['chips','🥔','มันฝรั่งทอดกรอบ ซองเล็ก','Potato chips, small bag',135,2,9,13,'store']
 ];
 /* ============ PLAN (pure) ============ */
 /*PLAN*/
@@ -475,6 +583,14 @@ function normalize(){
   S.bgOwned=(Array.isArray(S.bgOwned)?S.bgOwned:[]).filter(i=>BGS[i]);
   if(!S.bgOwned.includes('room'))S.bgOwned.unshift('room');
   if(!S.bgOwned.includes(S.bg))S.bg='room';
+  /* weigh-ins: older saves had only the weight from the questions */
+  if(!Array.isArray(S.weights))S.weights=[];
+  const pr=S.prof;
+  if(pr){
+    if(!pr.goal)pr.goal=pr.gw<pr.w-0.5?'lose':pr.gw>pr.w+0.5?'gain':'keep';
+    if(!pr.start){const d0=Object.keys(S.logs||{}).sort()[0];pr.start={d:d0&&d0<today()?d0:today(),w:pr.w,rate:S.plan&&S.plan.rate||0}}
+    if(!S.weights.length)S.weights=[{d:pr.start.d,w:pr.start.w}];
+  }
   rollover();
 }
 normalize();
@@ -685,7 +801,11 @@ function finishOb(){
   if(d.name)S.pet.name=d.name;
   const ev=d.ev&&d.ev!=='none'?d.ev:null;
   S.prof=Object.assign(profOf(d),{goal:d.goal||'keep',ev,evDate:ev?d.evDate||null:null});
-  S.plan=calcPlan(S.prof);save();go('plan');
+  S.plan=calcPlan(S.prof);
+  S.prof.start={d:today(),w:S.prof.w,rate:S.plan.rate};
+  if(!Array.isArray(S.weights))S.weights=[];
+  upsertWeight(today(),S.prof.w);
+  save();go('plan');
 }
 /* ---- plan: the sum behind the number ---- */
 function fmtDate(dt){return dt.toLocaleDateString(S.lang==='th'?'th-TH':'en-GB',{day:'numeric',month:'short',year:'numeric'})}
@@ -794,8 +914,7 @@ function rHatch(){
 }
 /* ---- home ---- */
 function rHome(){
-  const t=L(),n=esc(S.pet.name),M=moodNow(),tt=totals(),g=S.plan.target;
-  const pct=Math.min(100,Math.round(tt.k/g*100)),over=tt.k>g;
+  const t=L(),n=esc(S.pet.name),M=moodNow(),tt=totals();
   const stg=stage(),log=todayLog();
   const sleepy=isNight()&&(M.m==='neutral'||M.m==='happy'||M.m==='loved');
   const pose=sleepy?'-asleep':SUF[M.m];
@@ -812,33 +931,165 @@ function rHome(){
   </div>
   <div class="row" style="justify-content:center;gap:8px;margin-top:-4px"><b class="fd" style="font-size:20px">${n}</b><span class="mute">· ${t.stg[stg]} · ${S.days} ${t.days}</span></div>
   <div class="say bubble">${esc(line)}</div>
-  <div class="card">
-    <div class="row"><b class="fd" style="font-size:20px">${tt.k.toLocaleString()}</b><span class="mute">/ ${g.toLocaleString()} kcal</span><span class="sp"></span><b style="color:${over?'#C98A00':'var(--mint-d)'}">${over?t.over+' '+(tt.k-g):t.left+' '+(g-tt.k)}</b></div>
-    <div class="meter ${over?'over':''}" style="margin:8px 0 12px"><i style="width:${pct}%"></i></div>
-    ${[['pro','p','mint',S.plan.p],['fat','f','butter',S.plan.f],['carb','c','coral',S.plan.c]].map(([nm,key,col,tg])=>`<div class="mrow"><span>${t[nm]}</span><div class="meter"><i style="width:${Math.min(100,tt[key]/Math.max(1,tg)*100)}%;background:var(--${col})"></i></div><span class="mute" style="text-align:right">${Math.round(tt[key])}/${tg} ${t.g}</span></div>`).join('')}
-  </div>
-  <div class="card"><div class="meals">${log.length?log.map((m,i)=>`<div class="meal"><span class="e">${m.e}</span><div class="sp"><div style="font-weight:500">${esc(m.n)}</div><div class="mute">${m.k} kcal</div></div><button class="x" data-d="${i}" aria-label="delete">×</button></div>`).join(''):`<div class="mute" style="text-align:center;padding:8px">${fmt(t.none,{n})}</div>`}</div></div>
+  ${weekStrip(t)}
+  ${kcalCard(t,tt)}
+  <div class="card"><div class="meals">${log.length?mealGroups(log,t,'d'):`<div class="mute" style="text-align:center;padding:8px">${fmt(t.none,{n})}</div>`}</div></div>
+  ${weightCard(t)}
   <div class="dock"><button class="btn main" id="add">${I('plus')} ${t.feed}</button>
    <button class="btn mint" id="wd">${I('shirt')} ${t.ward}</button>
    <button class="btn ghost" id="ph" ${SAMPLE?'':`disabled aria-disabled="true" title="${esc(t.photoOff)}"`}>${I('cam')} ${t.photo}</button></div>
   ${SAMPLE?'':`<p class="mute" style="margin:-4px 0 0;text-align:right;font-size:12px">${t.photoOff}</p>`}`;
-  if(SAMPLE)$('#ph').onclick=()=>{sel=null;por=1;q='';tab='photo';photo={st:'idle',items:[],url:''};drawAdd()};
+  if(SAMPLE)$('#ph').onclick=()=>{sel=null;por=1;q='';cat='all';mslot=slotNow();tab='photo';photo={st:'idle',items:[],url:''};drawAdd()};
   $('#set').onclick=sheetSettings;$('#add').onclick=sheetAdd;$('#wd').onclick=sheetWard;
+  if($('#wt'))$('#wt').onclick=()=>{wtMsg='';sheetWeight()};
   app.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{S.logs[today()].splice(+b.dataset.d,1);save();rHome()});
+  app.querySelectorAll('[data-day]').forEach(b=>b.onclick=()=>sheetDay(b.dataset.day));
+}
+/* ---- home pieces ---- */
+const f1=x=>(Math.round(x*10)/10).toLocaleString();
+const hhmm=()=>{const d=new Date();return pad(d.getHours())+':'+pad(d.getMinutes())};
+const SLOTS=['b','l','d','s'];
+function slotNow(){const d=new Date(),h=d.getHours()+d.getMinutes()/60;return h>=5&&h<10.5?'b':h>=10.5&&h<14.5?'l':h>=17&&h<21.5?'d':'s'}
+const sumLog=log=>log.reduce((a,m)=>({k:a.k+m.k,p:a.p+m.p,f:a.f+m.f,c:a.c+m.c}),{k:0,p:0,f:0,c:0});
+function kcalCard(t,tt){
+  const g=S.plan.target,pct=Math.min(100,Math.round(tt.k/g*100)),over=tt.k>g;
+  return `<div class="card">
+    <div class="row"><b class="fd" style="font-size:20px">${tt.k.toLocaleString()}</b><span class="mute">/ ${g.toLocaleString()} kcal</span><span class="sp"></span><b style="color:${over?'#C98A00':'var(--mint-d)'}">${over?t.over+' '+(tt.k-g).toLocaleString():t.left+' '+(g-tt.k).toLocaleString()}</b></div>
+    <div class="meter ${over?'over':''}" style="margin:8px 0 12px"><i style="width:${pct}%"></i></div>
+    ${[['pro','p','mint',S.plan.p],['fat','f','butter',S.plan.f],['carb','c','coral',S.plan.c]].map(([nm,key,col,tg])=>`<div class="mrow"><span>${t[nm]}</span><div class="meter"><i style="width:${Math.min(100,tt[key]/Math.max(1,tg)*100)}%;background:var(--${col})"></i></div><span class="mute" style="text-align:right">${Math.round(tt[key])}/${tg} ${t.g}</span></div>`).join('')}
+  </div>`;
+}
+/* Meals grouped by breakfast / lunch / dinner / snack; `del` names the data- attribute of the delete buttons. */
+function mealGroups(list,t,del){
+  const gs={};list.forEach((m,i)=>{const s=SLOTS.includes(m.m)?m.m:'o';(gs[s]=gs[s]||[]).push([m,i])});
+  return [...SLOTS,'o'].filter(s=>gs[s]).map(s=>`<div class="mg"><div class="mg-h"><b>${t.slots[s]}</b><span class="mute">${gs[s].reduce((a,[m])=>a+m.k,0).toLocaleString()} kcal</span></div>${gs[s].map(([m,i])=>`<div class="meal"><span class="e">${m.e}</span><div class="sp"><div style="font-weight:500">${esc(m.n)}</div><div class="mute">${m.k.toLocaleString()} kcal${m.t?' · '+m.t:''}</div></div>${del?`<button class="x" data-${del}="${i}" aria-label="delete">×</button>`:''}</div>`).join('')}</div>`).join('');
+}
+function weekStrip(t){
+  const g=S.plan.target,out=[];
+  for(let i=6;i>=0;i--){
+    const d=new Date();d.setDate(d.getDate()-i);
+    const k=dkey(d),log=S.logs[k]||[],kc=log.reduce((a,m)=>a+m.k,0),r=kc/g;
+    const cls=!log.length?'':r>1.15?'over':r>=0.7?'good':'some';
+    out.push(`<button class="wday ${i===0?'today':''}" ${i?`data-day="${k}"`:'aria-current="date"'} aria-label="${d.toLocaleDateString(S.lang==='th'?'th-TH':'en-GB',{weekday:'long',day:'numeric',month:'short'})}: ${kc.toLocaleString()} kcal"><small>${t.wdays[d.getDay()]}</small><b>${d.getDate()}</b><i class="dot ${cls}"><span style="width:${Math.min(100,Math.round(r*100))}%"></span></i></button>`);
+  }
+  return `<div class="week">${out.join('')}</div>`;
+}
+function sheetDay(k){
+  const t=L(),log=S.logs[k]||[];
+  const head=new Date(k+'T00:00').toLocaleDateString(S.lang==='th'?'th-TH':'en-GB',{weekday:'long',day:'numeric',month:'long'});
+  openSheet(`<h3 class="fd">${head}</h3>${kcalCard(t,sumLog(log))}
+  <div class="card"><div class="meals">${log.length?mealGroups(log,t,'dd'):`<div class="mute" style="text-align:center;padding:8px">${t.noMeals}</div>`}</div></div>
+  <button class="btn ghost block" id="cl">${t.close}</button>`);
+  $('#sheet').querySelectorAll('[data-dd]').forEach(b=>b.onclick=()=>{S.logs[k].splice(+b.dataset.dd,1);save();rHome();sheetDay(k)});
+  $('#cl').onclick=()=>{closeSheet();rHome()};
+}
+/* ---- weight ---- */
+function upsertWeight(d,w){
+  const i=S.weights.findIndex(x=>x.d===d);
+  if(i>=0)S.weights[i].w=w;else S.weights.push({d,w});
+  S.weights.sort((a,b)=>a.d<b.d?-1:1);
+}
+const reached=pr=>pr&&pr.goal!=='keep'&&(pr.goal==='lose'?pr.w<=pr.gw+0.05:pr.w>=pr.gw-0.05);
+/* Once the goal is passed, eat for the weight you are at, not back toward the goal. */
+const planFor=pr=>calcPlan(reached(pr)?Object.assign({},pr,{gw:pr.w}):pr);
+const daysTo=s=>Math.round((new Date(s+'T00:00')-new Date(today()+'T00:00'))/864e5);
+function weightCard(t){
+  const pr=S.prof,ws=S.weights;if(!pr||!ws.length)return '';
+  const last=ws[ws.length-1],u=t.u.w,st=pr.start,cur=last.w;
+  let sub,bar='';
+  if(pr.goal==='keep'){const d=cur-st.w;sub=Math.abs(d)<0.05?t.wt.same:fmt(t.wt.diff,{x:(d>0?'+':'−')+f1(Math.abs(d)),u})}
+  else{
+    const done=pr.goal==='lose'?st.w-cur:cur-st.w,left=Math.max(0,pr.goal==='lose'?cur-pr.gw:pr.gw-cur),pct=Math.max(0,Math.min(100,done/(Math.abs(st.w-pr.gw)||1)*100));
+    sub=(done>0.05?fmt(pr.goal==='lose'?t.wt.lost:t.wt.gained,{x:f1(done),u})+' · ':'')+fmt(t.wt.toGo,{x:f1(left),u});
+    bar=`<div class="meter" style="margin:10px 0 6px"><i style="width:${pct}%"></i></div><div class="row mute" style="font-size:13px"><span>${f1(st.w)} ${u}</span><span class="sp"></span><span>🏁 ${f1(pr.gw)} ${u}</span></div>`;
+  }
+  let ev='';
+  if(pr.ev&&pr.evDate){const dd=daysTo(pr.evDate),e=t.ob.events[pr.ev];if(dd>0)ev=fmt(t.wt.evIn,{e,d:dd});else if(dd===0)ev=fmt(t.wt.evToday,{e})}
+  const stale=-daysTo(last.d);
+  return `<div class="card"><div class="row" style="flex-wrap:wrap"><b>⚖️ ${t.wt.title}</b><span class="sp"></span>${ev?`<span class="evchip">${ev}</span>`:''}</div>
+   <div class="row" style="align-items:baseline;gap:8px;margin-top:4px;flex-wrap:wrap"><b class="fd" style="font-size:26px">${f1(cur)} ${u}</b><span class="mute">${sub}</span></div>${bar}
+   ${stale>=7?`<div class="mute" style="font-size:13px;margin-top:4px">${fmt(t.wt.stale,{d:stale})}</div>`:''}
+   <button class="btn ghost sm block" id="wt" style="margin-top:10px">${t.wt.log}</button></div>`;
+}
+function weightChart(t){
+  const pr=S.prof,ws=S.weights,st=pr.start;
+  const day=s=>Math.round(new Date(s+'T00:00')/864e5);
+  /* every weigh-in is drawn; the plan line starts where the current plan started */
+  const pts=ws.map(p=>[day(p.d),p.w]),dS=day(st.d),d0=Math.min(dS,...pts.map(p=>p[0]));
+  const dl=Math.max(d0+7,day(today()),...pts.map(p=>p[0])),span=dl-d0;
+  const dir=pr.goal==='lose'?-1:pr.goal==='gain'?1:0,rate=st.rate||0;
+  const planAt=x=>{const v=st.w+dir*rate*(x-dS)/7;return dir<0?Math.max(pr.gw,v):dir>0?Math.min(pr.gw,v):st.w};
+  const knot=dir&&rate?Math.min(dl,dS+Math.abs(st.w-pr.gw)/rate*7):dl;
+  const vals=[...pts.map(p=>p[1]),st.w,planAt(dl),...(dir?[pr.gw]:[])];
+  let lo=Math.floor(Math.min(...vals)-0.5),hi=Math.ceil(Math.max(...vals)+0.5);if(hi-lo<3){hi++;lo--}
+  const W=320,H=160,Lp=36,R=10,T=12,B=22,X=x=>(Lp+(x-d0)/span*(W-Lp-R)).toFixed(1),Y=v=>(T+(hi-v)/(hi-lo)*(H-T-B)).toFixed(1);
+  const sd=s=>new Date(s*864e5).toLocaleDateString(S.lang==='th'?'th-TH':'en-GB',{day:'numeric',month:'short'});
+  const line=pts.map(p=>`${X(p[0])},${Y(p[1])}`).join(' ');
+  return `<svg class="wchart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${t.wt.title}">
+   <line x1="${Lp}" x2="${W-R}" y1="${Y(hi)}" y2="${Y(hi)}" stroke="var(--line)"/><line x1="${Lp}" x2="${W-R}" y1="${Y(lo)}" y2="${Y(lo)}" stroke="var(--line)"/>
+   <text x="${Lp-6}" y="${+Y(hi)+4}" text-anchor="end">${hi}</text><text x="${Lp-6}" y="${+Y(lo)+4}" text-anchor="end">${lo}</text>
+   ${dir?`<line x1="${Lp}" x2="${W-R}" y1="${Y(pr.gw)}" y2="${Y(pr.gw)}" stroke="var(--coral)" stroke-dasharray="3 4"/><text x="${W-R}" y="${+Y(pr.gw)-5}" text-anchor="end" fill="var(--coral-d)">🏁 ${f1(pr.gw)}</text>`:''}
+   <polyline points="${X(dS)},${Y(planAt(dS))} ${X(knot)},${Y(planAt(knot))} ${X(dl)},${Y(planAt(dl))}" fill="none" stroke="var(--mint)" stroke-width="3" stroke-dasharray="6 5" stroke-linecap="round"/>
+   ${pts.length>1?`<polyline points="${line}" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`:''}
+   ${pts.map((p,i)=>`<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="${i===pts.length-1?5:3.5}" fill="${i===pts.length-1?'var(--coral)':'var(--ink)'}"/>`).join('')}
+   <text x="${Lp}" y="${H-4}">${sd(d0)}</text><text x="${W-R}" y="${H-4}" text-anchor="end">${sd(dl)}</text>
+  </svg><div class="legend" style="justify-content:center"><span><i style="background:var(--ink)"></i>${t.wt.you}</span><span><i style="background:var(--mint)"></i>${t.wt.plan}</span>${dir?`<span><i style="background:var(--coral)"></i>${t.wt.goal}</span>`:''}</div>`;
+}
+let wtMsg='';
+function sheetWeight(){
+  const t=L(),u=t.u.w,ws=S.weights,last=ws[ws.length-1]||{w:S.prof.w};
+  const kg=Math.floor(last.w+1e-9),decs=span(0,9).map(x=>'.'+x),dec='.'+Math.round((last.w-kg)*10)%10;
+  openSheet(`<h3 class="fd">⚖️ ${t.wt.title}</h3>${weightChart(t)}
+  ${wtMsg?`<div class="evnote">${wtMsg}</div>`:''}${reached(S.prof)?`<button class="btn mint block" id="keep">${t.wt.keepNow}</button>`:''}
+  <div class="hw"><div>${wheel('wk',span(30,250),kg,'',t.wt.title)}</div><div>${wheel('wdc',decs,dec,' '+u,t.wt.title)}</div></div>
+  <button class="btn block" id="ws">${t.wt.save}</button>
+  <div><b>${t.wt.recent}</b><div class="wlist">${ws.slice(-6).reverse().map(p=>`<div class="row"><span class="mute sp">${new Date(p.d+'T00:00').toLocaleDateString(S.lang==='th'?'th-TH':'en-GB',{day:'numeric',month:'short',year:'numeric'})}</span><b>${f1(p.w)} ${u}</b></div>`).join('')}</div></div>
+  <button class="btn ghost block" id="cl">${t.close}</button>`);
+  const gk=bindWheel('wk',span(30,250)),gd=bindWheel('wdc',decs);
+  $('#ws').onclick=()=>saveWeight(gk()+parseFloat(gd()));
+  if($('#keep'))$('#keep').onclick=()=>{
+    const pr=S.prof;pr.goal='keep';pr.gw=pr.w;pr.sp=1;S.plan=calcPlan(pr);pr.start={d:today(),w:pr.w,rate:0};
+    wtMsg=t.wt.keepSet;save();rHome();sheetWeight();
+  };
+  $('#cl').onclick=()=>{closeSheet();rHome()};
+}
+function saveWeight(w){
+  const t=L(),pr=S.prof,old=S.plan.target,msg=[];
+  w=Math.round(w*10)/10;
+  upsertWeight(today(),w);pr.w=w;S.plan=planFor(pr);
+  if(reached(pr)){if(!S.bonus.goal){S.bonus.goal=1;S.coins+=50;msg.push(fmt(t.wt.reachedCoin,{c:50}))}else msg.push(t.wt.reached)}
+  if(S.plan.target!==old)msg.push(fmt(t.wt.newTarget,{x:S.plan.target.toLocaleString(),y:old.toLocaleString()}));
+  wtMsg=msg.join('<br>');save();rHome();sheetWeight();
 }
 /* ============ SHEETS ============ */
 function openSheet(html){$('#sheet').innerHTML=html;$('#wrap').classList.remove('hidden')}
 function closeSheet(){$('#wrap').classList.add('hidden');$('#sheet').innerHTML=''}
 $('#scrim').onclick=()=>{closeSheet();if(view==='home')rHome()};
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
-let sel=null,por=1,tab='list',q='',photo={st:'idle',items:[],url:''};
-function sheetAdd(){sel=null;por=1;tab='list';q='';photo={st:'idle',items:[],url:''};drawAdd()}
+let sel=null,por=1,tab='list',q='',cat='all',mslot='s',photo={st:'idle',items:[],url:''};
+function sheetAdd(){sel=null;por=1;tab='list';q='';cat='all';mslot=slotNow();photo={st:'idle',items:[],url:''};drawAdd()}
+/* The foods eaten most in the kept days (latest first on ties), as they were logged. */
+function quickList(){
+  const seen=new Map();
+  Object.keys(S.logs).sort().reverse().forEach((d,r)=>(S.logs[d]||[]).forEach(it=>{
+    const key=it.id?it.id+'@'+(it.por||1):'c:'+it.n+'@'+it.k,e=seen.get(key);
+    if(e)e.c++;else seen.set(key,{c:1,r,it});
+  }));
+  return [...seen.values()].sort((a,b)=>b.c-a.c||a.r-b.r).slice(0,6).map(x=>{
+    /* list foods show in the current language; custom ones keep the typed name */
+    const f=x.it.id&&FOODS.find(r=>r[0]===x.it.id),por=x.it.por||1;
+    return f?Object.assign({},x.it,{n:(S.lang==='th'?f[2]:f[3])+(por!==1?' ×'+por:'')}):x.it;
+  });
+}
 function drawAdd(){
   const t=L(),n=esc(S.pet.name);
-  const fl=FOODS.filter(f=>!q||(f[2]+' '+f[3]).toLowerCase().includes(q.toLowerCase()));
+  const fl=FOODS.filter(f=>(cat==='all'||f[8]===cat)&&(!q||(f[2]+' '+f[3]).toLowerCase().includes(q.toLowerCase())));
+  const quick=!q&&cat==='all'?quickList():[];
   let main='';
   if(tab==='list'){
     main=`<input class="inp" id="q" style="font:500 16px 'Noto Sans Thai',sans-serif;min-height:48px;text-align:left" placeholder="${t.search}" value="${esc(q)}" aria-label="${t.search}">
+    ${quick.length?`<div><div class="mute" style="font-size:13px;margin-bottom:6px">⭐ ${t.quick}</div><div class="quick">${quick.map((it,i)=>`<button class="qk" data-qk="${i}">${it.e} ${esc(it.n)}<small>${it.k.toLocaleString()} kcal</small></button>`).join('')}</div></div>`:''}
+    <div class="cats" role="tablist">${['all',...Object.keys(t.cats).filter(c=>c!=='all')].map(c=>`<button data-cat="${c}" role="tab" aria-selected="${cat===c}" class="${cat===c?'on':''}">${t.cats[c]}</button>`).join('')}</div>
     <div class="foods">${fl.length?fl.map(f=>`<button class="food ${sel&&sel[0]===f[0]?'on':''}" data-f="${f[0]}">${f[1]} ${esc(S.lang==='th'?f[2]:f[3])}</button>`).join(''):`<span class="mute">${t.nores}</span>`}</div>
     ${sel?`<div><div class="mute" style="margin-bottom:6px">${t.portion}</div><div class="seg">${[.5,1,1.5,2].map(x=>`<button data-p="${x}" class="${por===x?'on':''}">${t.pf}${x}</button>`).join('')}</div></div>
     <div class="mute">${Math.round(sel[4]*por)} kcal · ${t.pro} ${Math.round(sel[5]*por)} · ${t.fat} ${Math.round(sel[6]*por)} · ${t.carb} ${Math.round(sel[7]*por)}</div>`:''}
@@ -850,21 +1101,26 @@ function drawAdd(){
     <input class="inp" id="ck" type="number" inputmode="numeric" placeholder="${t.cKcal}" aria-label="${t.cKcal}">
     <div class="err" id="ce"></div><button class="btn block" id="cf">${t.feedBtn}</button>`;
   }
-  openSheet(`<h3 class="fd">${fmt(t.addT,{n})}</h3><div class="tabs"><button data-t="list" class="${tab==='list'?'on':''}">${t.list}</button>${SAMPLE?`<button data-t="photo" class="${tab==='photo'?'on':''}">${t.tPhoto}</button>`:''}<button data-t="custom" class="${tab==='custom'?'on':''}">${t.custom}</button></div>${main}`);
+  openSheet(`<h3 class="fd">${fmt(t.addT,{n})}</h3>
+  <div class="slots" role="radiogroup">${SLOTS.map(s=>`<button data-sl="${s}" role="radio" aria-checked="${mslot===s}" class="${mslot===s?'on':''}">${t.slots[s]}</button>`).join('')}</div>
+  <div class="tabs"><button data-t="list" class="${tab==='list'?'on':''}">${t.list}</button>${SAMPLE?`<button data-t="photo" class="${tab==='photo'?'on':''}">${t.tPhoto}</button>`:''}<button data-t="custom" class="${tab==='custom'?'on':''}">${t.custom}</button></div>${main}`);
   if(tab==='photo')bindPhoto();
   const sh=$('#sheet');
   sh.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{tab=b.dataset.t;drawAdd()});
   sh.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{sel=FOODS.find(f=>f[0]===b.dataset.f);drawAdd()});
   sh.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{por=+b.dataset.p;drawAdd()});
+  sh.querySelectorAll('[data-sl]').forEach(b=>b.onclick=()=>{mslot=b.dataset.sl;drawAdd()});
+  sh.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{cat=b.dataset.cat;sel=null;drawAdd()});
+  sh.querySelectorAll('[data-qk]').forEach(b=>b.onclick=()=>{const it=quick[+b.dataset.qk];feed(Object.assign({},it,{t:null,m:mslot}))});
   const qi=sh.querySelector('#q');
   if(qi)qi.oninput=()=>{q=qi.value;const pos=qi.selectionStart;drawAdd();const n2=$('#q');n2.focus();n2.setSelectionRange(pos,pos)};
   const fd=sh.querySelector('#fd');
-  if(fd)fd.onclick=()=>feed({e:sel[1],n:S.lang==='th'?sel[2]:sel[3],k:Math.round(sel[4]*por),p:sel[5]*por,f:sel[6]*por,c:sel[7]*por});
+  if(fd)fd.onclick=()=>feed({id:sel[0],por,e:sel[1],n:(S.lang==='th'?sel[2]:sel[3])+(por!==1?' ×'+por:''),k:Math.round(sel[4]*por),p:sel[5]*por,f:sel[6]*por,c:sel[7]*por,m:mslot});
   const cf=sh.querySelector('#cf');
   if(cf)cf.onclick=()=>{
     const k=Math.round(parseFloat($('#ck').value));
     if(!(k>=1&&k<=3000)){$('#ce').textContent=fmt(t.range,{a:1,b:3000});return}
-    feed({e:'🍽️',n:$('#cn').value.trim()||(S.lang==='th'?'อาหารกรอกเอง':'Custom meal'),k,p:0,f:0,c:0});
+    feed({e:'🍽️',n:$('#cn').value.trim()||(S.lang==='th'?'อาหารกรอกเอง':'Custom meal'),k,p:0,f:0,c:0,m:mslot});
   };
 }
 function photoMain(t){
@@ -920,13 +1176,14 @@ function bindPhoto(){
   const pg=sh.querySelector('#pg');
   if(pg)pg.onclick=()=>{
     const on=photo.items.filter(i=>i.on);if(!on.length)return;
-    feed({e:on[0].e,n:on.map(i=>i.n).join(' + ').slice(0,60),k:photoTotal(),p:on.reduce((a,i)=>a+i.p,0),f:on.reduce((a,i)=>a+i.f,0),c:on.reduce((a,i)=>a+i.c,0)});
+    feed({m:mslot,e:on[0].e,n:on.map(i=>i.n).join(' + ').slice(0,60),k:photoTotal(),p:on.reduce((a,i)=>a+i.p,0),f:on.reduce((a,i)=>a+i.f,0),c:on.reduce((a,i)=>a+i.c,0)});
   };
 }
 function feed(item){
   closeSheet();
   const t=L(),before=moodNow().m;
   const day=today();
+  item.t=item.t||hhmm();item.m=SLOTS.includes(item.m)?item.m:slotNow();
   S.logs[day]=S.logs[day]||[];S.logs[day].push(item);
   let gain=0;
   if(S.lastDay!==day){S.days++;S.streak=(S.lastDay===yest()?S.streak:0)+1;S.lastDay=day}
@@ -988,6 +1245,7 @@ function sheetSettings(){
   <div class="row"><b class="sp">${t.lang}</b>${langSw()}</div>
   <div><b>${t.rename}</b><div class="row" style="margin-top:6px"><input class="inp" id="rn" maxlength="12" style="font:500 16px 'Noto Sans Thai',sans-serif;min-height:48px;text-align:left" value="${esc(S.pet.name)}"><button class="btn mint sm" id="rs">${t.save}</button></div></div>
   <div><b>${t.change}</b><div class="grid6" style="margin-top:6px">${SP.map(s=>`<button class="pick ${S.pet.sp===s?'on':''}" data-s="${s}" style="padding:2px 2px 6px;font-size:13px">${pimg(s,'-happy',1,t.sp[s])}${t.sp[s]}</button>`).join('')}</div></div>
+  <button class="btn ghost block" id="why">${t.why}</button>
   <button class="btn ghost block" id="rd">${t.redo}</button>
   <button class="btn ghost block" id="rt" style="color:#D0452D">${t.reset}</button>
   ${installCard(t)}
@@ -1001,6 +1259,7 @@ function sheetSettings(){
   sh.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{S.pet.sp=b.dataset.s;save();warmArt();render();sheetSettings()});
   $('#rs').onclick=()=>{S.pet.name=($('#rn').value.trim()||t.defName[S.pet.sp]).slice(0,12);save();closeSheet();rHome()};
   $('#rd').onclick=()=>{closeSheet();startOb();go('onb')};
+  $('#why').onclick=()=>{closeSheet();go('plan')};
   $('#rt').onclick=()=>{
     openSheet(`<h3 class="fd">${t.reset}</h3><p style="margin:0">${t.resetAsk}</p><button class="btn block" id="y" style="background:#D0452D;box-shadow:0 5px 0 #A33520">${t.yes}</button><button class="btn ghost block" id="n">${t.no}</button>`);
     $('#y').onclick=()=>{const l=S.lang;S=defState();S.lang=l;save();closeSheet();go('welcome')};
