@@ -87,7 +87,6 @@ canvas#sign{width:100%;height:170px;background:var(--surf);border:3px dashed var
 @keyframes pop{from{transform:translate(-50%,10px) scale(.6);opacity:0}30%{opacity:1}to{transform:translate(-50%,-30px) scale(1.15);opacity:0}}
 .growl{position:absolute;left:50%;bottom:21%;transform:translateX(-50%);font:700 15px 'Mali',sans-serif;color:#fff;-webkit-text-stroke:4px #8A4B2A;paint-order:stroke fill;white-space:nowrap;pointer-events:none;animation:gr 1.6s ease-in-out infinite}
 @keyframes gr{0%,100%{opacity:.45;transform:translateX(-50%) translateY(2px)}50%{opacity:1;transform:translateX(-50%) translateY(-2px)}}
-.bowl{position:absolute;right:11%;bottom:5%;filter:drop-shadow(0 2px 0 rgba(0,0,0,.15))}
 .hatch{width:min(70vw,300px);margin:0 auto;cursor:pointer}
 .himg{width:100%;height:auto;display:block;}
 .wob{animation:wob 1.1s ease-in-out infinite;transform-origin:50% 90%}
@@ -502,8 +501,8 @@ function rHome(){
     <img class="roombg" src="pet/room.webp" alt="" width="900" height="738">
     <div class="hearts" aria-label="${M.h}/3">${[1,2,3].map(i=>heart(i<=M.h)).join('')}</div>
     ${S.worn.length?`<div class="rail" aria-label="${t.wearing}">${S.worn.map(id=>`<img src="${IMG}wear-${id}.webp" alt="${esc(t.acc[id])}" width="40" height="40">`).join('')}</div>`:''}
-    <div class="petbox" id="pet">${pimg(S.pet.sp,pose,stg,t.sp[S.pet.sp])}</div>
-    ${pose==='-hungry'?`<div class="growl" aria-hidden="true">${t.growl}</div><svg class="bowl" viewBox="0 0 24 14" width="46" aria-hidden="true"><path d="M2 4h20c0 6-4 9-10 9S2 10 2 4z" fill="#F4E3C3" stroke="#B9824F" stroke-width="1.5" stroke-linejoin="round"/><ellipse cx="12" cy="4" rx="10" ry="2.2" fill="#D9B98A" stroke="#B9824F" stroke-width="1.2"/></svg>`:''}
+    <div class="petbox" id="pet" style="width:${Math.round(58*SC[stg])}%">${pimg(S.pet.sp,pose,stg,t.sp[S.pet.sp])}</div>
+    ${pose==='-hungry'?`<div class="growl" aria-hidden="true">${t.growl}</div>`:''}
   </div>
   <div class="row" style="justify-content:center;gap:8px;margin-top:-4px"><b class="fd" style="font-size:20px">${n}</b><span class="mute">· ${t.stg[stg]} · ${S.days} ${t.days}</span></div>
   <div class="say bubble">${esc(line)}</div>

@@ -1,8 +1,10 @@
 /* Imjang service worker — offline app shell + cached pet art.
    Bump VERSION whenever index.html or core files change so users get the update. */
-const VERSION = 'imjang-v1';
+const VERSION = 'imjang-v2';
 const CORE = `${VERSION}-core`;
-const ART = 'imjang-art';     // pet images never change name→content, keep across versions
+// Pet images are cached forever by name. Bump this when pictures are replaced
+// under the same names, so installed apps drop the old ones.
+const ART = 'imjang-art-v2';
 const FONT = 'imjang-font';
 
 const CORE_FILES = [
