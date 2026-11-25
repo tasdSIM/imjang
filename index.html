@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>อิ่มจัง · Imjang</title>
+<meta name="description" content="เลี้ยงเพื่อนตัวน้อย ไปพร้อมกับกินดีอยู่ดี">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#FFF3E6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#231C1B" media="(prefers-color-scheme: dark)">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="อิ่มจัง">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mali:wght@500;700&family=Noto+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFF3E6;--surf:#FFFFFF;--ink:#3B2F2F;--mute:#8A7770;--line:#F0DDCB;--coral:#FF8466;--coral-d:#E96B4C;--mint:#78CDB5;--mint-d:#4FB39A;--butter:#FFD36E;--sh:0 5px 0 rgba(120,80,50,.12);color-scheme:light dark}
+@media(prefers-color-scheme:dark){:root{--bg:#231C1B;--surf:#33292A;--ink:#FBEEE4;--mute:#BCA89E;--line:#4A3C3A;--sh:0 5px 0 rgba(0,0,0,.3)}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:'Noto Sans Thai','Mali',system-ui,sans-serif;font-size:16px;line-height:1.45}
+h1,h2,h3,.fd{font-family:'Mali','Noto Sans Thai',system-ui,sans-serif;margin:0}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+#app{max-width:480px;margin:0 auto;min-height:100dvh;padding:max(14px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(18px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));display:flex;flex-direction:column;gap:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 22px;border-radius:18px;background:var(--coral);color:#fff;font-weight:700;box-shadow:0 5px 0 var(--coral-d);transition:transform .08s,box-shadow .08s}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--coral-d)}
+.btn.mint{background:var(--mint);box-shadow:0 5px 0 var(--mint-d)}
+.btn.ghost{background:var(--surf);color:var(--ink);box-shadow:var(--sh);border:2px solid var(--line)}
+.btn[disabled]{opacity:.45;pointer-events:none}
+.btn.block{width:100%}
+.card{background:var(--surf);border-radius:22px;padding:16px;box-shadow:var(--sh);border:2px solid var(--line)}
+.row{display:flex;align-items:center;gap:10px}
+.sp{flex:1}
+.mute{color:var(--mute);font-size:14px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--surf);border:2px solid var(--line);border-radius:999px;padding:4px 12px;font-weight:700;min-height:40px}
+.ico{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ibtn{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--surf);border:2px solid var(--line)}
+.lang{display:inline-flex;border:2px solid var(--line);border-radius:999px;overflow:hidden;background:var(--surf)}
+.lang button{padding:6px 14px;font-weight:700;min-height:40px}
+.lang button.on{background:var(--ink);color:var(--bg)}
+/* welcome */
+.hero{text-align:center;padding-top:6px}
+.hero h1{font-size:44px;letter-spacing:-.5px}
+.hero p{margin:4px 0 0;color:var(--mute)}
+.grid6{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.pick{background:var(--surf);border:3px solid var(--line);border-radius:20px;padding:4px 2px 8px;text-align:center;box-shadow:var(--sh);font-weight:700;font-size:14px}
+.pick img{width:100%;height:auto;display:block}
+.pick.on{border-color:var(--coral);background:color-mix(in srgb,var(--coral) 12%,var(--surf))}
+/* onboarding */
+.prog{height:10px;border-radius:99px;background:var(--line);overflow:hidden}
+.prog i{display:block;height:100%;background:var(--mint);border-radius:99px;transition:width .3s}
+.ob-pet{width:170px;margin:0 auto}
+.pimg{width:100%;height:auto;display:block;user-select:none}
+.bubble{position:relative;background:var(--surf);border:2px solid var(--line);border-radius:20px;padding:12px 16px;box-shadow:var(--sh);font-weight:500;text-align:center}
+.bubble:after{content:"";position:absolute;left:50%;bottom:-9px;width:16px;height:16px;background:var(--surf);border-right:2px solid var(--line);border-bottom:2px solid var(--line);transform:translateX(-50%) rotate(45deg)}
+.opts{display:grid;gap:10px}
+.opt{background:var(--surf);border:3px solid var(--line);border-radius:18px;padding:12px 16px;text-align:left;font-weight:500;min-height:52px;box-shadow:var(--sh)}
+.opt:active{border-color:var(--coral)}
+.inp{width:100%;min-height:56px;border-radius:18px;border:3px solid var(--line);background:var(--surf);color:var(--ink);font:700 22px 'Mali',sans-serif;padding:0 16px;text-align:center}
+.inp:focus{outline:none;border-color:var(--mint)}
+.err{color:var(--coral-d);font-weight:700;min-height:22px;text-align:center}
+.big{font:700 54px/1 'Mali',sans-serif;color:var(--coral-d)}
+.macros{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.macros div{border-radius:16px;padding:10px 4px;font-weight:700}
+.macros small{display:block;font-weight:500;color:var(--mute)}
+.m-p{background:color-mix(in srgb,var(--mint) 25%,var(--surf))}.m-f{background:color-mix(in srgb,var(--butter) 30%,var(--surf))}.m-c{background:color-mix(in srgb,var(--coral) 18%,var(--surf))}
+canvas#sign{width:100%;height:170px;background:var(--surf);border:3px dashed var(--line);border-radius:20px;touch-action:none;display:block}
+/* home */
+.stage{position:relative;border-radius:28px;border:2px solid var(--line);box-shadow:var(--sh);overflow:hidden;aspect-ratio:900/738;background:#EBCB9C}
+.roombg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hearts{position:absolute;top:8px;left:50%;transform:translateX(-50%);display:flex;gap:2px;background:rgba(255,255,255,.78);border-radius:999px;padding:3px 10px}
+.hearts svg{width:24px;height:24px}
+.rail{position:absolute;left:8px;top:8px;display:flex;flex-direction:column;gap:4px}
+.rail img{width:38px;height:38px;background:rgba(255,255,255,.8);border-radius:12px;padding:2px;}
+.petbox{position:absolute;left:50%;bottom:6%;width:58%;transform:translateX(-50%)}
+.petbox img{animation:bob 2.6s ease-in-out infinite;transform-origin:50% 100%}
+.petbox.chomp img{animation:chomp .5s ease-in-out 2}
+@keyframes bob{50%{transform:translateY(-3px) scale(1.01,.99)}}
+@keyframes chomp{50%{transform:scale(1.08,.92)}}
+.fly{position:absolute;left:50%;top:60%;font-size:40px;animation:fly .65s ease-in forwards;pointer-events:none;z-index:3}
+@keyframes fly{from{transform:translate(-50%,120px) scale(1.2);opacity:1}to{transform:translate(-50%,-30px) scale(.3);opacity:0}}
+.pop{position:absolute;left:50%;top:28%;font:700 22px 'Mali',sans-serif;color:#fff;-webkit-text-stroke:5px #C4553A;paint-order:stroke fill;animation:pop 1.1s ease-out forwards;pointer-events:none;white-space:nowrap;z-index:3}
+@keyframes pop{from{transform:translate(-50%,10px) scale(.6);opacity:0}30%{opacity:1}to{transform:translate(-50%,-30px) scale(1.15);opacity:0}}
+.growl{position:absolute;left:50%;bottom:21%;transform:translateX(-50%);font:700 15px 'Mali',sans-serif;color:#fff;-webkit-text-stroke:4px #8A4B2A;paint-order:stroke fill;white-space:nowrap;pointer-events:none;animation:gr 1.6s ease-in-out infinite}
+@keyframes gr{0%,100%{opacity:.45;transform:translateX(-50%) translateY(2px)}50%{opacity:1;transform:translateX(-50%) translateY(-2px)}}
+.bowl{position:absolute;right:11%;bottom:5%;filter:drop-shadow(0 2px 0 rgba(0,0,0,.15))}
+.hatch{width:min(70vw,300px);margin:0 auto;cursor:pointer}
+.himg{width:100%;height:auto;display:block;}
+.wob{animation:wob 1.1s ease-in-out infinite;transform-origin:50% 90%}
+@keyframes wob{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+.shake{animation:shk .12s linear 7;transform-origin:50% 90%}
+@keyframes shk{0%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}100%{transform:rotate(-7deg)}}
+.pop2{animation:pp .5s ease-out}
+@keyframes pp{from{transform:scale(.6)}60%{transform:scale(1.12)}to{transform:scale(1)}}
+.say{margin:8px 6px 6px}
+.meter{height:18px;border-radius:99px;background:var(--line);overflow:hidden}
+.meter i{display:block;height:100%;border-radius:99px;background:var(--mint);transition:width .5s}
+.meter.over i{background:var(--butter)}
+.mrow{display:grid;grid-template-columns:70px 1fr 74px;gap:8px;align-items:center;font-size:13px}
+.mrow .meter{height:9px}
+.meals{display:grid;gap:8px}
+.meal{display:flex;align-items:center;gap:10px;padding:8px 4px;border-bottom:2px dashed var(--line)}
+.meal:last-child{border:0}
+.meal .e{font-size:26px}
+.x{width:36px;height:36px;border-radius:12px;color:var(--mute);font-size:20px}
+.dock{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dock .main{grid-column:1/-1;min-height:60px;font-size:18px}
+/* sheet */
+.wrap{position:fixed;inset:0;z-index:20;display:flex;align-items:flex-end;justify-content:center}
+.wrap.hidden{display:none}
+.scrim{position:absolute;inset:0;background:rgba(40,25,20,.5)}
+.sheet{position:relative;width:100%;max-width:480px;max-height:88dvh;overflow:auto;background:var(--bg);border-radius:28px 28px 0 0;padding:18px 16px max(20px,env(safe-area-inset-bottom));display:grid;gap:12px;animation:up .22s ease-out}
+@keyframes up{from{transform:translateY(40px);opacity:0}}
+.foods{display:flex;flex-wrap:wrap;gap:8px;max-height:230px;overflow:auto}
+.food{background:var(--surf);border:2px solid var(--line);border-radius:14px;padding:8px 12px;min-height:44px;font-weight:500}
+.food.on{border-color:var(--coral);background:color-mix(in srgb,var(--coral) 14%,var(--surf))}
+.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.seg button{border:2px solid var(--line);background:var(--surf);border-radius:14px;min-height:44px;font-weight:700}
+.seg button.on{background:var(--ink);color:var(--bg)}
+.tabs{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:8px}
+.pitem{display:flex;align-items:center;gap:8px;background:var(--surf);border:2px solid var(--line);border-radius:14px;padding:8px 10px}
+.pitem input[type=number]{width:78px;min-height:40px;border-radius:10px;border:2px solid var(--line);background:var(--bg);color:var(--ink);font:700 16px 'Mali',sans-serif;text-align:center}
+.thumb{width:100%;max-height:170px;object-fit:cover;border-radius:16px}
+.tabs button{border-radius:14px;min-height:44px;font-weight:700;background:var(--surf);border:2px solid var(--line)}
+.tabs button.on{background:var(--mint);border-color:var(--mint-d);color:#fff}
+.items{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.it{background:var(--surf);border:2px solid var(--line);border-radius:18px;padding:8px;text-align:center;display:grid;gap:6px}
+.it img{width:84px;height:84px;margin:0 auto;}
+.it.worn{border-color:var(--mint-d)}
+.sm{min-height:40px;padding:0 14px;font-size:14px;border-radius:14px}
+.hidden{display:none!important}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="wrap" class="wrap hidden"><div class="scrim" id="scrim"></div><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
+<script>
+/* ============ DATA ============ */
+const SP=['cat','dog','bunny','bear','fox','dragon','chick','dino'];
+const T={th:{
+ app:'อิ่มจัง',tag:'เลี้ยงเพื่อนตัวน้อย ไปพร้อมกับกินดีอยู่ดี',pickPet:'เลือกเพื่อนตัวน้อยของเธอ',start:'เริ่มกันเลย',
+ sp:{cat:'แมว',dog:'หมา',bunny:'กระต่าย',bear:'หมี',fox:'จิ้งจอก',dragon:'มังกร',chick:'ลูกเจี๊ยบ',dino:'ไดโนเสาร์'},
+ snd:{cat:'เมี้ยว~',dog:'โฮ่ง!',bunny:'งั่มๆ',bear:'โฮก~',fox:'แงๆ~',dragon:'กร๊าว!',chick:'จิ๊บๆ',dino:'แงม!'},
+ defName:{cat:'ส้มจี๊ด',dog:'ถุงทอง',bunny:'สำลี',bear:'น้ำผึ้ง',fox:'ลูกแก้ว',dragon:'มรกต',chick:'ไข่ดาว',dino:'ไดโน'},
+ q:{name:'ตั้งชื่อให้ฉันหน่อยสิ!',sex:'สวัสดี! ฉันชื่อ {n} ขอถามนิดนึงนะ เธอเป็นเพศอะไร?',age:'เธออายุเท่าไหร่?',h:'ส่วนสูงเท่าไหร่?',w:'น้ำหนักตอนนี้เท่าไหร่?',gw:'น้ำหนักที่อยากไปให้ถึงล่ะ?',act:'ปกติเคลื่อนไหวมากแค่ไหน?',speed:'อยากไปเร็วแค่ไหน?'},
+ sex:{m:'ชาย',f:'หญิง',o:'ไม่ระบุ'},
+ act:['นั่งทำงานเป็นหลัก','เดินบ้าง ออกกำลังเบาๆ 1–3 วัน/สัปดาห์','ออกกำลังกาย 3–5 วัน/สัปดาห์','ใช้แรงหรือซ้อมหนักเกือบทุกวัน'],
+ spd:['ค่อยเป็นค่อยไป (0.25 กก./สัปดาห์)','พอดีๆ (0.5 กก./สัปดาห์)','จริงจัง (0.75 กก./สัปดาห์)'],
+ u:{age:'ปี',h:'ซม.',w:'กก.',gw:'กก.'},range:'ใส่ตัวเลขช่วง {a}–{b} นะ',err18:'แอพนี้สำหรับผู้ที่อายุ 18 ปีขึ้นไปเท่านั้น',ok:'ตกลง',back:'ย้อนกลับ',
+ planTitle:'{n} คำนวณแผนให้แล้ว!',kcalDay:'แคลอรี่ต่อวัน',pro:'โปรตีน',fat:'ไขมัน',carb:'คาร์บ',g:'ก.',tdee:'ร่างกายใช้ประมาณ {x} kcal/วัน',
+ lose:'ถึงเป้าหมายราว {w} สัปดาห์',gain:'ถึงเป้าหมายราว {w} สัปดาห์',keep:'รักษาน้ำหนักปัจจุบัน',cap:'ปรับให้อยู่ในเกณฑ์ปลอดภัย จึงอาจช้ากว่าที่เลือก',
+ disc:'เป็นค่าประมาณทั่วไป ไม่ใช่คำแนะนำทางการแพทย์ หากมีโรคประจำตัว ตั้งครรภ์ หรือให้นม ควรปรึกษาแพทย์หรือนักกำหนดอาหาร',
+ pTitle:'สัญญากับ {n} นะ',pText:'ฉันจะดูแล {n} และกินอย่างใส่ใจไปด้วยกัน',pHint:'ลากนิ้วเซ็นชื่อในกรอบ',clear:'ล้าง',promise:'สัญญาเลย!',
+ eaten:'กินแล้ว',left:'เหลืออีก',over:'เกินมา',feed:'ให้อาหาร',ward:'ตู้เสื้อผ้า',photo:'ถ่ายรูปอาหาร',tPhoto:'ถ่ายรูป',photoPick:'ถ่ายรูป หรือเลือกรูปอาหาร',busy:'กำลังให้ AI ดูรูป…',photoHint:'AI ประเมินคร่าวๆ อาจคลาดเคลื่อน แก้ตัวเลขได้ก่อนป้อน',photoErr:'วิเคราะห์ไม่สำเร็จ ลองใหม่ หรือกรอกเอง',retake:'เลือกรูปใหม่',total:'รวม',syncT:'ซิงค์ข้ามเครื่อง',syncOn:'เปิดอยู่ ข้อมูลตามบัญชี Claude ของเธอ',syncOff:'ใช้ไม่ได้ในมุมมองนี้ ข้อมูลอยู่ในเครื่องนี้เท่านั้น',syncErr:'ซิงค์ไม่สำเร็จ ข้อมูลยังอยู่ในเครื่องนี้',none:'ยังไม่ได้ให้อาหารเลย',
+ stg:['ตัวจิ๋ว','วัยซน','โตเต็มวัย'],days:'วัน',
+ say:{hungry:'{n} หิวจัง… ขออาหารหน่อยนะ',neutral:'อืม… ยังไม่อิ่มเลย {s}',happy:'อร่อย! {s} ขออีกนิดนะ',loved:'อิ่มสุขสุดๆ! วันนี้เธอเก่งมาก {s}',stuffed:'อึ๊ก… อิ่มเกินไปนิดนึง ไม่เป็นไร พรุ่งนี้ค่อยๆ กินนะ',sleep:'zzZ… {n} กำลังหลับฝันดี'},
+ addT:'ให้ {n} กินอะไรดี?',search:'ค้นหาอาหาร',portion:'ปริมาณ',custom:'กรอกเอง',list:'เลือกจากรายการ',cName:'ชื่ออาหาร (ไม่ใส่ก็ได้)',cKcal:'แคลอรี่ (kcal)',feedBtn:'ป้อนเลย',nores:'ไม่พบ ลองกรอกเองนะ',coin:'+{n} เหรียญ',
+ wT:'ตู้เสื้อผ้า',buy:'ซื้อ',wear:'ใส่',take:'ถอด',worn:'ใส่อยู่',poor:'เหรียญไม่พอ',
+ sT:'ตั้งค่า',lang:'ภาษา',rename:'ชื่อสัตว์เลี้ยง',change:'เปลี่ยนสัตว์',redo:'คำนวณแผนใหม่',reset:'ล้างข้อมูลทั้งหมด',resetAsk:'ลบข้อมูลทั้งหมดแล้วเริ่มใหม่ใช่ไหม?',yes:'ใช่ ลบเลย',no:'ยกเลิก',save:'บันทึก',close:'ปิด',about:'ค่าแคลอรี่เป็นค่าประมาณ',
+ acc:{bell:'กระดิ่ง',bowtie:'โบว์ไท',bow:'โบว์',cape:'ผ้าคลุม',cap:'หมวกแก๊ป',crown:'มงกุฎ',flower:'ดอกไม้',glasses:'แว่นตา',party:'หมวกปาร์ตี้',scarf:'ผ้าพันคอ'},
+ wearing:'ใส่อยู่',growl:'ก๊อก~ ก๊อก~',hatchTap:'แตะไข่เพื่อให้ฟัก',hatchT:'{n} ฟักออกมาแล้ว!',hi:'สวัสดี!',
+ instT:'ติดตั้งแอป',instBtn:'เพิ่มไปหน้าจอหลัก',instIos:'บน iPhone/iPad: กดปุ่มแชร์ แล้วเลือก "เพิ่มไปยังหน้าจอโฮม"',instDone:'ติดตั้งแล้ว ใช้งานออฟไลน์ได้',photoOff:'ถ่ายรูปด้วย AI ใช้ได้เมื่อเปิดผ่าน Claude',
+ pf:'×'},
+en:{
+ app:'Imjang',tag:'Raise a little buddy while you eat well',pickPet:'Pick your little buddy',start:"Let's go",
+ sp:{cat:'Cat',dog:'Dog',bunny:'Bunny',bear:'Bear',fox:'Fox',dragon:'Dragon',chick:'Chick',dino:'Dino'},
+ snd:{cat:'Meow~',dog:'Woof!',bunny:'Nom nom',bear:'Grr~',fox:'Yip~',dragon:'Roar!',chick:'Peep!',dino:'Rawr!'},
+ defName:{cat:'Mochi',dog:'Buddy',bunny:'Cotton',bear:'Honey',fox:'Ember',dragon:'Jade',chick:'Sunny',dino:'Dino'},
+ q:{name:'Give me a name!',sex:"Hi! I'm {n}. Quick question — what's your sex?",age:'How old are you?',h:'How tall are you?',w:'What do you weigh now?',gw:'What weight do you want to reach?',act:'How active are you usually?',speed:'How fast do you want to go?'},
+ sex:{m:'Male',f:'Female',o:'Prefer not to say'},
+ act:['Mostly sitting','Light activity, 1–3 days/week','Exercise 3–5 days/week','Hard labor or training most days'],
+ spd:['Slow & steady (0.25 kg/week)','Balanced (0.5 kg/week)','Committed (0.75 kg/week)'],
+ u:{age:'yrs',h:'cm',w:'kg',gw:'kg'},range:'Enter a number between {a} and {b}',err18:'This app is for adults aged 18 and over only',ok:'OK',back:'Back',
+ planTitle:'{n} made your plan!',kcalDay:'calories per day',pro:'Protein',fat:'Fat',carb:'Carbs',g:'g',tdee:'Your body uses about {x} kcal/day',
+ lose:'About {w} weeks to your goal',gain:'About {w} weeks to your goal',keep:'Maintaining your current weight',cap:'Adjusted to stay in a safe range, so it may be slower than you picked',
+ disc:'This is a general estimate, not medical advice. If you have a health condition, are pregnant or nursing, check with a doctor or dietitian.',
+ pTitle:'Promise {n}',pText:"I'll look after {n} and eat mindfully together.",pHint:'Draw your signature in the box',clear:'Clear',promise:'I promise!',
+ eaten:'Eaten',left:'left',over:'over',feed:'Feed',ward:'Wardrobe',photo:'Photo log',tPhoto:'Photo',photoPick:'Take or choose a food photo',busy:'AI is looking at your photo…',photoHint:'Rough AI estimate, may be off. Edit numbers before feeding.',photoErr:"Couldn't analyze it. Try again or enter manually.",retake:'Choose another photo',total:'Total',syncT:'Cross-device sync',syncOn:'On. Data follows your Claude account',syncOff:'Not available in this view. Data stays on this device only',syncErr:"Sync failed. Data is still on this device",none:"No meals yet — {n} is hungry",
+ stg:['Tiny','Playful','Grown-up'],days:'days',
+ say:{hungry:"{n} is so hungry… feed me please",neutral:"Hmm… not full yet {s}",happy:"Yummy! {s} A little more?",loved:"So happy and full! You did great today {s}",stuffed:"Oof… a bit too full. It's okay, go gentler tomorrow.",sleep:'zzZ… {n} is sleeping soundly'},
+ addT:'What should {n} eat?',search:'Search food',portion:'Portion',custom:'Custom',list:'From list',cName:'Food name (optional)',cKcal:'Calories (kcal)',feedBtn:'Feed!',nores:'Nothing found — try custom',coin:'+{n} coins',
+ wT:'Wardrobe',buy:'Buy',wear:'Wear',take:'Take off',worn:'Wearing',poor:'Not enough coins',
+ sT:'Settings',lang:'Language',rename:'Pet name',change:'Change pet',redo:'Recalculate plan',reset:'Erase all data',resetAsk:'Erase everything and start over?',yes:'Yes, erase',no:'Cancel',save:'Save',close:'Close',about:'Calories are estimates.',
+ acc:{bell:'Bell',bowtie:'Bow tie',bow:'Bow',cape:'Cape',cap:'Cap',crown:'Crown',flower:'Flower',glasses:'Glasses',party:'Party hat',scarf:'Scarf'},
+ wearing:'Wearing',growl:'grrr~ grrr~',hatchTap:'Tap the egg to hatch it',hatchT:'{n} hatched!',hi:'Hello!',
+ instT:'Install app',instBtn:'Add to Home Screen',instIos:'On iPhone/iPad: tap Share, then "Add to Home Screen"',instDone:'Installed. Works offline',photoOff:'AI photo logging works when opened in Claude',
+ pf:'×'}};
+/* [id, emoji, th, en, kcal, protein, fat, carb] */
+const FOODS=[
+['rice','🍚','ข้าวสวย 1 ถ้วย','Steamed rice, 1 cup',200,4,0.4,44],
+['fried','🍛','ข้าวผัด 1 จาน','Fried rice, 1 plate',520,14,18,75],
+['kmj','🍗','ข้าวมันไก่ 1 จาน','Hainanese chicken rice',590,25,20,78],
+['kmd','🍖','ข้าวหมูแดง 1 จาน','BBQ pork rice',520,22,14,75],
+['kapao','🍳','ข้าวกะเพราไก่ไข่ดาว','Basil chicken, fried egg, rice',620,28,28,60],
+['khakha','🍖','ข้าวขาหมู 1 จาน','Stewed pork leg rice',690,27,32,72],
+['padthai','🍜','ผัดไทย 1 จาน','Pad Thai',560,20,20,72],
+['noodle','🍜','ก๋วยเตี๋ยวหมู 1 ชาม','Pork noodle soup',330,18,8,47],
+['bami','🍜','บะหมี่เกี๊ยวหมูแดง','Egg noodles, wonton, BBQ pork',390,20,10,55],
+['tomyum','🍲','ต้มยำกุ้ง 1 ถ้วย','Tom yum goong',120,12,5,8],
+['green','🍲','แกงเขียวหวานไก่','Green curry chicken',260,16,18,8],
+['somtam','🥗','ส้มตำไทย 1 จาน','Papaya salad',120,3,4,18],
+['larb','🥬','ลาบหมู 1 จาน','Pork larb',220,20,12,6],
+['grilled','🍗','ไก่ย่าง 1 ชิ้น','Grilled chicken, 1 piece',215,24,13,0],
+['moo','🍢','หมูปิ้ง 1 ไม้','Grilled pork skewer',90,7,6,3],
+['egg','🥚','ไข่ต้ม 1 ฟอง','Boiled egg',75,6,5,0.5],
+['omelet','🍳','ไข่เจียว 1 ฟอง','Thai omelet',190,10,16,1],
+['sticky','🍙','ข้าวเหนียว 1 ห่อ','Sticky rice, 1 pack',220,4,0.5,48],
+['yum','🥗','ยำวุ้นเส้น','Glass noodle salad',200,10,8,22],
+['khaotom','🥣','ข้าวต้มหมู 1 ชาม','Pork rice soup',250,13,5,38],
+['jok','🥣','โจ๊กหมู 1 ชาม','Pork congee',220,12,5,32],
+['sand','🥪','แซนด์วิช 1 ชิ้น','Sandwich',250,10,12,25],
+['toast','🍞','ขนมปังปิ้ง 1 แผ่น','Toast, 1 slice',80,3,1,15],
+['banana','🍌','กล้วย 1 ลูก','Banana',90,1,0.3,23],
+['apple','🍎','แอปเปิล 1 ลูก','Apple',95,0.5,0.3,25],
+['orange','🍊','ส้ม 1 ลูก','Orange',60,1,0,15],
+['mango','🥭','มะม่วงสุก ครึ่งลูก','Ripe mango, half',100,1,0.5,25],
+['mangosticky','🥭','ข้าวเหนียวมะม่วง','Mango sticky rice',480,6,14,82],
+['boba','🧋','ชานมไข่มุก 1 แก้ว','Bubble milk tea',380,3,8,75],
+['thaitea','🧋','ชาเย็น 1 แก้ว','Thai iced tea',280,2,8,50],
+['icedcoffee','☕','กาแฟเย็นหวาน','Sweet iced coffee',200,2,5,35],
+['americano','☕','อเมริกาโน่','Americano',10,0,0,2],
+['soda','🥤','น้ำอัดลม 1 กระป๋อง','Soda, 1 can',140,0,0,35],
+['milk','🥛','นมจืด 1 กล่อง','Plain milk, 1 box',130,7,7,10],
+['yogurt','🥣','โยเกิร์ต 1 ถ้วย','Yogurt cup',100,5,3,14],
+['salad','🥗','สลัดอกไก่','Chicken breast salad',300,30,12,15],
+['chicken','🍗','อกไก่ต้ม 100 ก.','Boiled chicken breast, 100 g',165,31,3.6,0],
+['fish','🐟','ปลานึ่ง 1 จาน','Steamed fish',150,25,5,2],
+['icecream','🍨','ไอศกรีม 1 สกู๊ป','Ice cream, 1 scoop',140,2,7,17],
+['fries','🍟','มันฝรั่งทอด ถุงเล็ก','Fries, small',150,2,9,15],
+['pizza','🍕','พิซซ่า 1 ชิ้น','Pizza, 1 slice',280,12,10,34],
+['burger','🍔','เบอร์เกอร์ 1 ชิ้น','Burger',480,25,24,40],
+['sushi','🍣','ซูชิ 4 ชิ้น','Sushi, 4 pieces',200,9,2,36]
+];
+/* ============ PLAN (pure) ============ */
+/*PLAN*/
+const ACTF=[1.2,1.375,1.55,1.725],SPD=[0.25,0.5,0.75];
+function calcPlan(p){
+  const adj=p.sex==='m'?5:p.sex==='f'?-161:-78;
+  const bmr=10*p.w+6.25*p.h-5*p.age+adj;
+  const tdee=bmr*ACTF[p.act];
+  const floor=p.sex==='m'?1500:1200;
+  const diff=p.gw-p.w;
+  const dir=Math.abs(diff)<0.5?0:(diff<0?-1:1);
+  let target=tdee,capped=false,rate=0;
+  if(dir<0){
+    let d=SPD[p.sp]*7700/7;const cap=tdee*0.25;
+    if(d>cap){d=cap;capped=true}
+    target=tdee-d;
+    if(target<floor){target=floor;capped=true}
+    target=Math.min(target,tdee);
+    rate=(tdee-target)*7/7700;
+  }else if(dir>0){
+    let s=SPD[p.sp]*7700/7;const cap=tdee*0.2;
+    if(s>cap){s=cap;capped=true}
+    target=tdee+s;rate=s*7/7700;
+  }
+  target=Math.round(target/10)*10;
+  const weeks=rate>0.05?Math.ceil(Math.abs(diff)/rate):0;
+  const pg=Math.round(1.6*p.w),fg=Math.round(target*0.25/9);
+  const cg=Math.max(0,Math.round((target-pg*4-fg*9)/4));
+  return{tdee:Math.round(tdee/10)*10,target,dir,capped,weeks,p:pg,f:fg,c:cg};
+}
+/*ENDPLAN*/
+/* ============ SVG ANIMALS ============ */
+/* ============ ART (pixel pets from pet/*.webp) ============ */
+const ACC={bell:{p:30},bowtie:{p:40},bow:{p:30},cape:{p:70},cap:{p:40},crown:{p:80},flower:{p:30},glasses:{p:40},party:{p:30},scarf:{p:50}};
+const IMG='pet/';
+const SUF={hungry:'-hungry',neutral:'',happy:'-happy',loved:'-happy',stuffed:'-fat'};/* '-unwell' and '-sad' poses are kept in pet/ for other features */
+function pimg(sp,suf,stg,alt){return `<img class="pimg" src="${IMG}${sp}-${stg}${suf}.webp" alt="${esc(alt||sp)}" width="200" height="200" draggable="false">`}
+function isNight(){const h=new Date().getHours();return h>=23||h<5}
+/* ============ STATE ============ */
+const KEY='imjang.v1';
+function defState(){return{lang:'th',onboarded:false,pet:{sp:'cat',name:''},prof:null,plan:null,logs:{},coins:0,days:0,streak:0,lastDay:'',owned:[],worn:[],bonus:{}}}
+let S=defState();
+try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(defState(),JSON.parse(r))}catch(e){}
+let DOC=null,syncSt='off',pushT=null;
+function save(){S.ts=Date.now();try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}schedPush()}
+function schedPush(){if(syncSt!=='on'||!DOC)return;clearTimeout(pushT);pushT=setTimeout(pushNow,1500)}
+async function pushNow(){try{await DOC.set({json:JSON.stringify(S),ts:S.ts})}catch(e){syncSt='err'}}
+async function initSync(){
+  try{
+    const C=window.claude;if(!C||!C.use)return;
+    const db=await C.use('db'),user=await C.use('user');
+    if(!db||!user||!user.id)return;
+    const id=await user.id();
+    DOC=db.collection('data/users/'+id).doc('save');
+    const snap=await DOC.get();
+    const d=snap&&(typeof snap.data==='function'?snap.data():snap);
+    syncSt='on';
+    if(d&&d.json){
+      const r=JSON.parse(d.json);
+      const remoteWins=(r.ts||0)>(S.ts||0)||(r.onboarded&&!S.onboarded);
+      if(remoteWins){
+        S=Object.assign(defState(),r);rollover();
+        try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}
+        if(view==='welcome'&&S.onboarded&&S.plan)view='home';
+        if(view==='welcome'||view==='home')render();
+      }else if((S.ts||0)>(r.ts||0))pushNow();
+    }else if(S.onboarded)pushNow();
+  }catch(e){syncSt='err'}
+}
+let SAMPLE=null;
+async function initSample(){
+  try{
+    const C=window.claude;if(!C||!C.use)return;
+    const sm=await C.use('sample');if(!sm)return;
+    try{const lim=await sm.limits();if(lim&&lim.images===false)return}catch(e){}
+    SAMPLE=sm;if(view==='home')rHome();
+  }catch(e){}
+}
+const pad=n=>String(n).padStart(2,'0');
+function dkey(d){d=d||new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
+const today=()=>dkey();
+function yest(){const d=new Date();d.setDate(d.getDate()-1);return dkey(d)}
+function rollover(){
+  if(S.lastDay&&S.lastDay!==today()&&S.lastDay!==yest())S.streak=0;
+  const keep=Object.keys(S.logs).sort().slice(-14);const nl={};keep.forEach(k=>nl[k]=S.logs[k]);S.logs=nl;
+}
+const OLDSP={rabbit:'bunny',panda:'bear',mouse:'fox'};
+if(OLDSP[S.pet.sp])S.pet.sp=OLDSP[S.pet.sp];
+if(!SP.includes(S.pet.sp))S.pet.sp='cat';
+if(!Array.isArray(S.worn))S.worn=[];
+S.worn=S.worn.filter(i=>ACC[i]);S.owned=(S.owned||[]).filter(i=>ACC[i]);
+rollover();
+const L=()=>T[S.lang];
+const esc=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const fmt=(s,o)=>s.replace(/\{(\w+)\}/g,(m,k)=>o&&o[k]!=null?o[k]:m);
+const $=s=>document.querySelector(s);
+const app=$('#app');
+const ic={
+ gear:'<circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M18.7 5.3l-2.1 2.1M7.4 16.6l-2.1 2.1"/>',
+ shirt:'<path d="M8.5 3L3 7l3 3.2 2-1.5V21h8V8.7l2 1.5L21 7l-5.5-4a3.6 3.6 0 0 1-7 0z"/>',
+ cam:'<rect x="3" y="7" width="18" height="13" rx="3"/><circle cx="12" cy="13.5" r="3.5"/><path d="M8 7l1.5-3h5L16 7"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>',
+ flame:'<path d="M12 2.5c.8 4 5 6 5 11a5 5 0 0 1-10 0c0-2 1-3.2 2-4.2 0 2 1 3 2 3 0-4-1-6 1-9.8z"/>',
+ coin:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5.2"/>',
+ back:'<path d="M15 5l-7 7 7 7"/>'
+};
+const I=(n,x)=>`<svg class="ico" viewBox="0 0 24 24" ${x||''}>${ic[n]}</svg>`;
+const heart=on=>`<svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9.5-9C.5 8 3 4 7 4c2 0 4 1 5 3 1-2 3-3 5-3 4 0 6.5 4 4.5 8-2.5 4.5-9.5 9-9.5 9z" fill="${on?'#FF6B81':'none'}" stroke="#FF6B81" stroke-width="2" stroke-linejoin="round"/></svg>`;
+/* ============ DERIVED ============ */
+function todayLog(){return S.logs[today()]||[]}
+function totals(){return todayLog().reduce((a,m)=>({k:a.k+m.k,p:a.p+m.p,f:a.f+m.f,c:a.c+m.c}),{k:0,p:0,f:0,c:0})}
+function moodNow(){
+  const t=totals().k,g=S.plan?S.plan.target:2000;
+  if(t<=0)return{m:'hungry',h:0,r:0};
+  const r=t/g;
+  if(r>1.15)return{m:'stuffed',h:1,r};
+  if(r>=0.7)return{m:'loved',h:r>=0.9?3:2,r};
+  if(r>=0.35)return{m:'happy',h:1,r};
+  return{m:'neutral',h:1,r};
+}
+function stage(){return S.days>=10?2:S.days>=3?1:0}
+const SC=[.84,.95,1.05];
+/* ============ ROUTER ============ */
+let view='welcome',ob=null,pledged=false;
+function go(v){view=v;render()}
+function render(){
+  document.documentElement.lang=S.lang;
+  ({welcome:rWelcome,onb:rOnb,plan:rPlan,pledge:rPledge,hatch:rHatch,home:rHome})[view]();
+}
+function langSw(){return `<div class="lang" role="group" aria-label="Language"><button class="${S.lang==='th'?'on':''}" data-l="th">ไทย</button><button class="${S.lang==='en'?'on':''}" data-l="en">EN</button></div>`}
+function bindLang(){app.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{S.lang=b.dataset.l;save();render()})}
+/* ---- welcome ---- */
+function rWelcome(){
+  const t=L();
+  app.innerHTML=`<div class="top"><span></span>${langSw()}</div>
+  <div class="hero"><h1 class="fd">${t.app}</h1><p>${t.tag}</p></div>
+  <h3 class="fd" style="text-align:center">${t.pickPet}</h3>
+  <div class="grid6">${SP.map(s=>`<button class="pick ${S.pet.sp===s?'on':''}" data-s="${s}" aria-pressed="${S.pet.sp===s}">${pimg(s,S.pet.sp===s?'-happy':'',1,t.sp[s])}${t.sp[s]}</button>`).join('')}</div>
+  <div class="sp"></div>
+  <button class="btn block" id="go">${t.start}</button>`;
+  bindLang();
+  app.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{S.pet.sp=b.dataset.s;save();rWelcome()});
+  $('#go').onclick=()=>{ob={i:0,d:{}};if(S.prof)Object.assign(ob.d,S.prof);if(S.pet.name)ob.d.name=S.pet.name;go('onb')};
+}
+/* ---- onboarding ---- */
+const NUM={age:[18,90],h:[120,220],w:[30,250],gw:[30,250]};
+function steps(){
+  const s=S.onboarded?[]:['name'];
+  s.push('sex','age','h','w','gw','act');
+  const d=ob.d;if(d.gw!=null&&d.w!=null&&Math.abs(d.gw-d.w)<0.5){}else s.push('speed');
+  return s;
+}
+function rOnb(){
+  const t=L(),st=steps(),k=st[ob.i],name=ob.d.name||S.pet.name||t.defName[S.pet.sp];
+  const total=8,pct=Math.round((ob.i)/total*100);
+  let body='';
+  if(k==='name')body=`<input class="inp" id="in" maxlength="12" value="${esc(ob.d.name||t.defName[S.pet.sp])}" aria-label="${t.q.name}"><div class="err" id="er"></div><button class="btn block" id="ok">${t.ok}</button>`;
+  else if(k==='sex')body=`<div class="opts">${['m','f','o'].map(x=>`<button class="opt" data-v="${x}">${t.sex[x]}</button>`).join('')}</div>`;
+  else if(k==='act')body=`<div class="opts">${t.act.map((x,i)=>`<button class="opt" data-v="${i}">${x}</button>`).join('')}</div>`;
+  else if(k==='speed')body=`<div class="opts">${t.spd.map((x,i)=>`<button class="opt" data-v="${i}">${x}</button>`).join('')}</div>`;
+  else body=`<div class="row"><input class="inp" id="in" type="number" inputmode="decimal" value="${ob.d[k]!=null?ob.d[k]:''}" aria-label="${t.q[k]}"><b style="min-width:42px">${t.u[k]}</b></div><div class="err" id="er"></div><button class="btn block" id="ok">${t.ok}</button>`;
+  app.innerHTML=`<div class="top"><button class="ibtn" id="bk" aria-label="${t.back}">${I('back')}</button>${langSw()}</div>
+  <div class="prog" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><i style="width:${pct}%"></i></div>
+  <div class="ob-pet">${pimg(S.pet.sp,'-happy',0,t.sp[S.pet.sp])}</div>
+  <div class="bubble">${esc(fmt(t.q[k],{n:name}))}</div>
+  <div style="height:6px"></div>${body}`;
+  bindLang();
+  $('#bk').onclick=()=>{if(ob.i>0){ob.i--;rOnb()}else go(S.onboarded?'home':'welcome')};
+  const next=()=>{ob.i++;if(ob.i>=steps().length)finishOb();else rOnb()};
+  app.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{const v=b.dataset.v;ob.d[k]=k==='sex'?v:+v;if(k==='act'||k==='speed')ob.d[k]=+v;next()});
+  const inp=$('#in');
+  if(inp){
+    const ok=()=>{
+      if(k==='name'){ob.d.name=(inp.value.trim()||t.defName[S.pet.sp]).slice(0,12);next();return}
+      const v=parseFloat(inp.value),[a,b]=NUM[k];
+      if(k==='age'&&v<18){$('#er').textContent=t.err18;return}
+      if(!(v>=a&&v<=b)){$('#er').textContent=fmt(t.range,{a,b});return}
+      ob.d[k]=v;next();
+    };
+    $('#ok').onclick=ok;inp.onkeydown=e=>{if(e.key==='Enter')ok()};
+    if(k!=='name'||true)setTimeout(()=>{try{inp.focus({preventScroll:true})}catch(e){}},50);
+  }
+}
+function finishOb(){
+  const d=ob.d;
+  if(d.name)S.pet.name=d.name;
+  if(Math.abs(d.gw-d.w)<0.5)d.sp=1;
+  if(d.sp==null)d.sp=1;
+  S.prof={sex:d.sex,age:d.age,h:d.h,w:d.w,gw:d.gw,act:d.act,sp:d.sp};
+  S.plan=calcPlan(S.prof);save();go('plan');
+}
+/* ---- plan ---- */
+function rPlan(){
+  const t=L(),p=S.plan,n=esc(S.pet.name);
+  const goal=p.dir===0?t.keep:fmt(p.dir<0?t.lose:t.gain,{w:p.weeks});
+  app.innerHTML=`<div class="top"><span></span>${langSw()}</div>
+  <div class="ob-pet">${pimg(S.pet.sp,'-happy',0,t.sp[S.pet.sp])}</div>
+  <div class="bubble">${fmt(t.planTitle,{n})}</div>
+  <div style="height:6px"></div>
+  <div class="card" style="text-align:center"><div class="big">${p.target.toLocaleString()}</div><div class="mute">${t.kcalDay}</div>
+   <div class="mute" style="margin-top:6px">${fmt(t.tdee,{x:p.tdee.toLocaleString()})}</div>
+   <div style="margin-top:6px;font-weight:700">${p.dir===0||p.weeks?goal:''}</div>
+   ${p.capped?`<div class="mute" style="margin-top:4px">${t.cap}</div>`:''}</div>
+  <div class="macros"><div class="m-p">${p.p} ${t.g}<small>${t.pro}</small></div><div class="m-f">${p.f} ${t.g}<small>${t.fat}</small></div><div class="m-c">${p.c} ${t.g}<small>${t.carb}</small></div></div>
+  <p class="mute" style="margin:0">${t.disc}</p>
+  <div class="sp"></div><button class="btn block" id="ok">${t.ok}</button>`;
+  bindLang();
+  $('#ok').onclick=()=>{if(S.onboarded){go('home')}else go('pledge')};
+}
+/* ---- pledge ---- */
+function rPledge(){
+  const t=L(),n=esc(S.pet.name);
+  app.innerHTML=`<div class="top"><span></span>${langSw()}</div>
+  <h2 class="fd" style="text-align:center">${fmt(t.pTitle,{n})}</h2>
+  <div class="ob-pet">${pimg(S.pet.sp,'-happy',0,t.sp[S.pet.sp])}</div>
+  <p style="text-align:center;margin:0;font-weight:500">${fmt(t.pText,{n})}</p>
+  <canvas id="sign" aria-label="${t.pHint}"></canvas>
+  <div class="row"><span class="mute sp">${t.pHint}</span><button class="btn ghost sm" id="clr">${t.clear}</button></div>
+  <div class="sp"></div><button class="btn block" id="ok" disabled>${t.promise}</button>`;
+  bindLang();
+  const cv=$('#sign'),dpr=window.devicePixelRatio||1,w=cv.clientWidth,h=cv.clientHeight;
+  cv.width=w*dpr;cv.height=h*dpr;const cx=cv.getContext('2d');cx.scale(dpr,dpr);
+  cx.lineWidth=4;cx.lineCap='round';cx.lineJoin='round';
+  cx.strokeStyle=getComputedStyle(document.body).color;
+  let down=false,pts=0,lx=0,ly=0;
+  const pos=e=>{const r=cv.getBoundingClientRect();return[e.clientX-r.left,e.clientY-r.top]};
+  cv.onpointerdown=e=>{down=true;[lx,ly]=pos(e);try{cv.setPointerCapture(e.pointerId)}catch(_){}};
+  cv.onpointermove=e=>{if(!down)return;const[x,y]=pos(e);cx.beginPath();cx.moveTo(lx,ly);cx.lineTo(x,y);cx.stroke();pts+=Math.hypot(x-lx,y-ly);lx=x;ly=y;if(pts>120)$('#ok').disabled=false};
+  cv.onpointerup=cv.onpointercancel=()=>{down=false};
+  $('#clr').onclick=()=>{cx.clearRect(0,0,w,h);pts=0;$('#ok').disabled=true};
+  $('#ok').onclick=()=>{S.onboarded=true;save();go('hatch')};
+}
+/* ---- hatch ---- */
+function rHatch(){
+  const t=L(),sp=S.pet.sp;
+  [`egg-${sp}-8`,`${sp}-0-happy`].forEach(n=>{const i=new Image();i.src=IMG+n+'.webp'});
+  warmArt();
+  app.innerHTML=`<div class="top"><span></span>${langSw()}</div><div class="sp"></div>
+  <div class="hatch" id="hb" role="button" tabindex="0" aria-label="${t.hatchTap}"><img id="hi" class="himg wob" src="${IMG}egg-${sp}.webp" alt="" width="200" height="200"></div>
+  <div class="bubble" id="hm">${t.hatchTap}</div><div class="sp"></div>
+  <button class="btn block" id="ok" disabled>${t.hi}</button>`;
+  bindLang();
+  let done=false;
+  const hatch=()=>{
+    if(done)return;done=true;
+    const im=$('#hi');im.className='himg shake';im.src=IMG+'egg-'+sp+'-8.webp';
+    setTimeout(()=>{im.className='himg pop2';im.src=`${IMG}${sp}-0-happy.webp`;$('#hm').textContent=fmt(L().hatchT,{n:S.pet.name});$('#ok').disabled=false},900);
+  };
+  $('#hb').onclick=hatch;$('#hb').onkeydown=e=>{if(e.key==='Enter'||e.key===' ')hatch()};
+  setTimeout(hatch,3500);
+  $('#ok').onclick=()=>go('home');
+}
+/* ---- home ---- */
+function rHome(){
+  const t=L(),n=esc(S.pet.name),M=moodNow(),tt=totals(),g=S.plan.target;
+  const pct=Math.min(100,Math.round(tt.k/g*100)),over=tt.k>g;
+  const stg=stage(),log=todayLog();
+  const sleepy=isNight()&&(M.m==='neutral'||M.m==='happy'||M.m==='loved');
+  const pose=sleepy?'-asleep':SUF[M.m];
+  const line=fmt(t.say[sleepy?'sleep':M.m],{n,s:t.snd[S.pet.sp]});
+  app.innerHTML=`<div class="top">
+    <div class="row"><span class="chip" title="streak">${I('flame','style="color:#FF7A45"')}${S.streak}</span><span class="chip">${I('coin','style="color:#E0A800"')}${S.coins}</span></div>
+    <button class="ibtn" id="set" aria-label="${t.sT}">${I('gear')}</button></div>
+  <div class="stage" id="stage">
+    <img class="roombg" src="pet/room.webp" alt="" width="900" height="738">
+    <div class="hearts" aria-label="${M.h}/3">${[1,2,3].map(i=>heart(i<=M.h)).join('')}</div>
+    ${S.worn.length?`<div class="rail" aria-label="${t.wearing}">${S.worn.map(id=>`<img src="${IMG}wear-${id}.webp" alt="${esc(t.acc[id])}" width="40" height="40">`).join('')}</div>`:''}
+    <div class="petbox" id="pet">${pimg(S.pet.sp,pose,stg,t.sp[S.pet.sp])}</div>
+    ${pose==='-hungry'?`<div class="growl" aria-hidden="true">${t.growl}</div><svg class="bowl" viewBox="0 0 24 14" width="46" aria-hidden="true"><path d="M2 4h20c0 6-4 9-10 9S2 10 2 4z" fill="#F4E3C3" stroke="#B9824F" stroke-width="1.5" stroke-linejoin="round"/><ellipse cx="12" cy="4" rx="10" ry="2.2" fill="#D9B98A" stroke="#B9824F" stroke-width="1.2"/></svg>`:''}
+  </div>
+  <div class="row" style="justify-content:center;gap:8px;margin-top:-4px"><b class="fd" style="font-size:20px">${n}</b><span class="mute">· ${t.stg[stg]} · ${S.days} ${t.days}</span></div>
+  <div class="say bubble">${esc(line)}</div>
+  <div class="card">
+    <div class="row"><b class="fd" style="font-size:20px">${tt.k.toLocaleString()}</b><span class="mute">/ ${g.toLocaleString()} kcal</span><span class="sp"></span><b style="color:${over?'#C98A00':'var(--mint-d)'}">${over?t.over+' '+(tt.k-g):t.left+' '+(g-tt.k)}</b></div>
+    <div class="meter ${over?'over':''}" style="margin:8px 0 12px"><i style="width:${pct}%"></i></div>
+    ${[['pro','p','mint',S.plan.p],['fat','f','butter',S.plan.f],['carb','c','coral',S.plan.c]].map(([nm,key,col,tg])=>`<div class="mrow"><span>${t[nm]}</span><div class="meter"><i style="width:${Math.min(100,tt[key]/Math.max(1,tg)*100)}%;background:var(--${col})"></i></div><span class="mute" style="text-align:right">${Math.round(tt[key])}/${tg} ${t.g}</span></div>`).join('')}
+  </div>
+  <div class="card"><div class="meals">${log.length?log.map((m,i)=>`<div class="meal"><span class="e">${m.e}</span><div class="sp"><div style="font-weight:500">${esc(m.n)}</div><div class="mute">${m.k} kcal</div></div><button class="x" data-d="${i}" aria-label="delete">×</button></div>`).join(''):`<div class="mute" style="text-align:center;padding:8px">${fmt(t.none,{n})}</div>`}</div></div>
+  <div class="dock"><button class="btn main" id="add">${I('plus')} ${t.feed}</button>
+   <button class="btn mint" id="wd">${I('shirt')} ${t.ward}</button>
+   <button class="btn ghost" id="ph" ${SAMPLE?'':`disabled aria-disabled="true" title="${esc(t.photoOff)}"`}>${I('cam')} ${t.photo}</button></div>
+  ${SAMPLE?'':`<p class="mute" style="margin:-4px 0 0;text-align:right;font-size:12px">${t.photoOff}</p>`}`;
+  if(SAMPLE)$('#ph').onclick=()=>{sel=null;por=1;q='';tab='photo';photo={st:'idle',items:[],url:''};drawAdd()};
+  $('#set').onclick=sheetSettings;$('#add').onclick=sheetAdd;$('#wd').onclick=sheetWard;
+  app.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{S.logs[today()].splice(+b.dataset.d,1);save();rHome()});
+}
+/* ============ SHEETS ============ */
+function openSheet(html){$('#sheet').innerHTML=html;$('#wrap').classList.remove('hidden')}
+function closeSheet(){$('#wrap').classList.add('hidden');$('#sheet').innerHTML=''}
+$('#scrim').onclick=()=>{closeSheet();if(view==='home')rHome()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
+let sel=null,por=1,tab='list',q='',photo={st:'idle',items:[],url:''};
+function sheetAdd(){sel=null;por=1;tab='list';q='';photo={st:'idle',items:[],url:''};drawAdd()}
+function drawAdd(){
+  const t=L(),n=esc(S.pet.name);
+  const fl=FOODS.filter(f=>!q||(f[2]+' '+f[3]).toLowerCase().includes(q.toLowerCase()));
+  let main='';
+  if(tab==='list'){
+    main=`<input class="inp" id="q" style="font:500 16px 'Noto Sans Thai',sans-serif;min-height:48px;text-align:left" placeholder="${t.search}" value="${esc(q)}" aria-label="${t.search}">
+    <div class="foods">${fl.length?fl.map(f=>`<button class="food ${sel&&sel[0]===f[0]?'on':''}" data-f="${f[0]}">${f[1]} ${esc(S.lang==='th'?f[2]:f[3])}</button>`).join(''):`<span class="mute">${t.nores}</span>`}</div>
+    ${sel?`<div><div class="mute" style="margin-bottom:6px">${t.portion}</div><div class="seg">${[.5,1,1.5,2].map(x=>`<button data-p="${x}" class="${por===x?'on':''}">${t.pf}${x}</button>`).join('')}</div></div>
+    <div class="mute">${Math.round(sel[4]*por)} kcal · ${t.pro} ${Math.round(sel[5]*por)} · ${t.fat} ${Math.round(sel[6]*por)} · ${t.carb} ${Math.round(sel[7]*por)}</div>`:''}
+    <button class="btn block" id="fd" ${sel?'':'disabled'}>${t.feedBtn}</button>`;
+  }else if(tab==='photo'){
+    main=photoMain(t);
+  }else{
+    main=`<input class="inp" id="cn" style="font:500 16px 'Noto Sans Thai',sans-serif;min-height:48px;text-align:left" maxlength="30" placeholder="${t.cName}" aria-label="${t.cName}">
+    <input class="inp" id="ck" type="number" inputmode="numeric" placeholder="${t.cKcal}" aria-label="${t.cKcal}">
+    <div class="err" id="ce"></div><button class="btn block" id="cf">${t.feedBtn}</button>`;
+  }
+  openSheet(`<h3 class="fd">${fmt(t.addT,{n})}</h3><div class="tabs"><button data-t="list" class="${tab==='list'?'on':''}">${t.list}</button>${SAMPLE?`<button data-t="photo" class="${tab==='photo'?'on':''}">${t.tPhoto}</button>`:''}<button data-t="custom" class="${tab==='custom'?'on':''}">${t.custom}</button></div>${main}`);
+  if(tab==='photo')bindPhoto();
+  const sh=$('#sheet');
+  sh.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{tab=b.dataset.t;drawAdd()});
+  sh.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{sel=FOODS.find(f=>f[0]===b.dataset.f);drawAdd()});
+  sh.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{por=+b.dataset.p;drawAdd()});
+  const qi=sh.querySelector('#q');
+  if(qi)qi.oninput=()=>{q=qi.value;const pos=qi.selectionStart;drawAdd();const n2=$('#q');n2.focus();n2.setSelectionRange(pos,pos)};
+  const fd=sh.querySelector('#fd');
+  if(fd)fd.onclick=()=>feed({e:sel[1],n:S.lang==='th'?sel[2]:sel[3],k:Math.round(sel[4]*por),p:sel[5]*por,f:sel[6]*por,c:sel[7]*por});
+  const cf=sh.querySelector('#cf');
+  if(cf)cf.onclick=()=>{
+    const k=Math.round(parseFloat($('#ck').value));
+    if(!(k>=1&&k<=3000)){$('#ce').textContent=fmt(t.range,{a:1,b:3000});return}
+    feed({e:'🍽️',n:$('#cn').value.trim()||(S.lang==='th'?'อาหารกรอกเอง':'Custom meal'),k,p:0,f:0,c:0});
+  };
+}
+function photoMain(t){
+  const p=photo;
+  let h=`<input type="file" id="pf" accept="image/*" class="hidden">`;
+  if(p.url)h+=`<img class="thumb" src="${p.url}" alt="">`;
+  if(p.st==='idle')h+=`<button class="btn mint block" id="pk">${I('cam')} ${t.photoPick}</button>`;
+  if(p.st==='busy')h+=`<div class="card mute" style="text-align:center" role="status">${t.busy}</div>`;
+  if(p.st==='err')h+=`<div class="err">${t.photoErr}</div><button class="btn ghost block" id="pk">${t.retake}</button>`;
+  if(p.st==='done'){
+    h+=`<div class="mute">${t.photoHint}</div>`+p.items.map((it,i)=>`<div class="pitem"><input type="checkbox" data-c="${i}" ${it.on?'checked':''} aria-label="${esc(it.n)}"><span style="font-size:22px">${esc(it.e)}</span><span class="sp" style="font-weight:500">${esc(it.n)}</span><input type="number" inputmode="numeric" data-k="${i}" value="${it.k}" aria-label="kcal"></div>`).join('')+
+    `<div class="row"><b class="sp">${t.total}</b><b id="ptot">${photoTotal()} kcal</b></div><button class="btn block" id="pg" ${photoTotal()>0?'':'disabled'}>${t.feedBtn}</button><button class="btn ghost block" id="pk">${t.retake}</button>`;
+  }
+  return h;
+}
+const photoTotal=()=>photo.items.filter(i=>i.on).reduce((a,i)=>a+(+i.k||0),0);
+function shrink(file){
+  return new Promise((res,rej)=>{
+    const url=URL.createObjectURL(file),im=new Image();
+    im.onload=()=>{
+      const m=900,r=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement('canvas');
+      c.width=Math.round(im.width*r);c.height=Math.round(im.height*r);
+      c.getContext('2d').drawImage(im,0,0,c.width,c.height);
+      c.toBlob(b=>b?res({blob:b,url:URL.createObjectURL(b)}):rej(new Error('blob')),'image/jpeg',.82);
+      URL.revokeObjectURL(url);
+    };
+    im.onerror=()=>rej(new Error('img'));im.src=url;
+  });
+}
+function parseItems(txt){
+  const a=txt.indexOf('{'),b=txt.lastIndexOf('}');
+  const j=JSON.parse(txt.slice(a,b+1));
+  return (j.items||[]).slice(0,8).map(x=>({e:String(x.emoji||'🍽️').slice(0,4),n:String((S.lang==='th'?x.th:x.en)||x.th||x.en||'?').slice(0,40),k:Math.max(0,Math.min(3000,Math.round(+x.kcal||0))),p:+x.p||0,f:+x.f||0,c:+x.c||0,on:true})).filter(x=>x.k>0);
+}
+function bindPhoto(){
+  const sh=$('#sheet'),pf=sh.querySelector('#pf'),pk=sh.querySelector('#pk');
+  if(pk)pk.onclick=()=>pf.click();
+  pf.onchange=async()=>{
+    const f=pf.files&&pf.files[0];if(!f)return;
+    photo={st:'busy',items:[],url:''};drawAdd();
+    try{
+      const {blob,url}=await shrink(f);photo.url=url;
+      const prompt='You are a nutrition estimator for Thai and everyday foods. Look at the photo and list each distinct food or drink with the portion visible. Estimate calories and macros per item for that portion. Reply with JSON only, no prose: {"items":[{"th":"Thai name","en":"English name","emoji":"one emoji","kcal":0,"p":0,"f":0,"c":0}]}. kcal integers, p/f/c grams. If no food is visible reply {"items":[]}.';
+      const out=await SAMPLE(prompt,{images:[blob],modelTier:'quick'});
+      const items=parseItems(out.text||'');
+      if(!items.length)throw new Error('none');
+      photo.items=items;photo.st='done';
+    }catch(e){photo.st='err'}
+    if(tab==='photo'&&!$('#wrap').classList.contains('hidden'))drawAdd();
+  };
+  sh.querySelectorAll('[data-c]').forEach(c=>c.onchange=()=>{photo.items[+c.dataset.c].on=c.checked;drawAdd()});
+  sh.querySelectorAll('[data-k]').forEach(c=>c.onchange=()=>{photo.items[+c.dataset.k].k=Math.max(0,Math.round(+c.value||0));drawAdd()});
+  const pg=sh.querySelector('#pg');
+  if(pg)pg.onclick=()=>{
+    const on=photo.items.filter(i=>i.on);if(!on.length)return;
+    feed({e:on[0].e,n:on.map(i=>i.n).join(' + ').slice(0,60),k:photoTotal(),p:on.reduce((a,i)=>a+i.p,0),f:on.reduce((a,i)=>a+i.f,0),c:on.reduce((a,i)=>a+i.c,0)});
+  };
+}
+function feed(item){
+  closeSheet();
+  const t=L(),before=moodNow().m;
+  const day=today();
+  S.logs[day]=S.logs[day]||[];S.logs[day].push(item);
+  let gain=0;
+  if(S.lastDay!==day){S.days++;S.streak=(S.lastDay===yest()?S.streak:0)+1;S.lastDay=day}
+  if(S.logs[day].length<=4)gain+=10;
+  const m=moodNow();
+  if(m.m==='loved'&&!S.bonus[day]){S.bonus[day]=1;gain+=20}
+  S.coins+=gain;save();
+  const st=$('#stage'),pet=$('#pet');
+  if(!st||!pet){render();return}
+  const fl=document.createElement('span');fl.className='fly';fl.textContent=item.e;fl.setAttribute('aria-hidden','true');st.appendChild(fl);
+  setTimeout(()=>{
+    rHome();
+    const p2=$('#pet'),s2=$('#stage');if(!p2)return;
+    p2.classList.add('chomp');
+    const im=p2.querySelector('img'),orig=im?im.getAttribute('src'):null;
+    if(im)im.src=`${IMG}${S.pet.sp}-${stage()}-eating.webp`;
+    const pop=document.createElement('span');pop.className='pop';pop.textContent=L().snd[S.pet.sp]+(gain?'  '+fmt(L().coin,{n:gain}):'');s2.appendChild(pop);
+    setTimeout(()=>{pop.remove();p2.classList.remove('chomp');if(im&&orig&&document.contains(im))im.setAttribute('src',orig)},1400);
+  },650);
+}
+function sheetWard(){
+  const t=L();
+  const items=Object.keys(ACC).map(id=>{
+    const a=ACC[id],own=S.owned.includes(id),on=S.worn.includes(id);
+    const btn=!own?`<button class="btn sm" data-b="${id}">${t.buy} · ${a.p}</button>`:`<button class="btn sm ${on?'ghost':'mint'}" data-w="${id}">${on?t.take:t.wear}</button>`;
+    return `<div class="it ${on?'worn':''}"><img src="${IMG}wear-${id}.webp" alt="" width="200" height="200"><div style="font-weight:700;font-size:14px">${t.acc[id]}</div>${btn}</div>`;
+  }).join('');
+  openSheet(`<div class="row"><h3 class="fd sp">${t.wT}</h3><span class="chip">${I('coin','style="color:#E0A800"')}${S.coins}</span></div><div class="items">${items}</div><div class="err" id="we"></div><button class="btn ghost block" id="cl">${t.close}</button>`);
+  const sh=$('#sheet');
+  sh.querySelectorAll('[data-b]').forEach(b=>b.onclick=()=>{
+    const id=b.dataset.b,a=ACC[id];
+    if(S.coins<a.p){$('#we').textContent=t.poor;return}
+    S.coins-=a.p;S.owned.push(id);S.worn.push(id);if(S.worn.length>5)S.worn.shift();save();sheetWard();
+  });
+  sh.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{
+    const id=b.dataset.w;
+    if(S.worn.includes(id))S.worn=S.worn.filter(x=>x!==id);else{S.worn.push(id);if(S.worn.length>5)S.worn.shift()}
+    save();sheetWard();
+  });
+  $('#cl').onclick=()=>{closeSheet();rHome()};
+}
+function sheetSettings(){
+  const t=L();
+  openSheet(`<h3 class="fd">${t.sT}</h3>
+  <div class="row"><b class="sp">${t.lang}</b>${langSw()}</div>
+  <div><b>${t.rename}</b><div class="row" style="margin-top:6px"><input class="inp" id="rn" maxlength="12" style="font:500 16px 'Noto Sans Thai',sans-serif;min-height:48px;text-align:left" value="${esc(S.pet.name)}"><button class="btn mint sm" id="rs">${t.save}</button></div></div>
+  <div><b>${t.change}</b><div class="grid6" style="margin-top:6px">${SP.map(s=>`<button class="pick ${S.pet.sp===s?'on':''}" data-s="${s}" style="padding:2px 2px 6px;font-size:13px">${pimg(s,'-happy',1,t.sp[s])}${t.sp[s]}</button>`).join('')}</div></div>
+  <button class="btn ghost block" id="rd">${t.redo}</button>
+  <button class="btn ghost block" id="rt" style="color:#D0452D">${t.reset}</button>
+  ${installCard(t)}
+  <div class="card" style="padding:12px"><b>${t.syncT}</b><div class="mute">${syncSt==='on'?t.syncOn:syncSt==='err'?t.syncErr:t.syncOff}</div></div>
+  <p class="mute" style="margin:0">${t.about}</p>
+  <button class="btn block" id="cl">${t.close}</button>`);
+  const sh=$('#sheet');
+  const ib=sh.querySelector('#inst');
+  if(ib)ib.onclick=async()=>{const e=instEvt;if(!e)return;instEvt=null;try{e.prompt();await e.userChoice}catch(_){}sheetSettings()};
+  sh.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{S.lang=b.dataset.l;save();render();sheetSettings()});
+  sh.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{S.pet.sp=b.dataset.s;save();warmArt();render();sheetSettings()});
+  $('#rs').onclick=()=>{S.pet.name=($('#rn').value.trim()||t.defName[S.pet.sp]).slice(0,12);save();closeSheet();rHome()};
+  $('#rd').onclick=()=>{closeSheet();ob={i:0,d:Object.assign({},S.prof)};go('onb')};
+  $('#rt').onclick=()=>{
+    openSheet(`<h3 class="fd">${t.reset}</h3><p style="margin:0">${t.resetAsk}</p><button class="btn block" id="y" style="background:#D0452D;box-shadow:0 5px 0 #A33520">${t.yes}</button><button class="btn ghost block" id="n">${t.no}</button>`);
+    $('#y').onclick=()=>{const l=S.lang;S=defState();S.lang=l;save();closeSheet();go('welcome')};
+    $('#n').onclick=sheetSettings;
+  };
+  $('#cl').onclick=()=>{closeSheet();rHome()};
+}
+/* ============ PWA ============ */
+let instEvt=null;
+const standalone=()=>window.matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+const isIos=()=>/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();instEvt=e});
+window.addEventListener('appinstalled',()=>{instEvt=null});
+function installCard(t){
+  if(window.claude)return '';/* running inside Claude Artifacts: nothing to install */
+  let body;
+  if(standalone())body=`<div class="mute">${t.instDone}</div>`;
+  else if(instEvt)body=`<button class="btn mint block sm" id="inst" style="margin-top:8px">${t.instBtn}</button>`;
+  else if(isIos())body=`<div class="mute">${t.instIos}</div>`;
+  else return '';
+  return `<div class="card" style="padding:12px"><b>${t.instT}</b>${body}</div>`;
+}
+/* warm the offline cache with the art this pet will need */
+function prefetchArt(){
+  const sp=S.pet.sp,names=['room',`egg-${sp}`,`egg-${sp}-8`];
+  for(let g=0;g<3;g++)['','-happy','-hungry','-fat','-eating','-asleep'].forEach(s=>names.push(`${sp}-${g}${s}`));
+  Object.keys(ACC).forEach(id=>names.push('wear-'+id));
+  names.forEach(n=>fetch(IMG+n+'.webp').catch(()=>{}));
+}
+function warmArt(){if(navigator.serviceWorker&&navigator.serviceWorker.controller)prefetchArt()}
+function initPWA(){
+  if(window.claude||!('serviceWorker' in navigator)||!/^https?:$/.test(location.protocol))return;
+  navigator.serviceWorker.register('sw.js').then(()=>navigator.serviceWorker.ready).then(prefetchArt).catch(()=>{});
+}
+/* ============ BOOT ============ */
+view=S.onboarded&&S.plan?'home':'welcome';
+render();
+initSync();initSample();initPWA();
+</script>
+</body>
+</html>

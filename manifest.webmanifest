@@ -1,0 +1,19 @@
+{
+  "name": "อิ่มจัง · Imjang",
+  "short_name": "อิ่มจัง",
+  "description": "เลี้ยงเพื่อนตัวน้อย ไปพร้อมกับกินดีอยู่ดี — Raise a little buddy while you eat well",
+  "lang": "th",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FFF3E6",
+  "theme_color": "#FFF3E6",
+  "categories": ["health", "lifestyle", "food"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
