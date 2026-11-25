@@ -46,7 +46,7 @@ button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
 .hero{text-align:center;padding-top:6px}
 .hero h1{font-size:44px;letter-spacing:-.5px}
 .hero p{margin:4px 0 0;color:var(--mute)}
-.grid6{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.grid6{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .pick{background:var(--surf);border:3px solid var(--line);border-radius:20px;padding:4px 2px 8px;text-align:center;box-shadow:var(--sh);font-weight:700;font-size:14px}
 .pick img{width:100%;height:auto;display:block}
 .pick.on{border-color:var(--coral);background:color-mix(in srgb,var(--coral) 12%,var(--surf))}
@@ -140,12 +140,12 @@ canvas#sign{width:100%;height:170px;background:var(--surf);border:3px dashed var
 <div id="wrap" class="wrap hidden"><div class="scrim" id="scrim"></div><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
 <script>
 /* ============ DATA ============ */
-const SP=['cat','dog','bunny','bear','fox','dragon','chick','dino'];
+const SP=['cat','dog','bunny','dragon','chick','dino'];
 const T={th:{
  app:'อิ่มจัง',tag:'เลี้ยงเพื่อนตัวน้อย ไปพร้อมกับกินดีอยู่ดี',pickPet:'เลือกเพื่อนตัวน้อยของเธอ',start:'เริ่มกันเลย',
- sp:{cat:'แมว',dog:'หมา',bunny:'กระต่าย',bear:'หมี',fox:'จิ้งจอก',dragon:'มังกร',chick:'ลูกเจี๊ยบ',dino:'ไดโนเสาร์'},
- snd:{cat:'เมี้ยว~',dog:'โฮ่ง!',bunny:'งั่มๆ',bear:'โฮก~',fox:'แงๆ~',dragon:'กร๊าว!',chick:'จิ๊บๆ',dino:'แงม!'},
- defName:{cat:'ส้มจี๊ด',dog:'ถุงทอง',bunny:'สำลี',bear:'น้ำผึ้ง',fox:'ลูกแก้ว',dragon:'มรกต',chick:'ไข่ดาว',dino:'ไดโน'},
+ sp:{cat:'แมว',dog:'หมา',bunny:'กระต่าย',dragon:'มังกร',chick:'ลูกเจี๊ยบ',dino:'ไดโนเสาร์'},
+ snd:{cat:'เมี้ยว~',dog:'โฮ่ง!',bunny:'งั่มๆ',dragon:'กร๊าว!',chick:'จิ๊บๆ',dino:'แงม!'},
+ defName:{cat:'ส้มจี๊ด',dog:'ถุงทอง',bunny:'สำลี',dragon:'มรกต',chick:'ไข่ดาว',dino:'ไดโน'},
  q:{name:'ตั้งชื่อให้ฉันหน่อยสิ!',sex:'สวัสดี! ฉันชื่อ {n} ขอถามนิดนึงนะ เธอเป็นเพศอะไร?',age:'เธออายุเท่าไหร่?',h:'ส่วนสูงเท่าไหร่?',w:'น้ำหนักตอนนี้เท่าไหร่?',gw:'น้ำหนักที่อยากไปให้ถึงล่ะ?',act:'ปกติเคลื่อนไหวมากแค่ไหน?',speed:'อยากไปเร็วแค่ไหน?'},
  sex:{m:'ชาย',f:'หญิง',o:'ไม่ระบุ'},
  act:['นั่งทำงานเป็นหลัก','เดินบ้าง ออกกำลังเบาๆ 1–3 วัน/สัปดาห์','ออกกำลังกาย 3–5 วัน/สัปดาห์','ใช้แรงหรือซ้อมหนักเกือบทุกวัน'],
@@ -167,9 +167,9 @@ const T={th:{
  pf:'×'},
 en:{
  app:'Imjang',tag:'Raise a little buddy while you eat well',pickPet:'Pick your little buddy',start:"Let's go",
- sp:{cat:'Cat',dog:'Dog',bunny:'Bunny',bear:'Bear',fox:'Fox',dragon:'Dragon',chick:'Chick',dino:'Dino'},
- snd:{cat:'Meow~',dog:'Woof!',bunny:'Nom nom',bear:'Grr~',fox:'Yip~',dragon:'Roar!',chick:'Peep!',dino:'Rawr!'},
- defName:{cat:'Mochi',dog:'Buddy',bunny:'Cotton',bear:'Honey',fox:'Ember',dragon:'Jade',chick:'Sunny',dino:'Dino'},
+ sp:{cat:'Cat',dog:'Dog',bunny:'Bunny',dragon:'Dragon',chick:'Chick',dino:'Dino'},
+ snd:{cat:'Meow~',dog:'Woof!',bunny:'Nom nom',dragon:'Roar!',chick:'Peep!',dino:'Rawr!'},
+ defName:{cat:'Mochi',dog:'Buddy',bunny:'Cotton',dragon:'Jade',chick:'Sunny',dino:'Dino'},
  q:{name:'Give me a name!',sex:"Hi! I'm {n}. Quick question — what's your sex?",age:'How old are you?',h:'How tall are you?',w:'What do you weigh now?',gw:'What weight do you want to reach?',act:'How active are you usually?',speed:'How fast do you want to go?'},
  sex:{m:'Male',f:'Female',o:'Prefer not to say'},
  act:['Mostly sitting','Light activity, 1–3 days/week','Exercise 3–5 days/week','Hard labor or training most days'],
@@ -295,7 +295,7 @@ async function initSync(){
       const r=JSON.parse(d.json);
       const remoteWins=(r.ts||0)>(S.ts||0)||(r.onboarded&&!S.onboarded);
       if(remoteWins){
-        S=Object.assign(defState(),r);rollover();
+        S=Object.assign(defState(),r);normalize();
         try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}
         if(view==='welcome'&&S.onboarded&&S.plan)view='home';
         if(view==='welcome'||view==='home')render();
@@ -320,12 +320,17 @@ function rollover(){
   if(S.lastDay&&S.lastDay!==today()&&S.lastDay!==yest())S.streak=0;
   const keep=Object.keys(S.logs).sort().slice(-14);const nl={};keep.forEach(k=>nl[k]=S.logs[k]);S.logs=nl;
 }
-const OLDSP={rabbit:'bunny',panda:'bear',mouse:'fox'};
-if(OLDSP[S.pet.sp])S.pet.sp=OLDSP[S.pet.sp];
-if(!SP.includes(S.pet.sp))S.pet.sp='cat';
-if(!Array.isArray(S.worn))S.worn=[];
-S.worn=S.worn.filter(i=>ACC[i]);S.owned=(S.owned||[]).filter(i=>ACC[i]);
-rollover();
+/* Saves from older versions (local or synced): retired pets (bear, fox, …) become the cat. */
+const OLDSP={rabbit:'bunny'};
+function normalize(){
+  if(!S.pet)S.pet={sp:'cat',name:''};
+  if(OLDSP[S.pet.sp])S.pet.sp=OLDSP[S.pet.sp];
+  if(!SP.includes(S.pet.sp))S.pet.sp='cat';
+  if(!Array.isArray(S.worn))S.worn=[];
+  S.worn=S.worn.filter(i=>ACC[i]);S.owned=(S.owned||[]).filter(i=>ACC[i]);
+  rollover();
+}
+normalize();
 const L=()=>T[S.lang];
 const esc=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const fmt=(s,o)=>s.replace(/\{(\w+)\}/g,(m,k)=>o&&o[k]!=null?o[k]:m);
