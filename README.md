@@ -2,6 +2,8 @@
 
 แอพเลี้ยงสัตว์นับแคลอรี่ (PWA ติดตั้งบนมือถือได้ ใช้งานออฟไลน์ได้)
 
+**เปิดแอป:** https://tasdsim.github.io/imjang/ — push ขึ้น `main` แล้ว GitHub Pages จะอัปเดตเองภายใน 1–2 นาที
+
 ## รันบนเครื่อง
 1. File > Open Folder เลือกโฟลเดอร์ `imjang`
 2. รัน `npx serve .` ในเทอร์มินัล (หรือใช้ Live Server) แล้วเปิด URL ที่ได้
