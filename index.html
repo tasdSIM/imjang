@@ -68,7 +68,63 @@ button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
 .macros div{border-radius:16px;padding:10px 4px;font-weight:700}
 .macros small{display:block;font-weight:500;color:var(--mute)}
 .m-p{background:color-mix(in srgb,var(--mint) 25%,var(--surf))}.m-f{background:color-mix(in srgb,var(--butter) 30%,var(--surf))}.m-c{background:color-mix(in srgb,var(--coral) 18%,var(--surf))}
-canvas#sign{width:100%;height:170px;background:var(--surf);border:3px dashed var(--line);border-radius:20px;touch-action:none;display:block}
+/* chat-style onboarding */
+.bub{position:relative;background:var(--surf);border:2px solid var(--line);border-radius:24px;padding:28px 16px 14px;box-shadow:var(--sh);margin-top:18px}
+.bub:after{content:"";position:absolute;left:calc(50% - 9px);bottom:-10px;width:18px;height:18px;background:var(--surf);border-right:2px solid var(--line);border-bottom:2px solid var(--line);transform:rotate(45deg)}
+.bub-h{position:absolute;top:-17px;left:12px;right:12px;display:flex;justify-content:space-between;align-items:center;gap:8px;pointer-events:none}
+.tag,.ans{border-radius:999px;padding:4px 14px;border:3px solid var(--surf);font:700 15px 'Mali','Noto Sans Thai',sans-serif;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 2px 0 rgba(0,0,0,.08)}
+.tag{background:var(--coral);max-width:58%}
+.ans{background:var(--mint-d);max-width:48%}
+.bt{margin:0 0 12px;font-size:18px;font-weight:500;line-height:1.5}
+.bub .opts{gap:8px}
+.bub .opt{box-shadow:none;border-width:2px;background:color-mix(in srgb,var(--mint) 12%,var(--surf));min-height:50px;font-size:17px}
+.nx{display:flex;justify-content:flex-end}
+.scene{aspect-ratio:900/520;margin-top:4px;cursor:default}
+.scene .roombg{object-position:50% 70%}
+.scene .petbox{width:44%;bottom:3%}
+.wheelw{position:relative;height:144px}
+.wheelw:before{content:"";position:absolute;left:0;right:0;top:48px;height:48px;border-radius:14px;background:var(--line);opacity:.7}
+.wheel{position:relative;height:144px;overflow-y:auto;scroll-snap-type:y mandatory;padding:48px 0;scrollbar-width:none;overscroll-behavior:contain;-webkit-mask-image:linear-gradient(transparent,#000 28%,#000 72%,transparent);mask-image:linear-gradient(transparent,#000 28%,#000 72%,transparent);border-radius:14px}
+.wheel::-webkit-scrollbar{display:none}
+.wheel:focus-visible{outline:3px solid var(--mint-d)}
+.wi{height:48px;scroll-snap-align:center;display:flex;align-items:center;justify-content:center;gap:6px;font:700 22px 'Mali',sans-serif;color:var(--mute);cursor:pointer;user-select:none}
+.wi small{font-size:14px;font-weight:500}
+.wi.on{color:var(--ink);font-size:27px}
+.hw{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:center}
+.bar2{display:flex;height:30px;border-radius:999px;background:var(--line);overflow:hidden;margin-bottom:8px}
+.bar2 i{display:flex;align-items:center;justify-content:center;font:700 13px 'Noto Sans Thai',sans-serif;font-style:normal;color:#fff;white-space:nowrap;overflow:hidden;min-width:0}
+.def{background:repeating-linear-gradient(45deg,color-mix(in srgb,var(--coral) 28%,var(--surf)) 0 6px,var(--surf) 6px 12px);color:var(--coral-d)!important}
+.legend{display:flex;gap:14px;font-size:13px;color:var(--mute);margin-bottom:10px}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:4px;display:inline-block}
+/* intro, rings, plan */
+.segs{display:flex;gap:6px;flex:1;margin-right:12px}
+.segs i{flex:1;height:6px;border-radius:9px;background:var(--line)}
+.segs i.on{background:var(--coral)}
+.iv{position:relative;display:grid;place-items:center;min-height:300px}
+.ifoods span{position:absolute;font-size:34px;animation:fl 3.2s ease-in-out infinite}
+.ifoods span:nth-child(1){left:6%;top:2%}.ifoods span:nth-child(2){right:8%;top:6%;animation-delay:-.6s}.ifoods span:nth-child(3){left:42%;top:-2%;animation-delay:-1.2s}
+.ifoods span:nth-child(4){left:10%;bottom:0;animation-delay:-1.8s}.ifoods span:nth-child(5){right:12%;bottom:4%;animation-delay:-2.4s}.ifoods span:nth-child(6){left:46%;bottom:-4%;animation-delay:-3s}
+@keyframes fl{50%{transform:translateY(-10px) rotate(6deg)}}
+.icard{position:relative;z-index:1;width:100%;max-width:360px;background:var(--surf);border:2px solid var(--line);border-radius:22px;box-shadow:var(--sh);padding:14px;display:flex;align-items:center;gap:12px}
+.icard.col{flex-direction:column;gap:14px}
+.pill{border-radius:999px;padding:2px 8px;font-size:12px;font-weight:700}
+.stage.mini{width:100%;max-width:360px}
+.ring{width:116px;aspect-ratio:1;border-radius:50%;flex:none;display:grid;place-items:center;background:conic-gradient(var(--mint) calc(var(--p,0)*1%),var(--line) 0)}
+.ring>div{width:calc(100% - 22px);aspect-ratio:1;border-radius:50%;background:var(--surf);display:grid;place-content:center;text-align:center;line-height:1.15}
+.ring b{font-size:22px}.ring small{color:var(--mute);font-size:11px}
+.ring.ring-s{width:92px}.ring.ring-s b{font-size:17px}
+.card.plan h2{font-size:22px}
+.eq{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;text-align:center;background:var(--bg);border-radius:16px;padding:10px 4px;gap:2px}
+.eq.one{grid-template-columns:1fr}
+.eq b{font:700 20px 'Mali',sans-serif;display:block}
+.eq small{color:var(--mute);font-size:12px}
+.eq .op{color:var(--mute);font:700 20px 'Mali',sans-serif}
+.way{margin-top:14px}
+.wbar{position:relative;height:12px;border-radius:99px;background:linear-gradient(90deg,var(--line),var(--mint));margin:16px 0 10px}
+.wbar span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--surf);border:2px solid var(--line);border-radius:999px;padding:2px 12px;font-weight:700;font-size:13px;white-space:nowrap}
+.evnote{margin-top:10px;padding:8px 12px;border-radius:14px;background:color-mix(in srgb,var(--butter) 25%,var(--surf));font-weight:500;font-size:14px}
+canvas#trace{width:100%;height:220px;background:var(--bg);border:2px dashed var(--line);border-radius:20px;touch-action:none;display:block}
 /* home */
 .stage{position:relative;border-radius:28px;border:2px solid var(--line);box-shadow:var(--sh);overflow:hidden;aspect-ratio:900/738;background:#EBCB9C}
 .roombg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -146,7 +202,45 @@ const T={th:{
  sp:{cat:'แมว',dog:'หมา',bunny:'กระต่าย',dragon:'มังกร',chick:'ลูกเจี๊ยบ',dino:'ไดโนเสาร์'},
  snd:{cat:'เมี้ยว~',dog:'โฮ่ง!',bunny:'งั่มๆ',dragon:'กร๊าว!',chick:'จิ๊บๆ',dino:'แงม!'},
  defName:{cat:'ส้มจี๊ด',dog:'ถุงทอง',bunny:'สำลี',dragon:'มรกต',chick:'ไข่ดาว',dino:'ไดโน'},
- q:{name:'ตั้งชื่อให้ฉันหน่อยสิ!',sex:'สวัสดี! ฉันชื่อ {n} ขอถามนิดนึงนะ เธอเป็นเพศอะไร?',age:'เธออายุเท่าไหร่?',h:'ส่วนสูงเท่าไหร่?',w:'น้ำหนักตอนนี้เท่าไหร่?',gw:'น้ำหนักที่อยากไปให้ถึงล่ะ?',act:'ปกติเคลื่อนไหวมากแค่ไหน?',speed:'อยากไปเร็วแค่ไหน?'},
+ ob:{
+  next:'ต่อไป',skip:'ข้าม',progress:'ความคืบหน้า',
+  i1t:'บันทึกมื้อง่ายๆ',i1s:'เลือกจากเมนูไทยกว่า 40 อย่าง หรือกรอกเองก็ได้',
+  i2t:'เราคำนวณให้',i2s:'แคลอรี่และสารอาหารที่พอดีกับตัวเธอ',
+  i3t:'เพื่อนตัวน้อย โตไปกับทุกมื้อ',i3s:'กินดี เพื่อนก็มีความสุข',
+  hatched:'ฟักออกมาแล้ว!',
+  hello:'สวัสดี! ฉันคือ{sp}ตัวน้อยที่เพิ่งฟักออกมา ตั้งชื่อให้ฉันหน่อยสิ',nameOk:'ชื่อนี้แหละ',
+  intro:'{n}! ชอบชื่อนี้จัง ขอถามสั้นๆ ไม่กี่ข้อ แล้วฉันจะบอกว่าวันนึงเธอควรกินเท่าไหร่',
+  introRedo:'มาคำนวณแผนกันใหม่นะ ตอบสั้นๆ ไม่กี่ข้อเอง',
+  goal:'เป้าหมายของเราคืออะไรดี?',
+  goals:{lose:'🔥 ลดน้ำหนัก',keep:'⚖️ รักษาน้ำหนัก',gain:'💪 เพิ่มน้ำหนัก'},
+  goalR:{lose:'ลดน้ำหนัก โอเค! เดี๋ยวฉันคำนวณให้ว่าต้องกินเท่าไหร่ถึงจะไปถึง',keep:'รักษาน้ำหนักไว้ เยี่ยมเลย ฉันจะช่วยดูให้กินพอดีทุกวัน',gain:'เพิ่มน้ำหนัก ได้เลย! ฉันจะช่วยดูให้เธอกินพอ'},
+  sex:'เธอเป็นเพศอะไร? ฉันใช้แค่คำนวณพลังงานเท่านั้นนะ',sexE:{f:'👩',m:'👨',o:'✨'},
+  age:'เธออายุเท่าไหร่?',ageOk:'ใช่เลย',
+  ageR:['วัยกำลังไฟแรง! ไปด้วยกันเลย','วัยทำงานยุ่งๆ ฉันจะทำให้มันง่ายที่สุด','วัยที่มีวินัยที่สุด ฉันชอบ!','ประสบการณ์เพียบ ค่อยๆ ไปด้วยกันนะ'],
+  hw:'ส่วนสูงกับน้ำหนักตอนนี้ล่ะ? ไม่บอกใครหรอก',hwOk:'บันทึกเลย',h:'ส่วนสูง',w:'น้ำหนัก',
+  bmr:'รู้ไหม ร่างกายเธอใช้พลังงานราว {x} kcal ต่อวัน แค่หายใจและมีชีวิตอยู่ ยังไม่ทันขยับตัวเลย',bmrL:'ร่างกายใช้ตอนพัก',
+  gw:'น้ำหนักที่อยากไปให้ถึงคือเท่าไหร่?',gwOk:'เอาตัวนี้',
+  gwLow:'น้ำหนักตอนนี้อยู่ในเกณฑ์ดีแล้ว ลดต่ออาจไม่ปลอดภัย ลองรักษาน้ำหนักไว้แทนนะ',gwKeep:'เปลี่ยนเป็นรักษาน้ำหนัก',
+  act:'ปกติเธอขยับตัวมากแค่ไหน?',actE:['🪑','🚶','🏃','🏋️'],
+  tdee:'รวมการขยับตัวแล้ว ร่างกายเธอใช้ราว {x} kcal ต่อวัน',rest:'ตอนพัก',move:'ขยับตัว',
+  speed:'ข้อสุดท้าย! อยากไปถึงเป้าเร็วแค่ไหน?',spdE:['🐢','🐇','🚀'],
+  gap:{lose:'ถ้ากินน้อยกว่าที่ใช้นิดหน่อยทุกวัน ส่วนต่างนี้เรียกว่า "แคลอรี่ขาดดุล" น้ำหนักจะค่อยๆ ลดลงเอง',gain:'ถ้ากินมากกว่าที่ใช้นิดหน่อยทุกวัน น้ำหนักจะค่อยๆ เพิ่มขึ้นอย่างพอดี',keep:'กินให้พอดีกับที่ใช้ น้ำหนักก็จะอยู่ตัว'},
+  use:'ใช้',eat:'กิน',deficit:'ขาดดุล',surplus:'เกินดุล',
+  event:'มีวันสำคัญที่อยากไปให้ถึงไหม?',
+  events:{wed:'💍 งานแต่ง',trip:'✈️ ทริปเที่ยว',sport:'🏅 แข่งกีฬา',big:'🎉 งานสำคัญอื่นๆ',none:'🤷 ยังไม่มี'},
+  evDate:'วันไหนเอ่ย?',evSkip:'ยังไม่แน่ใจ',evOk:'จดไว้เลย',
+  evR:'{e} นั่นคือเส้นชัยของเรา!',evRd:'{e} อีก {d} วัน นั่นคือเส้นชัยของเรา!',evNone:'ไม่เป็นไร ทุกวันที่กินดีก็คือชัยชนะเล็กๆ แล้ว',
+  planT:'แผนของเธอ',planBy:'จาก{n}',eatAbout:'ควรกินราว',perDay:'kcal ต่อวัน',
+  eqUse:'ร่างกายใช้',eqEat:'กินได้',today:'วันนี้',by:'ราว {d}',
+  rate:{lose:'ลด {r} กก./สัปดาห์',gain:'เพิ่ม {r} กก./สัปดาห์'},
+  evIn:'ทันก่อนวัน{e} 🎉',evLate:'ช้ากว่าวัน{e}ราว {w} สัปดาห์ ไม่ต้องรีบ ค่อยๆ ไปปลอดภัยกว่า',
+  formula:'คำนวณด้วยสูตร Mifflin-St Jeor',
+  tut1:'มาลองป้อนฉันดู! กด "ป้อน" ให้ครบ 3 มื้อ',tut2:'อิ่มพอดีเป้า หัวใจเต็ม 3 ดวงเลย!',
+  tut3:'แต่ถ้ากินเกินเป้าไปเยอะ ฉันจะกลายเป็น… แบบนี้',
+  tut4:'ไม่ต้องกังวลนะ วันใหม่เริ่มใหม่ได้เสมอ บันทึกให้ครบสำคัญกว่ากินให้เป๊ะ',
+  tutBtn:'ป้อน 🍚',tutMeal:'มื้อ',
+  pT:'สัญญากับ{n}นะ',pText:'ฉันจะบันทึกทุกมื้อ และดูแล{n}ไปด้วยกัน',pHint:'ลากนิ้วตามรอยหัวใจ',pDone:'เรียบร้อย!',
+  firstMeal:'ไปหามื้อแรกกัน! กด "ให้อาหาร" ข้างล่างได้เลย'},
  sex:{m:'ชาย',f:'หญิง',o:'ไม่ระบุ'},
  act:['นั่งทำงานเป็นหลัก','เดินบ้าง ออกกำลังเบาๆ 1–3 วัน/สัปดาห์','ออกกำลังกาย 3–5 วัน/สัปดาห์','ใช้แรงหรือซ้อมหนักเกือบทุกวัน'],
  spd:['ค่อยเป็นค่อยไป (0.25 กก./สัปดาห์)','พอดีๆ (0.5 กก./สัปดาห์)','จริงจัง (0.75 กก./สัปดาห์)'],
@@ -170,7 +264,45 @@ en:{
  sp:{cat:'Cat',dog:'Dog',bunny:'Bunny',dragon:'Dragon',chick:'Chick',dino:'Dino'},
  snd:{cat:'Meow~',dog:'Woof!',bunny:'Nom nom',dragon:'Roar!',chick:'Peep!',dino:'Rawr!'},
  defName:{cat:'Mochi',dog:'Buddy',bunny:'Cotton',dragon:'Jade',chick:'Sunny',dino:'Dino'},
- q:{name:'Give me a name!',sex:"Hi! I'm {n}. Quick question — what's your sex?",age:'How old are you?',h:'How tall are you?',w:'What do you weigh now?',gw:'What weight do you want to reach?',act:'How active are you usually?',speed:'How fast do you want to go?'},
+ ob:{
+  next:'Next',skip:'Skip',progress:'Progress',
+  i1t:'Logging made easy',i1s:'Pick from 40+ Thai dishes, or type your own',
+  i2t:'We do the math',i2s:'Calories and macros that fit you',
+  i3t:'A little buddy that grows with every meal',i3s:'Eat well, and your buddy is happy',
+  hatched:'It hatched!',
+  hello:"Hi! I'm a little {sp} who just hatched. Will you give me a name?",nameOk:"That's my name",
+  intro:"{n}! I love it. A few quick questions, then I'll tell you how much to eat each day.",
+  introRedo:"Let's work out your plan again. Just a few quick questions.",
+  goal:'What are we working on?',
+  goals:{lose:'🔥 Lose weight',keep:'⚖️ Maintain',gain:'💪 Gain weight'},
+  goalR:{lose:"Lose it. Okay! I'll work out how much to eat to get there.",keep:"Keep it steady. Great, I'll help you eat just right each day.",gain:"Gain some. Sure! I'll help make sure you eat enough."},
+  sex:"What's your sex? I only use it to estimate energy.",sexE:{f:'👩',m:'👨',o:'✨'},
+  age:'How old are you?',ageOk:"That's me",
+  ageR:['Full of energy! Let\'s go.',"Busy working years. I'll keep it simple.",'The most disciplined age. I like it!',"Lots of experience. We'll take it steady together."],
+  hw:"Your height and weight now? I won't tell.",hwOk:'Lock it in',h:'Height',w:'Weight',
+  bmr:'Did you know? Your body uses about {x} kcal a day just breathing and being alive, before you move at all.',bmrL:'Used at rest',
+  gw:'What weight do you want to reach?',gwOk:"That's the one",
+  gwLow:'Your weight is already in a healthy range. Losing more may not be safe, so try maintaining instead.',gwKeep:'Switch to maintain',
+  act:'How much do you usually move?',actE:['🪑','🚶','🏃','🏋️'],
+  tdee:'With your movement, your body uses about {x} kcal a day.',rest:'At rest',move:'Moving',
+  speed:'Last one! How fast do you want to reach your goal?',spdE:['🐢','🐇','🚀'],
+  gap:{lose:'Eat a little less than you use every day. That gap is a "calorie deficit", and your weight slowly comes down.',gain:'Eat a little more than you use every day, and your weight slowly goes up.',keep:'Eat about what you use, and your weight stays steady.'},
+  use:'Use',eat:'Eat',deficit:'Deficit',surplus:'Surplus',
+  event:'Is there a date you are working toward?',
+  events:{wed:'💍 Wedding',trip:'✈️ Trip',sport:'🏅 Sport event',big:'🎉 Another big day',none:'🤷 Nothing yet'},
+  evDate:'When is it?',evSkip:'Not sure yet',evOk:'Save the date',
+  evR:"{e}. That's our finish line!",evRd:"{e}, {d} days away. That's our finish line!",evNone:'No problem. Every day you eat well is a small win.',
+  planT:'Your plan',planBy:'from {n}',eatAbout:'Eat about',perDay:'kcal a day',
+  eqUse:'You use',eqEat:'You eat',today:'today',by:'around {d}',
+  rate:{lose:'lose {r} kg a week',gain:'gain {r} kg a week'},
+  evIn:'Ready before your {e} 🎉',evLate:'About {w} weeks after your {e}. No rush, slow and steady is safer.',
+  formula:'Based on the Mifflin-St Jeor equation',
+  tut1:'Try feeding me! Tap "Feed" for 3 meals.',tut2:'Right on target. All 3 hearts full!',
+  tut3:'But if you eat way over target, I get… like this.',
+  tut4:"Don't worry, every new day is a fresh start. Logging every meal matters more than being exact.",
+  tutBtn:'Feed 🍚',tutMeal:'Meals',
+  pT:'Promise {n}',pText:"I'll log every meal and look after {n} together.",pHint:'Trace the heart with your finger',pDone:'Done!',
+  firstMeal:'Let\'s find our first meal! Tap "Feed" below.'},
  sex:{m:'Male',f:'Female',o:'Prefer not to say'},
  act:['Mostly sitting','Light activity, 1–3 days/week','Exercise 3–5 days/week','Hard labor or training most days'],
  spd:['Slow & steady (0.25 kg/week)','Balanced (0.5 kg/week)','Committed (0.75 kg/week)'],
@@ -238,9 +370,10 @@ const FOODS=[
 /* ============ PLAN (pure) ============ */
 /*PLAN*/
 const ACTF=[1.2,1.375,1.55,1.725],SPD=[0.25,0.5,0.75];
+/* Mifflin-St Jeor resting energy (kcal/day). */
+function bmrOf(p){const adj=p.sex==='m'?5:p.sex==='f'?-161:-78;return 10*p.w+6.25*p.h-5*p.age+adj}
 function calcPlan(p){
-  const adj=p.sex==='m'?5:p.sex==='f'?-161:-78;
-  const bmr=10*p.w+6.25*p.h-5*p.age+adj;
+  const bmr=bmrOf(p);
   const tdee=bmr*ACTF[p.act];
   const floor=p.sex==='m'?1500:1200;
   const diff=p.gw-p.w;
@@ -262,7 +395,7 @@ function calcPlan(p){
   const weeks=rate>0.05?Math.ceil(Math.abs(diff)/rate):0;
   const pg=Math.round(1.6*p.w),fg=Math.round(target*0.25/9);
   const cg=Math.max(0,Math.round((target-pg*4-fg*9)/4));
-  return{tdee:Math.round(tdee/10)*10,target,dir,capped,weeks,p:pg,f:fg,c:cg};
+  return{bmr:Math.round(bmr/10)*10,tdee:Math.round(tdee/10)*10,target,dir,capped,weeks,rate:Math.round(rate*100)/100,p:pg,f:fg,c:cg};
 }
 /*ENDPLAN*/
 /* ============ SVG ANIMALS ============ */
@@ -297,8 +430,8 @@ async function initSync(){
       if(remoteWins){
         S=Object.assign(defState(),r);normalize();
         try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}
-        if(view==='welcome'&&S.onboarded&&S.plan)view='home';
-        if(view==='welcome'||view==='home')render();
+        if((view==='welcome'||view==='intro')&&S.onboarded&&S.plan)view='home';
+        if(view==='welcome'||view==='intro'||view==='home')render();
       }else if((S.ts||0)>(r.ts||0))pushNow();
     }else if(S.onboarded)pushNow();
   }catch(e){syncSt='err'}
@@ -366,7 +499,8 @@ let view='welcome',ob=null,pledged=false;
 function go(v){view=v;render()}
 function render(){
   document.documentElement.lang=S.lang;
-  ({welcome:rWelcome,onb:rOnb,plan:rPlan,pledge:rPledge,hatch:rHatch,home:rHome})[view]();
+  ({intro:rIntro,welcome:rWelcome,hatch:rHatch,onb:rOnb,plan:rPlan,tut:rTut,pledge:rPledge,home:rHome})[view]();
+  window.scrollTo(0,0);
 }
 function langSw(){return `<div class="lang" role="group" aria-label="Language"><button class="${S.lang==='th'?'on':''}" data-l="th">ไทย</button><button class="${S.lang==='en'?'on':''}" data-l="en">EN</button></div>`}
 function bindLang(){app.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{S.lang=b.dataset.l;save();render()})}
@@ -381,99 +515,252 @@ function rWelcome(){
   <button class="btn block" id="go">${t.start}</button>`;
   bindLang();
   app.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{S.pet.sp=b.dataset.s;save();rWelcome()});
-  $('#go').onclick=()=>{ob={i:0,d:{}};if(S.prof)Object.assign(ob.d,S.prof);if(S.pet.name)ob.d.name=S.pet.name;go('onb')};
+  $('#go').onclick=()=>go('hatch');
 }
-/* ---- onboarding ---- */
-const NUM={age:[18,90],h:[120,220],w:[30,250],gw:[30,250]};
+/* ---- intro: three slides before choosing a pet ---- */
+let introI=0;
+function rIntro(){
+  const t=L(),o=t.ob,sp=S.pet.sp,f=FOODS.find(x=>x[0]==='kapao');
+  const slides=[
+   [o.i1t,o.i1s,`<div class="iv"><div class="ifoods" aria-hidden="true">${['🍚','🍜','🥗','🍳','🧋','🍌'].map(e=>`<span>${e}</span>`).join('')}</div>
+     <div class="icard"><span style="font-size:34px">${f[1]}</span><div class="sp"><b>${esc(S.lang==='th'?f[2]:f[3])}</b>
+     <div class="row" style="gap:6px;margin-top:6px;flex-wrap:wrap"><span class="pill m-p">${t.pro} ${f[5]}${t.g}</span><span class="pill m-f">${t.fat} ${f[6]}${t.g}</span><span class="pill m-c">${t.carb} ${f[7]}${t.g}</span></div></div>
+     <b class="fd" style="font-size:24px;text-align:right">${f[4]}<small class="mute" style="display:block;font-size:12px">kcal</small></b></div></div>`],
+   [o.i2t,o.i2s,`<div class="iv"><div class="icard col"><div class="ring" style="--p:62"><div><b class="fd">900</b><small>/ 1,450 kcal</small></div></div>
+     <div style="width:100%;display:grid;gap:8px">${[['pro','mint',70],['fat','butter',45],['carb','coral',60]].map(([k,c,p])=>`<div class="mrow" style="grid-template-columns:64px 1fr"><span>${t[k]}</span><div class="meter"><i style="width:${p}%;background:var(--${c})"></i></div></div>`).join('')}</div></div></div>`],
+   [o.i3t,o.i3s,`<div class="iv"><div class="stage mini"><img class="roombg" src="${IMG}room.webp" alt="" width="900" height="738"><div class="hearts">${[1,2,3].map(()=>heart(1)).join('')}</div><div class="petbox">${pimg(sp,'-happy',1,t.sp[sp])}</div></div></div>`]
+  ];
+  const s=slides[introI],last=introI===slides.length-1;
+  app.innerHTML=`<div class="top"><div class="segs" aria-hidden="true">${slides.map((_,i)=>`<i class="${i<=introI?'on':''}"></i>`).join('')}</div>${langSw()}</div>
+  <div class="hero" style="text-align:left"><h1 class="fd" style="font-size:32px;line-height:1.2">${s[0]}</h1><p>${s[1]}</p></div>
+  ${s[2]}<div class="sp"></div>
+  <button class="btn block" id="nx">${last?t.start:o.next}</button>
+  ${last?'':`<button class="mute" id="sk" style="min-height:44px">${o.skip}</button>`}`;
+  bindLang();
+  const done=()=>{S.introSeen=true;save();go('welcome')};
+  $('#nx').onclick=()=>{if(last)done();else{introI++;rIntro()}};
+  if($('#sk'))$('#sk').onclick=done;
+}
+/* ---- wheel picker (scroll-snap list) ---- */
+const ROW=48;
+const span=(a,b)=>{const r=[];for(let v=a;v<=b;v++)r.push(v);return r};
+function wheel(id,vals,cur,unit,label){
+  let i=vals.indexOf(cur);if(i<0)i=Math.floor(vals.length/2);
+  return `<div class="wheelw"><div class="wheel" id="${id}" tabindex="0" role="spinbutton" aria-label="${esc(label)}" aria-valuenow="${vals[i]}" data-i="${i}">${vals.map((v,k)=>`<div class="wi${k===i?' on':''}" data-k="${k}">${v}<small>${unit}</small></div>`).join('')}</div></div>`;
+}
+function bindWheel(id,vals,onChange){
+  const el=$('#'+id),items=el.querySelectorAll('.wi');
+  let i=+el.dataset.i;el.scrollTop=i*ROW;
+  const set=k=>{k=Math.max(0,Math.min(vals.length-1,k));if(k===i)return;items[i].classList.remove('on');i=k;items[i].classList.add('on');el.setAttribute('aria-valuenow',vals[i]);if(onChange)onChange(vals[i])};
+  el.addEventListener('scroll',()=>set(Math.round(el.scrollTop/ROW)),{passive:true});
+  el.onkeydown=e=>{const d={ArrowUp:-1,ArrowDown:1,PageUp:-5,PageDown:5}[e.key];if(d){e.preventDefault();el.scrollTo({top:Math.max(0,i+d)*ROW,behavior:'smooth'})}};
+  items.forEach(it=>it.onclick=()=>el.scrollTo({top:+it.dataset.k*ROW,behavior:'smooth'}));
+  return()=>vals[i];
+}
+/* ---- a speech bubble from the pet, over its room ---- */
+const PAW='🐾';
+function bubble(n,chip,text,body){
+  return `<div class="bub"><div class="bub-h"><span class="tag">${PAW} ${n}</span>${chip?`<span class="ans">${chip}</span>`:''}</div><p class="bt">${text}</p>${body||''}</div>`;
+}
+function petScene(pose,stg,extra){
+  const t=L();
+  return `<div class="stage scene" id="scn"><img class="roombg" src="${IMG}room.webp" alt="" width="900" height="738">${extra||''}<div class="petbox" id="pet">${pimg(S.pet.sp,pose,stg,t.sp[S.pet.sp])}</div></div>`;
+}
+const nextBtn=t=>`<div class="nx"><button class="btn mint sm" id="nx">${t.ob.next} ›</button></div>`;
+/* An event name for use inside a sentence: no emoji, lower case in English. */
+const noEmoji=s=>{s=s.replace(/^\S+\s/,'');return S.lang==='en'?s.toLowerCase():s};
+/* ---- onboarding: a short chat with the pet ---- */
+function startOb(){
+  ob={i:0,d:Object.assign({},S.prof||{})};
+  if(S.pet.name)ob.d.name=S.pet.name;
+  const d=ob.d;
+  if(S.prof&&!d.goal)d.goal=d.gw<d.w-0.5?'lose':d.gw>d.w+0.5?'gain':'keep';
+}
+function profOf(d){
+  const keep=d.goal==='keep';
+  return{sex:d.sex||'o',age:d.age||30,h:d.h||160,w:d.w||60,gw:keep?(d.w||60):(d.gw!=null?d.gw:(d.w||60)),act:d.act!=null?d.act:0,sp:keep?1:(d.sp!=null?d.sp:1)};
+}
+const bmiFloor=h=>Math.ceil(18.5*(h/100)**2);
 function steps(){
-  const s=S.onboarded?[]:['name'];
-  s.push('sex','age','h','w','gw','act');
-  const d=ob.d;if(d.gw!=null&&d.w!=null&&Math.abs(d.gw-d.w)<0.5){}else s.push('speed');
+  const d=ob.d,s=[];
+  if(!S.onboarded)s.push('name');
+  s.push('intro','goal','goalR','sex','age','ageR','hw','bmr');
+  if(d.goal!=='keep')s.push('gw');
+  s.push('act','tdee');
+  if(d.goal!=='keep')s.push('speed');
+  s.push('gap','event');
+  if(d.ev&&d.ev!=='none')s.push('evDate');
+  s.push('evR');
   return s;
 }
 function rOnb(){
-  const t=L(),st=steps(),k=st[ob.i],name=ob.d.name||S.pet.name||t.defName[S.pet.sp];
-  const total=8,pct=Math.round((ob.i)/total*100);
-  let body='';
-  if(k==='name')body=`<input class="inp" id="in" maxlength="12" value="${esc(ob.d.name||t.defName[S.pet.sp])}" aria-label="${t.q.name}"><div class="err" id="er"></div><button class="btn block" id="ok">${t.ok}</button>`;
-  else if(k==='sex')body=`<div class="opts">${['m','f','o'].map(x=>`<button class="opt" data-v="${x}">${t.sex[x]}</button>`).join('')}</div>`;
-  else if(k==='act')body=`<div class="opts">${t.act.map((x,i)=>`<button class="opt" data-v="${i}">${x}</button>`).join('')}</div>`;
-  else if(k==='speed')body=`<div class="opts">${t.spd.map((x,i)=>`<button class="opt" data-v="${i}">${x}</button>`).join('')}</div>`;
-  else body=`<div class="row"><input class="inp" id="in" type="number" inputmode="decimal" value="${ob.d[k]!=null?ob.d[k]:''}" aria-label="${t.q[k]}"><b style="min-width:42px">${t.u[k]}</b></div><div class="err" id="er"></div><button class="btn block" id="ok">${t.ok}</button>`;
-  app.innerHTML=`<div class="top"><button class="ibtn" id="bk" aria-label="${t.back}">${I('back')}</button>${langSw()}</div>
-  <div class="prog" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><i style="width:${pct}%"></i></div>
-  <div class="ob-pet">${pimg(S.pet.sp,'-happy',0,t.sp[S.pet.sp])}</div>
-  <div class="bubble">${esc(fmt(t.q[k],{n:name}))}</div>
-  <div style="height:6px"></div>${body}`;
+  const t=L(),o=t.ob,st=steps(),k=st[ob.i],d=ob.d,sp=S.pet.sp;
+  const n=esc(d.name||S.pet.name||t.defName[sp]);
+  const pct=Math.round(ob.i/st.length*100),stg=S.onboarded?stage():0;
+  const p=profOf(d),r10=x=>Math.round(x/10)*10,kg=t.u.w;
+  let text='',body='',chip='',pose='-happy',get=null;
+  const choices=list=>`<div class="opts">${list.map(([v,l])=>`<button class="opt" data-v="${v}">${l}</button>`).join('')}</div>`;
+  if(k==='name'){
+    text=fmt(o.hello,{sp:t.sp[sp]});
+    body=`<input class="inp" id="in" maxlength="12" value="${esc(d.name||t.defName[sp])}" aria-label="${esc(o.nameOk)}" style="margin-bottom:10px"><button class="btn block" id="ok">${o.nameOk}</button>`;
+  }else if(k==='intro'){text=S.onboarded?o.introRedo:fmt(o.intro,{n});body=nextBtn(t)}
+  else if(k==='goal'){pose='';text=o.goal;body=choices(['lose','keep','gain'].map(v=>[v,o.goals[v]]))}
+  else if(k==='goalR'){chip=o.goals[d.goal];text=o.goalR[d.goal];body=nextBtn(t)}
+  else if(k==='sex'){pose='';text=o.sex;body=choices(['f','m','o'].map(v=>[v,o.sexE[v]+' '+t.sex[v]]))}
+  else if(k==='age'){pose='';text=o.age;body=wheel('wa',span(18,90),d.age||30,'',o.age)+`<button class="btn block" id="ok" style="margin-top:10px">${o.ageOk}</button>`}
+  else if(k==='ageR'){const a=d.age;chip=`${a} ${t.u.age}`;text=o.ageR[a<25?0:a<40?1:a<60?2:3];body=nextBtn(t)}
+  else if(k==='hw'){pose='';text=o.hw;
+    body=`<div class="hw"><div><div class="mute">${o.h}</div>${wheel('wh',span(120,220),d.h||(d.sex==='m'?170:160),' '+t.u.h,o.h)}</div><div><div class="mute">${o.w}</div>${wheel('ww',span(30,250),Math.round(d.w||60),' '+kg,o.w)}</div></div><button class="btn block" id="ok" style="margin-top:10px">${o.hwOk}</button>`}
+  else if(k==='bmr'){const x=r10(bmrOf(p));chip=`${x.toLocaleString()} kcal`;text=fmt(o.bmr,{x:x.toLocaleString()});
+    body=`<div class="bar2"><i style="width:100%;background:var(--mint)">${o.bmrL}</i></div>${nextBtn(t)}`}
+  else if(k==='gw'){
+    const w=Math.round(d.w),lo=d.goal==='gain'?w+1:Math.max(30,bmiFloor(d.h)),hi=d.goal==='gain'?Math.min(250,w+40):w-1;
+    if(lo>hi){pose='-sad';text=o.gwLow;body=`<button class="btn block" id="keep">${o.gwKeep}</button>`}
+    else{pose='';text=o.gw;const vals=span(lo,hi);let cur=d.gw!=null?Math.round(d.gw):(d.goal==='gain'?w+3:w-5);cur=Math.max(lo,Math.min(hi,cur));
+      const df=v=>`${v>w?'+':'−'}${Math.abs(v-w)} ${kg}`;chip=`<span id="dchip">${df(cur)}</span>`;
+      body=wheel('wg',vals,cur,' '+kg,o.gw)+`<button class="btn block" id="ok" style="margin-top:10px">${o.gwOk}</button>`;
+      get=()=>bindWheel('wg',vals,v=>{$('#dchip').textContent=df(v)})}
+  }
+  else if(k==='act'){pose='';text=o.act;body=choices(t.act.map((x,i)=>[i,o.actE[i]+' '+x]))}
+  else if(k==='tdee'){const pl=calcPlan(p),b=r10(bmrOf(p)),ex=Math.max(0,pl.tdee-b);chip=`${pl.tdee.toLocaleString()} kcal`;text=fmt(o.tdee,{x:pl.tdee.toLocaleString()});
+    body=`<div class="bar2"><i style="width:${b/pl.tdee*100}%;background:var(--mint)">${o.rest} ${b.toLocaleString()}</i><i style="width:${ex/pl.tdee*100}%;background:var(--butter);color:var(--ink)">${ex?'+'+ex.toLocaleString():''}</i></div><div class="legend"><span><i style="background:var(--mint)"></i>${o.rest}</span><span><i style="background:var(--butter)"></i>${o.move}</span></div>${nextBtn(t)}`}
+  else if(k==='speed'){pose='';text=o.speed;body=choices(t.spd.map((x,i)=>[i,o.spdE[i]+' '+x]))}
+  else if(k==='gap'){const pl=calcPlan(p),g=d.goal||'keep',dd=Math.abs(pl.tdee-pl.target);chip=`${pl.target.toLocaleString()} kcal`;text=o.gap[pl.dir<0?'lose':pl.dir>0?'gain':'keep'];
+    let bar;
+    if(pl.dir<0)bar=`<div class="row mute" style="margin-bottom:6px"><span class="sp">${o.use}</span><b style="color:var(--ink)">${pl.tdee.toLocaleString()} kcal</b></div><div class="bar2"><i style="width:${pl.target/pl.tdee*100}%;background:var(--mint)">${o.eat} ${pl.target.toLocaleString()}</i><i class="def" style="width:${dd/pl.tdee*100}%">−${dd}</i></div><div class="legend"><span><i style="background:var(--mint)"></i>${o.eat}</span><span><i class="def"></i>${o.deficit}</span></div>`;
+    else if(pl.dir>0)bar=`<div class="row mute" style="margin-bottom:6px"><span class="sp">${o.eat}</span><b style="color:var(--ink)">${pl.target.toLocaleString()} kcal</b></div><div class="bar2"><i style="width:${pl.tdee/pl.target*100}%;background:var(--mint)">${o.use} ${pl.tdee.toLocaleString()}</i><i style="width:${dd/pl.target*100}%;background:var(--butter);color:var(--ink)">+${dd}</i></div><div class="legend"><span><i style="background:var(--mint)"></i>${o.use}</span><span><i style="background:var(--butter)"></i>${o.surplus}</span></div>`;
+    else bar=`<div class="bar2"><i style="width:100%;background:var(--mint)">${o.eat} = ${o.use} ${pl.tdee.toLocaleString()}</i></div>`;
+    body=bar+nextBtn(t)}
+  else if(k==='event'){pose='';text=o.event;body=choices(Object.keys(o.events).map(v=>[v,o.events[v]]))}
+  else if(k==='evDate'){pose='';chip=o.events[d.ev];text=o.evDate;
+    body=`<input class="inp" id="in" type="date" min="${today()}" value="${d.evDate||''}" aria-label="${esc(o.evDate)}" style="font-size:18px;margin-bottom:10px"><div class="row"><button class="btn ghost sm sp" id="skp">${o.evSkip}</button><button class="btn sm sp" id="ok">${o.evOk}</button></div>`}
+  else if(k==='evR'){
+    if(!d.ev||d.ev==='none')text=o.evNone;
+    else{chip=o.events[d.ev];const days=d.evDate?Math.ceil((new Date(d.evDate+'T00:00')-new Date(today()+'T00:00'))/864e5):null;
+      const e=noEmoji(o.events[d.ev]);text=days!=null&&days>0?fmt(o.evRd,{e,d:days}):fmt(o.evR,{e})}
+    body=nextBtn(t)}
+  app.innerHTML=`<div class="top"><button class="ibtn" id="bk" aria-label="${t.back}">${I('back')}</button><div class="prog sp" role="progressbar" aria-label="${o.progress}" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><i style="width:${pct}%"></i></div>${langSw()}</div>
+  <div class="sp"></div>${bubble(n,chip,text,body)}${petScene(pose,stg)}`;
   bindLang();
-  $('#bk').onclick=()=>{if(ob.i>0){ob.i--;rOnb()}else go(S.onboarded?'home':'welcome')};
   const next=()=>{ob.i++;if(ob.i>=steps().length)finishOb();else rOnb()};
-  app.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{const v=b.dataset.v;ob.d[k]=k==='sex'?v:+v;if(k==='act'||k==='speed')ob.d[k]=+v;next()});
-  const inp=$('#in');
-  if(inp){
-    const ok=()=>{
-      if(k==='name'){ob.d.name=(inp.value.trim()||t.defName[S.pet.sp]).slice(0,12);next();return}
-      const v=parseFloat(inp.value),[a,b]=NUM[k];
-      if(k==='age'&&v<18){$('#er').textContent=t.err18;return}
-      if(!(v>=a&&v<=b)){$('#er').textContent=fmt(t.range,{a,b});return}
-      ob.d[k]=v;next();
-    };
+  $('#bk').onclick=()=>{if(ob.i>0){ob.i--;rOnb()}else go(S.onboarded?'home':'welcome')};
+  if($('#nx')){$('#nx').onclick=next;$('#scn').onclick=next}
+  app.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{
+    const v=b.dataset.v;
+    if(k==='goal')d.goal=v;else if(k==='sex')d.sex=v;else if(k==='act')d.act=+v;else if(k==='speed')d.sp=+v;
+    else if(k==='event'){d.ev=v;if(v==='none')d.evDate=null}
+    next();
+  });
+  if(k==='name'){
+    const inp=$('#in'),ok=()=>{d.name=(inp.value.trim()||t.defName[sp]).slice(0,12);next()};
     $('#ok').onclick=ok;inp.onkeydown=e=>{if(e.key==='Enter')ok()};
-    if(k!=='name'||true)setTimeout(()=>{try{inp.focus({preventScroll:true})}catch(e){}},50);
+  }
+  if(k==='age'){const g=bindWheel('wa',span(18,90));$('#ok').onclick=()=>{d.age=g();next()}}
+  if(k==='hw'){const gh=bindWheel('wh',span(120,220)),gw=bindWheel('ww',span(30,250));$('#ok').onclick=()=>{d.h=gh();d.w=gw();next()}}
+  if(k==='gw'){
+    if($('#keep'))$('#keep').onclick=()=>{d.goal='keep';rOnb()};/* the gw step drops out, so this index is now the next step */
+    else{const g=get();$('#ok').onclick=()=>{d.gw=g();next()}}
+  }
+  if(k==='evDate'){
+    $('#skp').onclick=()=>{d.evDate=null;next()};
+    $('#ok').onclick=()=>{const v=$('#in').value;d.evDate=v&&v>=today()?v:null;next()};
   }
 }
 function finishOb(){
   const d=ob.d;
   if(d.name)S.pet.name=d.name;
-  if(Math.abs(d.gw-d.w)<0.5)d.sp=1;
-  if(d.sp==null)d.sp=1;
-  S.prof={sex:d.sex,age:d.age,h:d.h,w:d.w,gw:d.gw,act:d.act,sp:d.sp};
+  const ev=d.ev&&d.ev!=='none'?d.ev:null;
+  S.prof=Object.assign(profOf(d),{goal:d.goal||'keep',ev,evDate:ev?d.evDate||null:null});
   S.plan=calcPlan(S.prof);save();go('plan');
 }
-/* ---- plan ---- */
+/* ---- plan: the sum behind the number ---- */
+function fmtDate(dt){return dt.toLocaleDateString(S.lang==='th'?'th-TH':'en-GB',{day:'numeric',month:'short',year:'numeric'})}
 function rPlan(){
-  const t=L(),p=S.plan,n=esc(S.pet.name);
-  const goal=p.dir===0?t.keep:fmt(p.dir<0?t.lose:t.gain,{w:p.weeks});
+  const t=L(),o=t.ob,p=S.plan,pr=S.prof,n=esc(S.pet.name),kg=t.u.w;
+  const dd=Math.abs(p.tdee-p.target),end=p.weeks?new Date(Date.now()+p.weeks*7*864e5):null;
+  const eq=p.dir===0?`<div class="eq one"><div><b>${p.tdee.toLocaleString()}</b><small>${o.eqUse} = ${o.eqEat}</small></div></div>`
+   :`<div class="eq"><div><b>${p.tdee.toLocaleString()}</b><small>${o.eqUse}</small></div><span class="op">${p.dir<0?'−':'+'}</span><div><b style="color:${p.dir<0?'var(--coral-d)':'#C98A00'}">${dd.toLocaleString()}</b><small>${p.dir<0?o.deficit:o.surplus}</small></div><span class="op">=</span><div><b style="color:var(--mint-d)">${p.target.toLocaleString()}</b><small>${o.eqEat}</small></div></div>`;
+  let way='';
+  if(p.dir!==0&&end){
+    way=`<div class="way"><div class="row"><b class="fd">${pr.w} ${kg}</b><span class="sp"></span><b class="fd" style="color:var(--mint-d)">${pr.gw} ${kg} 🏁</b></div>
+    <div class="wbar"><span>${fmt(o.rate[p.dir<0?'lose':'gain'],{r:p.rate})}</span></div>
+    <div class="row mute"><span>${o.today}</span><span class="sp"></span><span>${fmt(o.by,{d:fmtDate(end)})}</span></div></div>`;
+    if(pr.ev&&pr.evDate){
+      const evd=new Date(pr.evDate+'T00:00'),late=Math.ceil((end-evd)/(7*864e5)),e=noEmoji(o.events[pr.ev]);
+      way+=`<div class="evnote">${late<=0?fmt(o.evIn,{e}):fmt(o.evLate,{e,w:late})}</div>`;
+    }
+  }
   app.innerHTML=`<div class="top"><span></span>${langSw()}</div>
-  <div class="ob-pet">${pimg(S.pet.sp,'-happy',0,t.sp[S.pet.sp])}</div>
-  <div class="bubble">${fmt(t.planTitle,{n})}</div>
-  <div style="height:6px"></div>
-  <div class="card" style="text-align:center"><div class="big">${p.target.toLocaleString()}</div><div class="mute">${t.kcalDay}</div>
-   <div class="mute" style="margin-top:6px">${fmt(t.tdee,{x:p.tdee.toLocaleString()})}</div>
-   <div style="margin-top:6px;font-weight:700">${p.dir===0||p.weeks?goal:''}</div>
-   ${p.capped?`<div class="mute" style="margin-top:4px">${t.cap}</div>`:''}</div>
+  <div class="card plan">
+    <div class="row"><div style="width:64px;flex:none">${pimg(S.pet.sp,'-happy',S.onboarded?stage():0,t.sp[S.pet.sp])}</div><div><h2 class="fd">${o.planT}</h2><div class="mute">${fmt(o.planBy,{n})}</div></div></div>
+    <div class="row" style="gap:14px;margin:12px 0"><div class="ring" style="--p:100"><div><span style="font-size:26px">🍽️</span></div></div><div><div class="mute">${o.eatAbout}</div><div class="big">${p.target.toLocaleString()}</div><div class="mute">${o.perDay}</div></div></div>
+    ${eq}${way}
+    ${p.capped?`<div class="mute" style="margin-top:8px">${t.cap}</div>`:''}
+  </div>
   <div class="macros"><div class="m-p">${p.p} ${t.g}<small>${t.pro}</small></div><div class="m-f">${p.f} ${t.g}<small>${t.fat}</small></div><div class="m-c">${p.c} ${t.g}<small>${t.carb}</small></div></div>
-  <p class="mute" style="margin:0">${t.disc}</p>
+  <p class="mute" style="margin:0;font-size:13px">${o.formula} · ${t.disc}</p>
   <div class="sp"></div><button class="btn block" id="ok">${t.ok}</button>`;
   bindLang();
-  $('#ok').onclick=()=>{if(S.onboarded){go('home')}else go('pledge')};
+  $('#ok').onclick=()=>{if(S.onboarded)go('home');else{tut={i:0,fed:0};go('tut')}};
 }
-/* ---- pledge ---- */
-function rPledge(){
-  const t=L(),n=esc(S.pet.name);
-  app.innerHTML=`<div class="top"><span></span>${langSw()}</div>
-  <h2 class="fd" style="text-align:center">${fmt(t.pTitle,{n})}</h2>
-  <div class="ob-pet">${pimg(S.pet.sp,'-happy',0,t.sp[S.pet.sp])}</div>
-  <p style="text-align:center;margin:0;font-weight:500">${fmt(t.pText,{n})}</p>
-  <canvas id="sign" aria-label="${t.pHint}"></canvas>
-  <div class="row"><span class="mute sp">${t.pHint}</span><button class="btn ghost sm" id="clr">${t.clear}</button></div>
-  <div class="sp"></div><button class="btn block" id="ok" disabled>${t.promise}</button>`;
+/* ---- try it: feed three pretend meals, then see "too full" ---- */
+let tut={i:0,fed:0};
+function rTut(){
+  const t=L(),o=t.ob,n=esc(S.pet.name),g=S.plan.target,fed=tut.fed;
+  let text,body,pose,h;
+  if(tut.i===0){
+    const share=fed/3,k=Math.round(g*share);
+    pose=fed===0?'-hungry':'-happy';h=fed;text=fed<3?o.tut1:o.tut2;
+    body=`<div class="row" style="gap:12px"><div class="ring ring-s" style="--p:${Math.round(share*100)}"><div><b class="fd">${k.toLocaleString()}</b><small>/ ${g.toLocaleString()}</small></div></div>
+      <div class="sp" style="display:grid;gap:6px">${[['pro','p','mint'],['fat','f','butter'],['carb','c','coral']].map(([nm,key,c])=>`<div class="mrow" style="grid-template-columns:52px 1fr 64px"><span>${t[nm]}</span><div class="meter"><i style="width:${share*100}%;background:var(--${c})"></i></div><span class="mute" style="text-align:right">${Math.round(S.plan[key]*share)}/${S.plan[key]}</span></div>`).join('')}</div></div>
+      <div class="row" style="margin-top:12px"><span class="mute sp">${o.tutMeal} ${fed}/3</span>${fed<3?`<button class="btn sm" id="feed1">${o.tutBtn}</button>`:`<button class="btn mint sm" id="nx">${o.next} ›</button>`}</div>`;
+  }else if(tut.i===1){pose='-fat';h=1;text=o.tut3;body=nextBtn(t)}
+  else{pose='-happy';h=3;text=o.tut4;body=nextBtn(t)}
+  app.innerHTML=`<div class="top"><span></span>${langSw()}</div><div class="sp"></div>
+  ${bubble(n,'',text,body)}${petScene(pose,0,`<div class="hearts" aria-label="${h}/3">${[1,2,3].map(i=>heart(i<=h)).join('')}</div>`)}`;
   bindLang();
-  const cv=$('#sign'),dpr=window.devicePixelRatio||1,w=cv.clientWidth,h=cv.clientHeight;
+  if($('#feed1'))$('#feed1').onclick=()=>{
+    tut.fed++;rTut();
+    const pet=$('#pet'),im=pet&&pet.querySelector('img');if(!im)return;
+    const orig=im.getAttribute('src');pet.classList.add('chomp');im.src=`${IMG}${S.pet.sp}-0-eating.webp`;
+    setTimeout(()=>{if(document.contains(im)){im.setAttribute('src',orig);pet.classList.remove('chomp')}},700);
+  };
+  if($('#nx'))$('#nx').onclick=()=>{tut.i++;if(tut.i>2)go('pledge');else rTut()};
+}
+/* ---- pledge: trace a heart ---- */
+function rPledge(){
+  const t=L(),o=t.ob,n=esc(S.pet.name);
+  app.innerHTML=`<div class="top"><span></span>${langSw()}</div><div class="sp"></div>
+  ${bubble(n,'',fmt(o.pT,{n}),`<p style="margin:0 0 12px;font-weight:700;font-size:20px" class="fd">${fmt(o.pText,{n})}</p>
+   <canvas id="trace" aria-label="${esc(o.pHint)}"></canvas>
+   <div class="row" style="margin-top:8px"><span class="mute sp" id="ph">${o.pHint}</span><button class="btn ghost sm" id="clr">${t.clear}</button></div>
+   <button class="btn block" id="ok" disabled style="margin-top:12px">${t.promise}</button>`)}
+  ${petScene('-happy',0)}`;
+  bindLang();
+  const cv=$('#trace'),dpr=window.devicePixelRatio||1,w=cv.clientWidth,h=cv.clientHeight;
   cv.width=w*dpr;cv.height=h*dpr;const cx=cv.getContext('2d');cx.scale(dpr,dpr);
-  cx.lineWidth=4;cx.lineCap='round';cx.lineJoin='round';
-  cx.strokeStyle=getComputedStyle(document.body).color;
-  let down=false,pts=0,lx=0,ly=0;
+  const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  const N=56,s=Math.min(w*0.8/32,h*0.82/30),ox=w/2,oy=h/2-s*2;
+  const pts=[];for(let k=0;k<N;k++){const a=k/N*Math.PI*2;pts.push([ox+16*Math.sin(a)**3*s,oy-(13*Math.cos(a)-5*Math.cos(2*a)-2*Math.cos(3*a)-Math.cos(4*a))*s])}
+  let hit=new Array(N).fill(false),down=false,lx=0,ly=0,done=false;
+  const dots=()=>{pts.forEach(([x,y],k)=>{cx.beginPath();cx.arc(x,y,hit[k]?6:4,0,7);cx.fillStyle=hit[k]?css('--coral'):css('--line');cx.fill()})};
+  const reset=()=>{cx.clearRect(0,0,w,h);hit.fill(false);done=false;$('#ok').disabled=true;$('#ph').textContent=o.pHint;dots()};
+  reset();
   const pos=e=>{const r=cv.getBoundingClientRect();return[e.clientX-r.left,e.clientY-r.top]};
   cv.onpointerdown=e=>{down=true;[lx,ly]=pos(e);try{cv.setPointerCapture(e.pointerId)}catch(_){}};
-  cv.onpointermove=e=>{if(!down)return;const[x,y]=pos(e);cx.beginPath();cx.moveTo(lx,ly);cx.lineTo(x,y);cx.stroke();pts+=Math.hypot(x-lx,y-ly);lx=x;ly=y;if(pts>120)$('#ok').disabled=false};
+  cv.onpointermove=e=>{
+    if(!down)return;const[x,y]=pos(e);
+    cx.strokeStyle=css('--coral');cx.lineWidth=6;cx.lineCap='round';cx.beginPath();cx.moveTo(lx,ly);cx.lineTo(x,y);cx.stroke();lx=x;ly=y;
+    pts.forEach(([px,py],k)=>{if(!hit[k]&&Math.hypot(px-x,py-y)<24)hit[k]=true});dots();
+    if(!done&&hit.filter(Boolean).length>=N*0.85){done=true;$('#ok').disabled=false;$('#ph').textContent=o.pDone;try{navigator.vibrate&&navigator.vibrate(30)}catch(_){}}
+  };
   cv.onpointerup=cv.onpointercancel=()=>{down=false};
-  $('#clr').onclick=()=>{cx.clearRect(0,0,w,h);pts=0;$('#ok').disabled=true};
-  $('#ok').onclick=()=>{S.onboarded=true;save();go('hatch')};
+  $('#clr').onclick=reset;
+  $('#ok').onclick=()=>{S.onboarded=true;save();go('home')};
 }
-/* ---- hatch ---- */
+/* ---- hatch: right after choosing a pet ---- */
 function rHatch(){
-  const t=L(),sp=S.pet.sp;
+  const t=L(),o=t.ob,sp=S.pet.sp;
   [`egg-${sp}-8`,`${sp}-0-happy`].forEach(n=>{const i=new Image();i.src=IMG+n+'.webp'});
   warmArt();
   app.innerHTML=`<div class="top"><span></span>${langSw()}</div><div class="sp"></div>
@@ -483,13 +770,13 @@ function rHatch(){
   bindLang();
   let done=false;
   const hatch=()=>{
-    if(done)return;done=true;
+    if(done||view!=='hatch'||!$('#hi'))return;done=true;
     const im=$('#hi');im.className='himg shake';im.src=IMG+'egg-'+sp+'-8.webp';
-    setTimeout(()=>{im.className='himg pop2';im.src=`${IMG}${sp}-0-happy.webp`;$('#hm').textContent=fmt(L().hatchT,{n:S.pet.name});$('#ok').disabled=false},900);
+    setTimeout(()=>{if(view!=='hatch'||!document.contains(im))return;im.className='himg pop2';im.src=`${IMG}${sp}-0-happy.webp`;$('#hm').textContent=L().ob.hatched;$('#ok').disabled=false},900);
   };
   $('#hb').onclick=hatch;$('#hb').onkeydown=e=>{if(e.key==='Enter'||e.key===' ')hatch()};
   setTimeout(hatch,3500);
-  $('#ok').onclick=()=>go('home');
+  $('#ok').onclick=()=>{startOb();go('onb')};
 }
 /* ---- home ---- */
 function rHome(){
@@ -498,7 +785,7 @@ function rHome(){
   const stg=stage(),log=todayLog();
   const sleepy=isNight()&&(M.m==='neutral'||M.m==='happy'||M.m==='loved');
   const pose=sleepy?'-asleep':SUF[M.m];
-  const line=fmt(t.say[sleepy?'sleep':M.m],{n,s:t.snd[S.pet.sp]});
+  const line=!S.lastDay&&!log.length?t.ob.firstMeal:fmt(t.say[sleepy?'sleep':M.m],{n,s:t.snd[S.pet.sp]});
   app.innerHTML=`<div class="top">
     <div class="row"><span class="chip" title="streak">${I('flame','style="color:#FF7A45"')}${S.streak}</span><span class="chip">${I('coin','style="color:#E0A800"')}${S.coins}</span></div>
     <button class="ibtn" id="set" aria-label="${t.sT}">${I('gear')}</button></div>
@@ -685,7 +972,7 @@ function sheetSettings(){
   sh.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{S.lang=b.dataset.l;save();render();sheetSettings()});
   sh.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{S.pet.sp=b.dataset.s;save();warmArt();render();sheetSettings()});
   $('#rs').onclick=()=>{S.pet.name=($('#rn').value.trim()||t.defName[S.pet.sp]).slice(0,12);save();closeSheet();rHome()};
-  $('#rd').onclick=()=>{closeSheet();ob={i:0,d:Object.assign({},S.prof)};go('onb')};
+  $('#rd').onclick=()=>{closeSheet();startOb();go('onb')};
   $('#rt').onclick=()=>{
     openSheet(`<h3 class="fd">${t.reset}</h3><p style="margin:0">${t.resetAsk}</p><button class="btn block" id="y" style="background:#D0452D;box-shadow:0 5px 0 #A33520">${t.yes}</button><button class="btn ghost block" id="n">${t.no}</button>`);
     $('#y').onclick=()=>{const l=S.lang;S=defState();S.lang=l;save();closeSheet();go('welcome')};
@@ -721,7 +1008,7 @@ function initPWA(){
   navigator.serviceWorker.register('sw.js').then(()=>navigator.serviceWorker.ready).then(prefetchArt).catch(()=>{});
 }
 /* ============ BOOT ============ */
-view=S.onboarded&&S.plan?'home':'welcome';
+view=S.onboarded&&S.plan?'home':S.introSeen?'welcome':'intro';
 render();
 initSync();initSample();initPWA();
 </script>
