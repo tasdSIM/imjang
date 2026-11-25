@@ -126,8 +126,12 @@ button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
 .evnote{margin-top:10px;padding:8px 12px;border-radius:14px;background:color-mix(in srgb,var(--butter) 25%,var(--surf));font-weight:500;font-size:14px}
 canvas#trace{width:100%;height:220px;background:var(--bg);border:2px dashed var(--line);border-radius:20px;touch-action:none;display:block}
 /* home */
-.stage{position:relative;border-radius:28px;border:2px solid var(--line);box-shadow:var(--sh);overflow:hidden;aspect-ratio:900/738;background:#EBCB9C}
-.roombg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.stage{position:relative;border-radius:28px;border:2px solid var(--line);box-shadow:var(--sh);overflow:hidden;aspect-ratio:900/738;background:var(--veil,var(--surf))}
+/* The scene is faded into the stage colour so the pet stands out. */
+.roombg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;filter:saturate(.85)}
+.bgth{position:relative;width:100%;aspect-ratio:900/738;border-radius:12px;overflow:hidden;background:var(--veil,var(--surf))}
+.it .bgth .roombg{width:100%;height:100%;margin:0;opacity:1;filter:none}
+.inuse{min-height:40px;display:grid;place-items:center;font-weight:700;font-size:14px;color:var(--mint-d)}
 .hearts{position:absolute;top:8px;left:50%;transform:translateX(-50%);display:flex;gap:2px;background:rgba(255,255,255,.78);border-radius:999px;padding:3px 10px}
 .hearts svg{width:24px;height:24px}
 .rail{position:absolute;left:8px;top:8px;display:flex;flex-direction:column;gap:4px}
@@ -254,6 +258,7 @@ const T={th:{
  say:{hungry:'{n} หิวจัง… ขออาหารหน่อยนะ',neutral:'อืม… ยังไม่อิ่มเลย {s}',happy:'อร่อย! {s} ขออีกนิดนะ',loved:'อิ่มสุขสุดๆ! วันนี้เธอเก่งมาก {s}',stuffed:'อึ๊ก… อิ่มเกินไปนิดนึง ไม่เป็นไร พรุ่งนี้ค่อยๆ กินนะ',sleep:'zzZ… {n} กำลังหลับฝันดี'},
  addT:'ให้ {n} กินอะไรดี?',search:'ค้นหาอาหาร',portion:'ปริมาณ',custom:'กรอกเอง',list:'เลือกจากรายการ',cName:'ชื่ออาหาร (ไม่ใส่ก็ได้)',cKcal:'แคลอรี่ (kcal)',feedBtn:'ป้อนเลย',nores:'ไม่พบ ลองกรอกเองนะ',coin:'+{n} เหรียญ',
  wT:'ตู้เสื้อผ้า',buy:'ซื้อ',wear:'ใส่',take:'ถอด',worn:'ใส่อยู่',poor:'เหรียญไม่พอ',
+ tabWear:'ชุด',tabBg:'ฉาก',bgUse:'ใช้ฉากนี้',bgOn:'ใช้อยู่',bgs:{room:'ห้องนอน',sea:'ชายทะเล',forest:'ป่า',stars:'ดวงดาว'},
  sT:'ตั้งค่า',lang:'ภาษา',rename:'ชื่อสัตว์เลี้ยง',change:'เปลี่ยนสัตว์',redo:'คำนวณแผนใหม่',reset:'ล้างข้อมูลทั้งหมด',resetAsk:'ลบข้อมูลทั้งหมดแล้วเริ่มใหม่ใช่ไหม?',yes:'ใช่ ลบเลย',no:'ยกเลิก',save:'บันทึก',close:'ปิด',about:'ค่าแคลอรี่เป็นค่าประมาณ',
  acc:{bell:'กระดิ่ง',bowtie:'โบว์ไท',bow:'โบว์',cape:'ผ้าคลุม',cap:'หมวกแก๊ป',crown:'มงกุฎ',flower:'ดอกไม้',glasses:'แว่นตา',party:'หมวกปาร์ตี้',scarf:'ผ้าพันคอ'},
  wearing:'ใส่อยู่',growl:'ก๊อก~ ก๊อก~',hatchTap:'แตะไข่เพื่อให้ฟัก',hatchT:'{n} ฟักออกมาแล้ว!',hi:'สวัสดี!',
@@ -316,6 +321,7 @@ en:{
  say:{hungry:"{n} is so hungry… feed me please",neutral:"Hmm… not full yet {s}",happy:"Yummy! {s} A little more?",loved:"So happy and full! You did great today {s}",stuffed:"Oof… a bit too full. It's okay, go gentler tomorrow.",sleep:'zzZ… {n} is sleeping soundly'},
  addT:'What should {n} eat?',search:'Search food',portion:'Portion',custom:'Custom',list:'From list',cName:'Food name (optional)',cKcal:'Calories (kcal)',feedBtn:'Feed!',nores:'Nothing found — try custom',coin:'+{n} coins',
  wT:'Wardrobe',buy:'Buy',wear:'Wear',take:'Take off',worn:'Wearing',poor:'Not enough coins',
+ tabWear:'Outfits',tabBg:'Scenes',bgUse:'Use',bgOn:'In use',bgs:{room:'Bedroom',sea:'Beach',forest:'Forest',stars:'Stars'},
  sT:'Settings',lang:'Language',rename:'Pet name',change:'Change pet',redo:'Recalculate plan',reset:'Erase all data',resetAsk:'Erase everything and start over?',yes:'Yes, erase',no:'Cancel',save:'Save',close:'Close',about:'Calories are estimates.',
  acc:{bell:'Bell',bowtie:'Bow tie',bow:'Bow',cape:'Cape',cap:'Cap',crown:'Crown',flower:'Flower',glasses:'Glasses',party:'Party hat',scarf:'Scarf'},
  wearing:'Wearing',growl:'grrr~ grrr~',hatchTap:'Tap the egg to hatch it',hatchT:'{n} hatched!',hi:'Hello!',
@@ -402,12 +408,17 @@ function calcPlan(p){
 /* ============ ART (pixel pets from pet/*.webp) ============ */
 const ACC={bell:{p:30},bowtie:{p:40},bow:{p:30},cape:{p:70},cap:{p:40},crown:{p:80},flower:{p:30},glasses:{p:40},party:{p:30},scarf:{p:50}};
 const IMG='pet/';
+/* Scenes behind the pet. The picture is faded (CSS .roombg) into its veil colour so the pet stands out. */
+const BGS={room:{p:0,src:IMG+'room.webp'},sea:{p:60,src:'bg/sea.svg'},forest:{p:60,src:'bg/forest.svg'},stars:{p:100,src:'bg/stars.svg',veil:'#1C1838'}};
+const bgCur=()=>BGS[S.bg]?S.bg:'room';
+const roomImg=id=>`<img class="roombg" src="${BGS[id||bgCur()].src}" alt="" width="900" height="738">`;
+const veil=id=>{const v=BGS[id||bgCur()].veil;return v?` style="--veil:${v}"`:''};
 const SUF={hungry:'-hungry',neutral:'',happy:'-happy',loved:'-happy',stuffed:'-fat'};/* '-unwell' and '-sad' poses are kept in pet/ for other features */
 function pimg(sp,suf,stg,alt){return `<img class="pimg" src="${IMG}${sp}-${stg}${suf}.webp" alt="${esc(alt||sp)}" width="200" height="200" draggable="false">`}
 function isNight(){const h=new Date().getHours();return h>=23||h<5}
 /* ============ STATE ============ */
 const KEY='imjang.v1';
-function defState(){return{lang:'th',onboarded:false,pet:{sp:'cat',name:''},prof:null,plan:null,logs:{},coins:0,days:0,streak:0,lastDay:'',owned:[],worn:[],bonus:{}}}
+function defState(){return{lang:'th',onboarded:false,pet:{sp:'cat',name:''},prof:null,plan:null,logs:{},coins:0,days:0,streak:0,lastDay:'',owned:[],worn:[],bonus:{},bg:'room',bgOwned:['room']}}
 let S=defState();
 try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(defState(),JSON.parse(r))}catch(e){}
 let DOC=null,syncSt='off',pushT=null;
@@ -461,6 +472,9 @@ function normalize(){
   if(!SP.includes(S.pet.sp))S.pet.sp='cat';
   if(!Array.isArray(S.worn))S.worn=[];
   S.worn=S.worn.filter(i=>ACC[i]);S.owned=(S.owned||[]).filter(i=>ACC[i]);
+  S.bgOwned=(Array.isArray(S.bgOwned)?S.bgOwned:[]).filter(i=>BGS[i]);
+  if(!S.bgOwned.includes('room'))S.bgOwned.unshift('room');
+  if(!S.bgOwned.includes(S.bg))S.bg='room';
   rollover();
 }
 normalize();
@@ -528,7 +542,7 @@ function rIntro(){
      <b class="fd" style="font-size:24px;text-align:right">${f[4]}<small class="mute" style="display:block;font-size:12px">kcal</small></b></div></div>`],
    [o.i2t,o.i2s,`<div class="iv"><div class="icard col"><div class="ring" style="--p:62"><div><b class="fd">900</b><small>/ 1,450 kcal</small></div></div>
      <div style="width:100%;display:grid;gap:8px">${[['pro','mint',70],['fat','butter',45],['carb','coral',60]].map(([k,c,p])=>`<div class="mrow" style="grid-template-columns:64px 1fr"><span>${t[k]}</span><div class="meter"><i style="width:${p}%;background:var(--${c})"></i></div></div>`).join('')}</div></div></div>`],
-   [o.i3t,o.i3s,`<div class="iv"><div class="stage mini"><img class="roombg" src="${IMG}room.webp" alt="" width="900" height="738"><div class="hearts">${[1,2,3].map(()=>heart(1)).join('')}</div><div class="petbox">${pimg(sp,'-happy',1,t.sp[sp])}</div></div></div>`]
+   [o.i3t,o.i3s,`<div class="iv"><div class="stage mini">${roomImg('room')}<div class="hearts">${[1,2,3].map(()=>heart(1)).join('')}</div><div class="petbox">${pimg(sp,'-happy',1,t.sp[sp])}</div></div></div>`]
   ];
   const s=slides[introI],last=introI===slides.length-1;
   app.innerHTML=`<div class="top"><div class="segs" aria-hidden="true">${slides.map((_,i)=>`<i class="${i<=introI?'on':''}"></i>`).join('')}</div>${langSw()}</div>
@@ -564,7 +578,7 @@ function bubble(n,chip,text,body){
 }
 function petScene(pose,stg,extra){
   const t=L();
-  return `<div class="stage scene" id="scn"><img class="roombg" src="${IMG}room.webp" alt="" width="900" height="738">${extra||''}<div class="petbox" id="pet">${pimg(S.pet.sp,pose,stg,t.sp[S.pet.sp])}</div></div>`;
+  return `<div class="stage scene" id="scn"${veil()}>${roomImg()}${extra||''}<div class="petbox" id="pet">${pimg(S.pet.sp,pose,stg,t.sp[S.pet.sp])}</div></div>`;
 }
 const nextBtn=t=>`<div class="nx"><button class="btn mint sm" id="nx">${t.ob.next} ›</button></div>`;
 /* An event name for use inside a sentence: no emoji, lower case in English. */
@@ -789,8 +803,8 @@ function rHome(){
   app.innerHTML=`<div class="top">
     <div class="row"><span class="chip" title="streak">${I('flame','style="color:#FF7A45"')}${S.streak}</span><span class="chip">${I('coin','style="color:#E0A800"')}${S.coins}</span></div>
     <button class="ibtn" id="set" aria-label="${t.sT}">${I('gear')}</button></div>
-  <div class="stage" id="stage">
-    <img class="roombg" src="pet/room.webp" alt="" width="900" height="738">
+  <div class="stage" id="stage"${veil()}>
+    ${roomImg()}
     <div class="hearts" aria-label="${M.h}/3">${[1,2,3].map(i=>heart(i<=M.h)).join('')}</div>
     ${S.worn.length?`<div class="rail" aria-label="${t.wearing}">${S.worn.map(id=>`<img src="${IMG}wear-${id}.webp" alt="${esc(t.acc[id])}" width="40" height="40">`).join('')}</div>`:''}
     <div class="petbox" id="pet" style="width:${Math.round(58*SC[stg])}%">${pimg(S.pet.sp,pose,stg,t.sp[S.pet.sp])}</div>
@@ -933,24 +947,38 @@ function feed(item){
     setTimeout(()=>{pop.remove();p2.classList.remove('chomp');if(im&&orig&&document.contains(im))im.setAttribute('src',orig)},1400);
   },650);
 }
+let wardTab='wear';
 function sheetWard(){
   const t=L();
-  const items=Object.keys(ACC).map(id=>{
+  const items=wardTab==='bg'?Object.keys(BGS).map(id=>{
+    const b=BGS[id],own=S.bgOwned.includes(id),on=bgCur()===id;
+    const btn=on?`<span class="inuse">✓ ${t.bgOn}</span>`:!own?`<button class="btn sm" data-bb="${id}">${t.buy} · ${b.p}</button>`:`<button class="btn sm mint" data-bu="${id}">${t.bgUse}</button>`;
+    return `<div class="it ${on?'worn':''}"><div class="bgth"${veil(id)}>${roomImg(id)}</div><div style="font-weight:700;font-size:14px">${t.bgs[id]}</div>${btn}</div>`;
+  }).join(''):Object.keys(ACC).map(id=>{
     const a=ACC[id],own=S.owned.includes(id),on=S.worn.includes(id);
     const btn=!own?`<button class="btn sm" data-b="${id}">${t.buy} · ${a.p}</button>`:`<button class="btn sm ${on?'ghost':'mint'}" data-w="${id}">${on?t.take:t.wear}</button>`;
     return `<div class="it ${on?'worn':''}"><img src="${IMG}wear-${id}.webp" alt="" width="200" height="200"><div style="font-weight:700;font-size:14px">${t.acc[id]}</div>${btn}</div>`;
   }).join('');
-  openSheet(`<div class="row"><h3 class="fd sp">${t.wT}</h3><span class="chip">${I('coin','style="color:#E0A800"')}${S.coins}</span></div><div class="items">${items}</div><div class="err" id="we"></div><button class="btn ghost block" id="cl">${t.close}</button>`);
+  openSheet(`<div class="row"><h3 class="fd sp">${t.wT}</h3><span class="chip">${I('coin','style="color:#E0A800"')}${S.coins}</span></div>
+  <div class="tabs" role="tablist"><button data-wt="wear" role="tab" aria-selected="${wardTab==='wear'}" class="${wardTab==='wear'?'on':''}">${t.tabWear}</button><button data-wt="bg" role="tab" aria-selected="${wardTab==='bg'}" class="${wardTab==='bg'?'on':''}">${t.tabBg}</button></div>
+  <div class="items">${items}</div><div class="err" id="we"></div><button class="btn ghost block" id="cl">${t.close}</button>`);
   const sh=$('#sheet');
+  sh.querySelectorAll('[data-wt]').forEach(b=>b.onclick=()=>{wardTab=b.dataset.wt;sheetWard()});
+  sh.querySelectorAll('[data-bb]').forEach(b=>b.onclick=()=>{
+    const id=b.dataset.bb,p=BGS[id].p;
+    if(S.coins<p){$('#we').textContent=t.poor;return}
+    S.coins-=p;S.bgOwned.push(id);S.bg=id;save();rHome();sheetWard();
+  });
+  sh.querySelectorAll('[data-bu]').forEach(b=>b.onclick=()=>{S.bg=b.dataset.bu;save();rHome();sheetWard()});
   sh.querySelectorAll('[data-b]').forEach(b=>b.onclick=()=>{
     const id=b.dataset.b,a=ACC[id];
     if(S.coins<a.p){$('#we').textContent=t.poor;return}
-    S.coins-=a.p;S.owned.push(id);S.worn.push(id);if(S.worn.length>5)S.worn.shift();save();sheetWard();
+    S.coins-=a.p;S.owned.push(id);S.worn.push(id);if(S.worn.length>5)S.worn.shift();save();rHome();sheetWard();
   });
   sh.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{
     const id=b.dataset.w;
     if(S.worn.includes(id))S.worn=S.worn.filter(x=>x!==id);else{S.worn.push(id);if(S.worn.length>5)S.worn.shift()}
-    save();sheetWard();
+    save();rHome();sheetWard();
   });
   $('#cl').onclick=()=>{closeSheet();rHome()};
 }
@@ -1001,6 +1029,7 @@ function prefetchArt(){
   for(let g=0;g<3;g++)['','-happy','-hungry','-fat','-eating','-asleep'].forEach(s=>names.push(`${sp}-${g}${s}`));
   Object.keys(ACC).forEach(id=>names.push('wear-'+id));
   names.forEach(n=>fetch(IMG+n+'.webp').catch(()=>{}));
+  Object.values(BGS).forEach(b=>fetch(b.src).catch(()=>{}));
 }
 function warmArt(){if(navigator.serviceWorker&&navigator.serviceWorker.controller)prefetchArt()}
 function initPWA(){
