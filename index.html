@@ -223,6 +223,23 @@ canvas#trace{width:100%;height:220px;background:var(--bg);border:2px dashed var(
 .del.on{background:#D0452D;color:#fff;border-color:#D0452D}
 .keep{display:flex;align-items:flex-start;gap:8px;font-size:14px;min-height:44px;padding-top:4px}.keep input{width:22px;height:22px;flex:none;accent-color:var(--coral)}
 .bkrow{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.nudge{display:flex;align-items:center;gap:10px;background:color-mix(in srgb,var(--butter) 30%,var(--surf));border:2px solid var(--line);border-radius:16px;padding:8px 8px 8px 12px;font-weight:500}
+.nudge .btn{min-height:40px;padding:0 14px;flex:none}
+.cups{display:grid;gap:4px;margin:8px 0 4px}
+.cup{height:34px;border-radius:8px 8px 12px 12px;border:2px solid color-mix(in srgb,#4AA8E0 45%,var(--line));background:var(--surf);min-width:0}
+.cup.on{background:#4AA8E0;border-color:#3A8CC0}
+.daycard .btn.sm{min-height:40px;padding:0 14px;flex:none}
+.acts{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.acts button{border:2px solid var(--line);background:var(--surf);border-radius:14px;min-height:56px;padding:4px;font-size:13px;font-weight:600;display:grid;justify-items:center;align-content:center;gap:2px;min-width:0}
+.acts button span{font-size:20px}.acts button.on{border-color:var(--coral);background:color-mix(in srgb,var(--coral) 12%,var(--surf))}
+.miles{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:6px}
+.miles div{border:2px solid var(--line);border-radius:14px;padding:6px;text-align:center;display:grid;font-size:13px;color:var(--mute)}
+.miles div b{font-size:20px;color:var(--ink)}.miles div.on{border-color:#FF7A45;background:color-mix(in srgb,#FF7A45 12%,var(--surf))}
+.pop.long{white-space:normal;width:88%;text-align:center;font-size:18px}
+.rmt{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.rmt label{display:grid;gap:4px;font-size:12px;color:var(--mute)}
+.rmt input{width:100%;min-height:44px;border-radius:12px;border:2px solid var(--line);background:var(--surf);color:var(--ink);font:600 14px 'Noto Sans Thai',sans-serif;text-align:center;min-width:0;padding:0 2px}
+.rmt input::-webkit-calendar-picker-indicator{margin:0;padding:0;width:14px}
 .lnk{background:none;border:0;color:var(--mute);font-weight:700;text-decoration:underline;text-underline-offset:3px;min-height:44px;width:100%}
 .seg button{border:2px solid var(--line);background:var(--surf);border-radius:14px;min-height:44px;font-weight:700}
 .seg button.on{background:var(--ink);color:var(--bg)}
@@ -313,7 +330,14 @@ const T={th:{
   newTarget:'ปรับเป้าแคลอรี่เป็น {x} kcal/วัน (เดิม {y})',reached:'🎉 ถึงเป้าแล้ว! เก่งมาก',reachedCoin:'🎉 ถึงเป้าแล้ว! เก่งมาก +{c} เหรียญ',keepNow:'ตั้งเป้าเป็นรักษาน้ำหนักนี้',keepSet:'ตั้งเป้าเป็นรักษาน้ำหนักแล้ว ฉันจะช่วยดูให้อยู่ตัวนะ'},
  sT:'ตั้งค่า',lang:'ภาษา',rename:'ชื่อสัตว์เลี้ยง',change:'เปลี่ยนสัตว์',redo:'คำนวณแผนใหม่',reset:'ล้างข้อมูลทั้งหมด',resetAsk:'ลบข้อมูลทั้งหมดแล้วเริ่มใหม่ใช่ไหม?',yes:'ใช่ ลบเลย',no:'ยกเลิก',save:'บันทึก',close:'ปิด',about:'ค่าแคลอรี่เป็นค่าประมาณ',
  mine:'เมนูของฉัน',keepMine:'เก็บไว้ใน "เมนูของฉัน" ครั้งหน้าเลือกได้เลย (เมื่อใส่ชื่อ)',delAsk:'แตะอีกครั้งเพื่อลบ',del:'ลบ',
- bkT:'สำรองข้อมูล',bkHint:'ข้อมูลทั้งหมดอยู่ในเครื่องนี้เท่านั้น ถ้าล้างเบราว์เซอร์หรือเปลี่ยนเครื่อง ข้อมูลจะหาย ส่งออกเป็นไฟล์เก็บไว้ แล้วนำเข้าในเครื่องใหม่ได้',bkOut:'ส่งออกไฟล์',bkIn:'นำเข้าไฟล์',bkLast:'สำรองล่าสุด {d}',bkNever:'ยังไม่เคยสำรอง',bkAsk:'แทนที่ข้อมูลในเครื่องนี้ด้วยไฟล์สำรองนี้ใช่ไหม? ข้อมูลที่อยู่ในเครื่องตอนนี้จะหายไป',bkInfo:'{n} · เลี้ยงมา {d} วัน · {c} เหรียญ',bkFrom:'ไฟล์สำรองวันที่ {d}',bkYes:'ใช่ นำเข้า',bkHave:'มีไฟล์สำรองอยู่แล้ว? นำเข้าที่นี่',bkBad:'ไฟล์นี้ไม่ใช่ไฟล์สำรองของอิ่มจัง',
+ bkT:'สำรองข้อมูล',bkHint:'ข้อมูลทั้งหมดอยู่ในเครื่องนี้เท่านั้น ถ้าล้างเบราว์เซอร์หรือเปลี่ยนเครื่อง ข้อมูลจะหาย ส่งออกเป็นไฟล์เก็บไว้ แล้วนำเข้าในเครื่องใหม่ได้',bkOut:'ส่งออกไฟล์',bkIn:'นำเข้าไฟล์',bkLast:'สำรองล่าสุด {d}',bkNever:'ยังไม่เคยสำรอง',bkAsk:'แทนที่ข้อมูลในเครื่องนี้ด้วยไฟล์สำรองนี้ใช่ไหม? ข้อมูลที่อยู่ในเครื่องตอนนี้จะหายไป',bkInfo:'{n} · เลี้ยงมา {d} วัน · {c} เหรียญ',bkFrom:'ไฟล์สำรองวันที่ {d}',bkYes:'ใช่ นำเข้า',bkHave:'มีไฟล์สำรองอยู่แล้ว? นำเข้าที่นี่',
+ dy:{water:'น้ำ',cups:'{n}/{g} แก้ว',cupL:'แก้วที่ {i}',move:'ขยับตัว',moveNone:'ยังไม่ได้ขยับ',moveSum:'{m} นาที · เผา {k} kcal',add:'เพิ่ม',less:'ลดน้ำ 1 แก้ว',more:'เพิ่มน้ำ 1 แก้ว'},
+ waterDone:'ดื่มน้ำครบแล้ว! {n} สดชื่นเลย',goalPlus:'รวมที่ขยับตัว +{k}',
+ mv:{title:'ขยับตัววันนี้',pick:'ทำอะไร',min:'กี่นาที',other:'อื่นๆ',save:'บันทึก',today:'วันนี้',none:'ยังไม่มี',
+  hint:'นับเฉพาะแคลอรี่ที่เผาเพิ่มจากตอนนั่งเฉยๆ แล้วบวกเข้าเป้าการกินของวันนี้ ถ้าตอนตั้งแผนเลือกว่าออกกำลังกายเป็นประจำไว้แล้ว ส่วนนั้นอยู่ในเป้าแล้ว ไม่ต้องบันทึกซ้ำ',
+  acts:{walk:'เดิน',brisk:'เดินเร็ว',run:'วิ่ง',cycle:'ปั่นจักรยาน',swim:'ว่ายน้ำ',yoga:'โยคะ/ยืดเหยียด',weights:'เวทเทรนนิ่ง',dance:'เต้น/แอโรบิก',badminton:'แบดมินตัน',football:'ฟุตบอล',hiit:'HIIT',chores:'ทำงานบ้าน'}},
+ stT:'ไฟต่อเนื่อง',stBody:'บันทึกอาหารอย่างน้อย 1 มื้อทุกวัน ไฟจะติดต่อกัน ถ้าขาดวันไหนไฟจะเริ่มนับใหม่',stNow:'ติดต่อกัน {n} วัน',stNext:'อีก {d} วันถึง {m} วัน รับ {c} เหรียญ',stGot:'ไฟติดต่อกัน {m} วัน! รับ {c} เหรียญ',stRisk:'วันนี้ยังไม่ได้บันทึก ไฟ {n} วันจะดับนะ',stMiles:'รางวัล',
+ rmT:'การเตือน',rmIn:'เตือนในแอปเมื่อถึงเวลามื้อ',rmSlot:{b:'มื้อเช้า',l:'มื้อกลางวัน',d:'มื้อเย็น'},rmCal:'เพิ่มการเตือนในปฏิทินมือถือ',rmCalHint:'แอปเว็บแจ้งเตือนตอนปิดแอปอยู่ไม่ได้ จึงให้ปฏิทินของมือถือเตือนแทน ได้ไฟล์มาแล้วเปิดแล้วกด "เพิ่ม" ตามเวลาด้านบน',rmDue:'ยังไม่ได้บันทึก{s}เลยนะ',rmGo:'บันทึกเลย',calTitle:'ให้อาหาร {n} ({s})',calBody:'เปิดอิ่มจังแล้วบันทึกมื้อนี้',bkBad:'ไฟล์นี้ไม่ใช่ไฟล์สำรองของอิ่มจัง',
  acc:{bell:'กระดิ่ง',bowtie:'โบว์ไท',bow:'โบว์',cape:'ผ้าคลุม',cap:'หมวกแก๊ป',crown:'มงกุฎ',flower:'ดอกไม้',glasses:'แว่นตา',party:'หมวกปาร์ตี้',scarf:'ผ้าพันคอ'},
  wearing:'ใส่อยู่',growl:'ก๊อก~ ก๊อก~',hatchTap:'แตะไข่เพื่อให้ฟัก',hatchT:'{n} ฟักออกมาแล้ว!',hi:'สวัสดี!',
  instT:'ติดตั้งแอป',instBtn:'เพิ่มไปหน้าจอหลัก',instIos:'บน iPhone/iPad: กดปุ่มแชร์ แล้วเลือก "เพิ่มไปยังหน้าจอโฮม"',instDone:'ติดตั้งแล้ว ใช้งานออฟไลน์ได้',photoOff:'ถ่ายรูปด้วย AI ใช้ได้เมื่อเปิดผ่าน Claude',
@@ -384,7 +408,14 @@ en:{
   newTarget:'Calorie target is now {x} kcal/day (was {y})',reached:'🎉 You reached your goal! Well done',reachedCoin:'🎉 You reached your goal! Well done +{c} coins',keepNow:'Switch to maintaining this weight',keepSet:"Now maintaining. I'll help you stay here."},
  sT:'Settings',lang:'Language',rename:'Pet name',change:'Change pet',redo:'Recalculate plan',reset:'Erase all data',resetAsk:'Erase everything and start over?',yes:'Yes, erase',no:'Cancel',save:'Save',close:'Close',about:'Calories are estimates.',
  mine:'My foods',keepMine:'Keep in "My foods" to pick next time (when named)',delAsk:'Tap again to delete',del:'Delete',
- bkT:'Backup',bkHint:'Everything is stored on this device only. Clearing the browser or changing phones loses it. Export a file to keep, then import it on the new device.',bkOut:'Export file',bkIn:'Import file',bkLast:'Last backup {d}',bkNever:'Never backed up',bkAsk:'Replace the data on this device with this backup? What is here now will be lost.',bkInfo:'{n} · {d} days together · {c} coins',bkFrom:'Backup from {d}',bkYes:'Yes, import',bkHave:'Have a backup file? Import it here',bkBad:'This is not an Imjang backup file',
+ bkT:'Backup',bkHint:'Everything is stored on this device only. Clearing the browser or changing phones loses it. Export a file to keep, then import it on the new device.',bkOut:'Export file',bkIn:'Import file',bkLast:'Last backup {d}',bkNever:'Never backed up',bkAsk:'Replace the data on this device with this backup? What is here now will be lost.',bkInfo:'{n} · {d} days together · {c} coins',bkFrom:'Backup from {d}',bkYes:'Yes, import',bkHave:'Have a backup file? Import it here',
+ dy:{water:'Water',cups:'{n}/{g} glasses',cupL:'Glass {i}',move:'Activity',moveNone:'No activity yet',moveSum:'{m} min · {k} kcal burned',add:'Add',less:'One glass less',more:'One glass more'},
+ waterDone:'Water goal done! {n} feels fresh',goalPlus:'includes activity +{k}',
+ mv:{title:'Activity today',pick:'What did you do?',min:'How many minutes?',other:'Other',save:'Save',today:'Today',none:'Nothing yet',
+  hint:'Only the calories burned above sitting still are counted, and they are added to today\'s eating target. If you said you exercise regularly when setting the plan, that is already in your target, so don\'t log it twice.',
+  acts:{walk:'Walking',brisk:'Brisk walking',run:'Running',cycle:'Cycling',swim:'Swimming',yoga:'Yoga / stretching',weights:'Weight training',dance:'Dance / aerobics',badminton:'Badminton',football:'Football',hiit:'HIIT',chores:'Housework'}},
+ stT:'Streak',stBody:'Log at least one meal every day to keep the flame going. Miss a day and it starts again.',stNow:'{n} days in a row',stNext:'{d} more days to {m} days: {c} coins',stGot:'{m}-day streak! +{c} coins',stRisk:'Nothing logged today. Your {n}-day flame will go out!',stMiles:'Rewards',
+ rmT:'Reminders',rmIn:'Remind me in the app at meal times',rmSlot:{b:'breakfast',l:'lunch',d:'dinner'},rmCal:'Add reminders to my phone calendar',rmCalHint:'A web app cannot notify you while it is closed, so your phone calendar does it instead. Open the file and tap "Add"; it uses the times above.',rmDue:'You haven\'t logged {s} yet',rmGo:'Log it',calTitle:'Feed {n} ({s})',calBody:'Open Imjang and log this meal',bkBad:'This is not an Imjang backup file',
  acc:{bell:'Bell',bowtie:'Bow tie',bow:'Bow',cape:'Cape',cap:'Cap',crown:'Crown',flower:'Flower',glasses:'Glasses',party:'Party hat',scarf:'Scarf'},
  wearing:'Wearing',growl:'grrr~ grrr~',hatchTap:'Tap the egg to hatch it',hatchT:'{n} hatched!',hi:'Hello!',
  instT:'Install app',instBtn:'Add to Home Screen',instIos:'On iPhone/iPad: tap Share, then "Add to Home Screen"',instDone:'Installed. Works offline',photoOff:'AI photo logging works when opened in Claude',
@@ -441,6 +472,7 @@ const FOODS=[
 ['khaochae','🍚','ข้าวแช่ 1 ชุด','Khao chae',350,15.8,11.7,45.5,'one'],
 ['khaoobpueak','🍠','ข้าวอบเผือก 1 จาน','Baked taro rice',385,17.3,12.8,50.1,'one'],
 ['jokliver','🥣','โจ๊กหมูตับไข่ลวก 1 ถ้วย','Pork congee with liver & egg',230,12.7,7.2,28.8,'one'],
+['khaoyam','🍚','ข้าวยำปักษ์ใต้ 1 จาน (250 ก.)','Southern rice salad with budu (250 g)',410,18.5,9.1,63.6,'one'],
 ['padthai','🍜','ผัดไทย 1 จาน','Pad Thai',560,22,21,68,'noodle'],
 ['padseeew','🍜','ผัดซีอิ๊วใส่ไข่ 1 จาน','Pad see ew with egg',520,16,29,49,'noodle'],
 ['radna','🍜','ราดหน้าเส้นใหญ่หมู 1 จาน','Rad na, wide noodles & pork',405,13.5,13.5,56.7,'noodle'],
@@ -470,6 +502,9 @@ const FOODS=[
 ['ngiew','🍜','ขนมจีนน้ำเงี้ยว 1 ถ้วย','Khanom jeen nam ngiao',305,16.8,9.5,38.1,'noodle'],
 ['kiewkrob','🥟','เกี๊ยวกรอบราดหน้ากุ้ง 1 จาน','Crispy wontons with shrimp gravy',635,23.8,26.8,74.6,'noodle'],
 ['senpla','🐟','ก๋วยเตี๋ยวเส้นปลาน้ำ 1 ชาม','Fish noodle soup',375,20.6,11.7,46.9,'noodle'],
+['padmeetai','🍜','ผัดหมี่ใต้ 1 จาน (250 ก.)','Southern fried rice vermicelli (250 g)',520,19.5,22,61.1,'noodle'],
+['jeenpaktai','🍜','ขนมจีนน้ำยาปักษ์ใต้ 1 จาน (350 ก.)','Khanom jeen, southern fish curry (350 g)',300,16.5,9.3,37.5,'noodle'],
+['jeenpa','🍜','ขนมจีนน้ำยาป่า 1 จาน (350 ก.)','Khanom jeen, jungle fish curry (350 g)',230,12.7,7.2,28.8,'noodle'],
 ['tomyum','🍲','ต้มยำกุ้งน้ำใส 1 ถ้วย','Tom yum goong, clear',65,6.5,2.7,4.3,'side'],
 ['tomkha','🍲','ต้มข่าไก่ 1 ถ้วย','Tom kha chicken',210,18,13.5,3,'side'],
 ['green','🍲','แกงเขียวหวานไก่ 1 ถ้วย','Green curry chicken',240,19,14,7,'side'],
@@ -499,12 +534,29 @@ const FOODS=[
 ['kaitoon','🥚','ไข่ตุ๋น 1 ฟอง','Steamed egg',75,6,5,1,'side'],
 ['kaiyadsai','🍳','ไข่ยัดไส้ 1 จาน','Stuffed omelet',310,16,22,12,'side'],
 ['mootodkt','🧄','หมูทอดกระเทียมพริกไทย 1 จาน','Garlic pepper pork',245,18,17,5,'side'],
+['taipla','🍲','แกงไตปลา 1 ถ้วย (250 ก.)','Tai pla curry (250 g)',85,7.4,3.3,6.4,'side'],
+['kaengluang','🍲','แกงเหลืองใส่ปลา 1 ถ้วย (250 ก.)','Yellow sour curry with fish (250 g)',110,9.6,4.3,8.3,'side'],
+['somtai','🍲','แกงส้มปักษ์ใต้ ผักรวมกับปลา 1 ถ้วย (250 ก.)','Southern sour curry, fish & vegetables (250 g)',125,10.9,4.9,9.4,'side'],
+['khuakling','🌶️','คั่วกลิ้งเนื้อ 1 จาน (150 ก.)','Khua kling, dry beef curry (150 g)',230,20.1,12.8,8.6,'side'],
+['kaihy','🍗','ไก่ทอดหาดใหญ่ 1 ชิ้น (120 ก.)','Hat Yai fried chicken, 1 piece (120 g)',280,23.1,17.1,8.4,'side'],
+['khilek','🍛','แกงขี้เหล็ก 1 ถ้วย (250 ก.)','Cassia leaf curry (250 g)',305,13.7,21,15.3,'side'],
+['koi','🥩','ก้อยเนื้อ 1 จาน (150 ก.)','Koi, Isan beef salad (150 g)',160,18,6.2,8,'side'],
+['larbneua','🥩','ลาบเนื้อ 1 จาน (150 ก.)','Beef larb (150 g)',155,17.4,6,7.8,'side'],
+['nomai','🍲','แกงหน่อไม้ 1 ถ้วย (250 ก.)','Isan bamboo shoot soup (250 g)',65,5.7,2.5,4.9,'side'],
+['om','🍲','แกงอ่อมเนื้อ 1 ถ้วย (250 ก.)','Kaeng om with beef (250 g)',140,12.3,5.4,10.5,'side'],
+['namprikplara','🌶️','น้ำพริกปลาร้ากับผักลวก 1 ชุด (150 ก.)','Pla ra chilli dip with boiled vegetables (150 g)',125,5.6,2.8,19.4,'side'],
+['hungle','🍛','แกงฮังเล 1 ถ้วย (200 ก.)','Hung le pork curry (200 g)',440,19.8,30.3,22,'side'],
+['larbkhua','🥩','ลาบคั่ว (เหนือ) 1 จาน (150 ก.)','Northern fried larb (150 g)',275,30.9,10.7,13.8,'side'],
+['namprikong','🌶️','น้ำพริกอ่อง 1 ถ้วยเล็ก (60 ก.)','Nam prik ong, small cup (60 g)',125,4.7,7.6,9.4,'side'],
+['kaengkhanun','🍲','แกงขนุน 1 ถ้วย (250 ก.)','Young jackfruit curry (250 g)',125,10.9,4.9,9.4,'side'],
 ['somtam','🥗','ส้มตำไทย 1 จาน (150 ก.)','Papaya salad, 1 plate (150 g)',160,6.5,4,22,'salad'],
 ['tampoo','🥗','ส้มตำปูปลาร้า 1 จาน','Papaya salad, crab & fermented fish',120,6,2.4,19.2,'salad'],
 ['yum','🥗','ยำวุ้นเส้น 1 จาน','Glass noodle salad',120,6,4.8,13.2,'salad'],
 ['yumtalay','🦐','ยำทะเล 1 จาน','Seafood salad',130,15,2,11.5,'salad'],
 ['salad','🥗','สลัดอกไก่','Chicken breast salad',300,30,12,15,'salad'],
 ['saladpak','🥗','สลัดผัก (มีน้ำสลัด) 1 จาน','Garden salad with dressing',240,4,18,16,'salad'],
+['supnomai','🥗','ซุปหน่อไม้ 1 จาน (150 ก.)','Sup no mai, bamboo shoot salad (150 g)',40,1.8,0.9,6.2,'salad'],
+['supmakhua','🍆','ซุปมะเขือ 1 จาน (150 ก.)','Sup makhuea, eggplant salad (150 g)',90,4.1,2,14,'salad'],
 ['sand','🥪','แซนด์วิช 1 ชิ้น','Sandwich',250,10,12,25,'intl'],
 ['pizza','🍕','พิซซ่า 1 ชิ้น','Pizza, 1 slice',290,12.4,10.4,35.2,'intl'],
 ['burger','🍔','เบอร์เกอร์ 1 ชิ้น','Burger',480,25,24,40,'intl'],
@@ -545,6 +597,21 @@ const FOODS=[
 ['flossbun','🍞','ขนมปังไส้หมูหยอง 1 ชิ้น','Pork floss bun',185,7,6,26,'snack'],
 ['danish','🥐','เดนิชแฮม 1 ชิ้น','Ham danish',385,10,22,37,'snack'],
 ['chickenpie','🥧','พายไส้ไก่ 1 ชิ้น','Chicken pie',405,12,25,33,'snack'],
+['khaoji','🍙','ข้าวจี่ (ข้าวเหนียวชุบไข่ปิ้ง) 1 ชิ้น (80 ก.)','Khao ji, egg-dipped grilled sticky rice (80 g)',185,4.6,3.7,33.3,'snack'],
+['kluaychuam','🍌','กล้วยไข่เชื่อม 1 ถ้วย (100 ก.)','Banana in syrup (100 g)',240,3,8,39,'snack'],
+['khanomchan','🍮','ขนมชั้น 1 ชิ้น (40 ก.)','Khanom chan, layer cake (40 g)',110,1.4,3.7,17.9,'snack'],
+['lukchup','🍒','ลูกชุบ 5 ลูก (50 ก.)','Look choop, mock fruits ×5 (50 g)',140,1.8,4.7,22.8,'snack'],
+['morgaeng','🍮','ขนมหม้อแกงไข่ 1 ชิ้น (80 ก.)','Khanom mor kaeng, egg custard (80 g)',165,3.3,5.5,25.6,'snack'],
+['thongyod','🟡','ทองหยอด 5 ลูก (40 ก.)','Thong yod ×5 (40 g)',135,2.7,4.5,20.9,'snack'],
+['thongyip','🌼','ทองหยิบ 1 ดอก (25 ก.)','Thong yip, 1 flower (25 g)',100,2,3.3,15.5,'snack'],
+['foithong','🧶','ฝอยทอง 1 แพ (30 ก.)','Foi thong, golden threads (30 g)',130,2.6,4.3,20.2,'snack'],
+['metkhanun','🟠','เม็ดขนุน 5 เม็ด (40 ก.)','Met khanun ×5 (40 g)',150,3,5,23.3,'snack'],
+['tako','🥥','ตะโก้ 1 ถ้วย (60 ก.)','Tako, coconut pudding (60 g)',85,1.1,2.8,13.8,'snack'],
+['sarim','🥣','ซ่าหริ่ม 1 ถ้วย (200 ก.)','Sarim in coconut milk (200 g)',325,4.1,10.8,52.8,'snack'],
+['woonkati','🍮','วุ้นกะทิใบเตย 1 ชิ้น (60 ก.)','Pandan coconut jelly (60 g)',80,1,2.7,13,'snack'],
+['sangkayakai','🍮','สังขยาไข่ 1 ชิ้น (60 ก.)','Steamed egg custard (60 g)',105,2.1,3.5,16.3,'snack'],
+['khaokriap','🦐','ข้าวเกรียบกุ้ง 1 ถุงเล็ก (25 ก.)','Shrimp crackers, small bag (25 g)',125,2.5,2.1,24.1,'snack'],
+['khaoniaomun','🍚','ข้าวเหนียวมูน 1 ถ้วย (100 ก.)','Sticky rice in coconut milk (100 g)',285,7.1,5.7,51.3,'snack'],
 ['banana','🍌','กล้วยหอม 1 ลูก','Banana (kluay hom)',77,0.9,0.1,17.6,'fruit'],
 ['apple','🍎','แอปเปิล 1 ลูก','Apple',95,0.5,0.3,25,'fruit'],
 ['orange','🍊','ส้มเขียวหวาน 1 ลูก','Tangerine',32,0.5,0,8,'fruit'],
@@ -553,10 +620,26 @@ const FOODS=[
 ['papaya','🍈','มะละกอสุก 1 ถ้วย','Ripe papaya, 1 cup',55,0.6,0.4,13.8,'fruit'],
 ['pineapple','🍍','สับปะรด 1 ถ้วย','Pineapple, 1 cup',80,1,0.2,20,'fruit'],
 ['guava','🍏','ฝรั่ง ครึ่งลูก','Guava, half',60,2.1,0.9,12,'fruit'],
-['durian','🍈','ทุเรียน 1 พู (60 ก.)','Durian, 1 piece (60 g)',85,0.9,2.8,15.1,'fruit'],
+['durian','🍈','ทุเรียนหมอนทอง 1 พู (60 ก.)','Monthong durian, 1 segment (60 g)',100,1.1,3.3,17.8,'fruit'],
 ['rambutan','🔴','เงาะ 5 ลูก','Rambutan, 5',60,0.5,0.2,14.4,'fruit'],
 ['grapes','🍇','องุ่น 1 ถ้วย','Grapes, 1 cup',90,0.9,0.2,23.1,'fruit'],
 ['dragonfruit','🐉','แก้วมังกร ครึ่งลูก','Dragon fruit, half',60,1,0.4,13,'fruit'],
+['mangosteen','🟣','มังคุด 5 ลูก (เนื้อ 100 ก.)','Mangosteen ×5 (100 g flesh)',80,1,0.3,18.4,'fruit'],
+['longan','🟤','ลำไย 10 ลูก (เนื้อ 100 ก.)','Longan ×10 (100 g flesh)',110,1.4,0.4,25.3,'fruit'],
+['lychee','🔴','ลิ้นจี่ 10 ลูก (เนื้อ 100 ก.)','Lychee ×10 (100 g flesh)',55,0.7,0.2,12.7,'fruit'],
+['langsat','🟡','ลางสาด/ลองกอง 10 ลูก (เนื้อ 100 ก.)','Langsat ×10 (100 g flesh)',65,0.8,0.2,15,'fruit'],
+['jackfruit','🟨','ขนุน 5 ยวง (100 ก.)','Jackfruit, 5 bulbs (100 g)',115,1.4,0.4,26.5,'fruit'],
+['noina','🍏','น้อยหน่า 1 ลูก (เนื้อ 100 ก.)','Custard apple (100 g flesh)',100,1.3,0.3,23,'fruit'],
+['sapodilla','🟫','ละมุด 1 ลูก (75 ก.)','Sapodilla (75 g)',70,0.9,0.2,16.1,'fruit'],
+['salak','🟤','สละ 3 ลูก (เนื้อ 75 ก.)','Salak ×3 (75 g flesh)',55,0.7,0.2,12.7,'fruit'],
+['roseapple','🍐','ชมพู่ 2 ลูก (150 ก.)','Rose apple ×2 (150 g)',40,0.5,0.1,9.2,'fruit'],
+['jujube','🍏','พุทราแอปเปิล 1 ลูก (100 ก.)','Apple jujube (100 g)',50,0.6,0.2,11.5,'fruit'],
+['pomelo','🍊','ส้มโอ 3 กลีบ (150 ก.)','Pomelo, 3 segments (150 g)',80,1,0.3,18.4,'fruit'],
+['starfruit','⭐','มะเฟือง 1 ลูก (100 ก.)','Star fruit (100 g)',35,0.4,0.1,8.1,'fruit'],
+['tamarind','🟫','มะขามหวาน 5 ฝัก (เนื้อ 40 ก.)','Sweet tamarind ×5 (40 g flesh)',135,1.7,0.5,31.1,'fruit'],
+['kluaykai','🍌','กล้วยไข่ 2 ลูก (80 ก.)','Kai banana ×2 (80 g)',120,1.5,0.4,27.6,'fruit'],
+['kluaynamwa','🍌','กล้วยน้ำว้า 1 ลูก (60 ก.)','Namwa banana (60 g)',90,1.1,0.3,20.7,'fruit'],
+['greenmango','🥭','มะม่วงดิบ (เขียวเสวย) ครึ่งลูก (100 ก.)','Green mango, half (100 g)',85,1.1,0.3,19.6,'fruit'],
 ['boba','🧋','ชานมไข่มุก 1 แก้ว','Bubble milk tea',380,3,8,75,'drink'],
 ['thaitea','🧋','ชาเย็น 1 แก้ว','Thai iced tea',280,2,8,50,'drink'],
 ['greentea','🍵','ชาเขียวนมเย็น 1 แก้ว','Iced green milk tea',280,3,8,49,'drink'],
@@ -652,7 +735,7 @@ function pimg(sp,suf,stg,alt){return `<img class="pimg" src="${IMG}${sp}-${stg}$
 function isNight(){const h=new Date().getHours();return h>=23||h<5}
 /* ============ STATE ============ */
 const KEY='imjang.v1';
-function defState(){return{lang:'th',onboarded:false,pet:{sp:'cat',name:''},prof:null,plan:null,logs:{},coins:0,days:0,streak:0,lastDay:'',owned:[],worn:[],bonus:{},bg:'room',bgOwned:['room'],myFoods:[]}}
+function defState(){return{lang:'th',onboarded:false,pet:{sp:'cat',name:''},prof:null,plan:null,logs:{},coins:0,days:0,streak:0,lastDay:'',owned:[],worn:[],bonus:{},bg:'room',bgOwned:['room'],myFoods:[],water:{},moves:{},remind:{on:true,b:'08:00',l:'12:00',d:'18:30'}}}
 let S=defState();
 try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(defState(),JSON.parse(r))}catch(e){}
 let DOC=null,syncSt='off',pushT=null;
@@ -697,6 +780,9 @@ function yest(){const d=new Date();d.setDate(d.getDate()-1);return dkey(d)}
 function rollover(){
   if(S.lastDay&&S.lastDay!==today()&&S.lastDay!==yest())S.streak=0;
   const keep=Object.keys(S.logs).sort().slice(-14);const nl={};keep.forEach(k=>nl[k]=S.logs[k]);S.logs=nl;
+  /* water and activity are kept for the same 14 days */
+  const d=new Date();d.setDate(d.getDate()-13);const from=dkey(d);
+  ['water','moves'].forEach(f=>{const o={};Object.keys(S[f]||{}).forEach(k=>{if(k>=from)o[k]=S[f][k]});S[f]=o});
 }
 /* Saves from older versions (local or synced): retired pets (bear, fox, …) become the cat. */
 const OLDSP={rabbit:'bunny'};
@@ -711,6 +797,12 @@ function normalize(){
   if(!S.bgOwned.includes(S.bg))S.bg='room';
   /* foods the user typed and kept: {id:'u_…',e,n,k,p,f,c} */
   S.myFoods=(Array.isArray(S.myFoods)?S.myFoods:[]).filter(m=>m&&typeof m.id==='string'&&m.n&&m.k>0);
+  /* water {day: glasses}, moves {day: [{a,min,k,t}]}, meal-time reminders */
+  if(!S.water||typeof S.water!=='object'||Array.isArray(S.water))S.water={};
+  if(!S.moves||typeof S.moves!=='object'||Array.isArray(S.moves))S.moves={};
+  const hm=/^\d\d:\d\d$/,rd=defState().remind;
+  S.remind=Object.assign({},rd,S.remind&&typeof S.remind==='object'?S.remind:{});
+  ['b','l','d'].forEach(s=>{if(!hm.test(S.remind[s]))S.remind[s]=rd[s]});S.remind.on=S.remind.on!==false;
   /* weigh-ins: older saves had only the weight from the questions */
   if(!Array.isArray(S.weights))S.weights=[];
   const pr=S.prof;
@@ -741,8 +833,17 @@ const heart=on=>`<svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9.5-9C.5 8 3 4 
 /* ============ DERIVED ============ */
 function todayLog(){return S.logs[today()]||[]}
 function totals(){return todayLog().reduce((a,m)=>({k:a.k+m.k,p:a.p+m.p,f:a.f+m.f,c:a.c+m.c}),{k:0,p:0,f:0,c:0})}
+/* Activity: net kcal above rest = (MET − 1) × kg × hours. The day's eating target grows by what was burned. */
+const ACTS={walk:['🚶',3.5],brisk:['🚶',4.3],run:['🏃',8],cycle:['🚴',6.8],swim:['🏊',6],yoga:['🧘',2.5],weights:['🏋️',5],dance:['💃',5],badminton:['🏸',5.5],football:['⚽',7],hiit:['🔥',8],chores:['🧹',3.3]};
+const curW=()=>{const ws=S.weights||[];return ws.length?ws[ws.length-1].w:S.prof?S.prof.w:60};
+const burnOf=(a,min)=>Math.max(0,Math.round((ACTS[a][1]-1)*curW()*min/60));
+const movesOf=d=>S.moves[d||today()]||[];
+const burned=d=>movesOf(d).reduce((a,m)=>a+m.k,0);
+const goalOf=d=>(S.plan?S.plan.target:2000)+burned(d);
+/* about 30 ml per kg a day, in 250 ml glasses */
+const waterGoal=()=>Math.max(6,Math.min(12,Math.round(curW()*30/250)));
 function moodNow(){
-  const t=totals().k,g=S.plan?S.plan.target:2000;
+  const t=totals().k,g=goalOf();
   if(t<=0)return{m:'hungry',h:0,r:0};
   const r=t/g;
   if(r>1.15)return{m:'stuffed',h:1,r};
@@ -1050,7 +1151,7 @@ function rHome(){
   const pose=sleepy?'-asleep':SUF[M.m];
   const line=!S.lastDay&&!log.length?t.ob.firstMeal:fmt(t.say[sleepy?'sleep':M.m],{n,s:t.snd[S.pet.sp]});
   app.innerHTML=`<div class="top">
-    <div class="row"><span class="chip" title="streak">${I('flame','style="color:#FF7A45"')}${S.streak}</span><span class="chip">${I('coin','style="color:#E0A800"')}${S.coins}</span></div>
+    <div class="row"><button class="chip" id="stk" aria-label="${esc(t.stT+': '+fmt(t.stNow,{n:S.streak}))}">${I('flame','style="color:#FF7A45"')}${S.streak}</button><span class="chip">${I('coin','style="color:#E0A800"')}${S.coins}</span></div>
     <button class="ibtn" id="set" aria-label="${t.sT}">${I('gear')}</button></div>
   <div class="stage" id="stage"${veil()}>
     ${roomImg()}
@@ -1061,9 +1162,11 @@ function rHome(){
   </div>
   <div class="row" style="justify-content:center;gap:8px;margin-top:-4px"><b class="fd" style="font-size:20px">${n}</b><span class="mute">· ${t.stg[stg]} · ${S.days} ${t.days}</span></div>
   <div class="say bubble">${esc(line)}</div>
+  ${nudge(t)}
   ${weekStrip(t)}
   ${kcalCard(t,tt)}
   <div class="card"><div class="meals">${log.length?mealGroups(log,t,'d'):`<div class="mute" style="text-align:center;padding:8px">${fmt(t.none,{n})}</div>`}</div></div>
+  ${dayCard(t)}
   ${weightCard(t)}
   <div class="dock"><button class="btn main" id="add">${I('plus')} ${t.feed}</button>
    <button class="btn mint" id="wd">${I('shirt')} ${t.ward}</button>
@@ -1074,6 +1177,89 @@ function rHome(){
   if($('#wt'))$('#wt').onclick=()=>{wtMsg='';sheetWeight()};
   app.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{S.logs[today()].splice(+b.dataset.d,1);save();rHome()});
   app.querySelectorAll('[data-day]').forEach(b=>b.onclick=()=>sheetDay(b.dataset.day));
+  $('#stk').onclick=sheetStreak;
+  const ng=$('#ngo');if(ng)ng.onclick=()=>{sheetAdd();const s=ng.dataset.s;if(s){mslot=s;drawAdd()}};
+  app.querySelectorAll('[data-cup]').forEach(b=>b.onclick=()=>{const i=+b.dataset.cup,cur=S.water[today()]||0;setWater(cur===i+1?i:i+1)});
+  $('#mvadd').onclick=sheetMove;
+}
+/* ---- reminders, streak, water, activity ---- */
+const MILES=[[3,15],[7,40],[14,60],[30,150],[60,200],[100,300]];
+const toMin=s=>{const [h,m]=s.split(':').map(Number);return h*60+m};
+/* The meal whose reminder time has passed (within 3 hours) and that has nothing logged yet. */
+function dueSlot(){
+  if(!S.remind.on)return null;
+  const d=new Date(),now=d.getHours()*60+d.getMinutes(),log=todayLog();
+  let due=null;
+  ['b','l','d'].forEach(s=>{const m=toMin(S.remind[s]);if(now>=m&&now<m+180&&!log.some(x=>x.m===s))due=s});
+  return due;
+}
+function nudge(t){
+  const s=dueSlot();
+  if(s)return `<div class="nudge" role="status"><span class="sp">⏰ ${fmt(t.rmDue,{s:t.rmSlot[s]})}</span><button class="btn sm" id="ngo" data-s="${s}">${t.rmGo}</button></div>`;
+  if(S.streak>=2&&S.lastDay===yest()&&new Date().getHours()>=18)return `<div class="nudge" role="status"><span class="sp">🔥 ${fmt(t.stRisk,{n:S.streak})}</span><button class="btn sm" id="ngo">${t.rmGo}</button></div>`;
+  return '';
+}
+function dayCard(t){
+  const g=waterGoal(),n=Math.min(S.water[today()]||0,g),mv=movesOf(),min=mv.reduce((a,m)=>a+m.min,0);
+  return `<div class="card daycard">
+   <div class="row"><b>💧 ${t.dy.water}</b><span class="sp"></span><span class="mute">${fmt(t.dy.cups,{n:S.water[today()]||0,g})}</span></div>
+   <div class="cups" style="grid-template-columns:repeat(${g},1fr)">${Array.from({length:g},(_,i)=>`<button class="cup ${i<n?'on':''}" data-cup="${i}" aria-label="${fmt(t.dy.cupL,{i:i+1})}" aria-pressed="${i<n}"></button>`).join('')}</div>
+   <div class="row" style="margin-top:6px"><b>🏃 ${t.dy.move}</b><span class="sp mute" style="font-size:13px;text-align:right">${mv.length?fmt(t.dy.moveSum,{m:min,k:burned().toLocaleString()}):t.dy.moveNone}</span><button class="btn mint sm" id="mvadd">${t.dy.add}</button></div>
+  </div>`;
+}
+/* first time a day reaches its water goal / logs activity: a few coins and a word from the pet */
+function petPop(text){
+  const s=$('#stage');if(!s)return;
+  const p=document.createElement('span');p.className='pop'+(text.length>18?' long':'');p.textContent=text;s.appendChild(p);setTimeout(()=>p.remove(),1500);
+}
+function setWater(n){
+  const t=L(),d=today(),g=waterGoal();
+  S.water[d]=Math.max(0,Math.min(20,n));
+  let msg='';
+  if(S.water[d]>=g&&!S.bonus['w'+d]){S.bonus['w'+d]=1;S.coins+=5;msg=fmt(t.waterDone,{n:S.pet.name})+'  '+fmt(t.coin,{n:5})}
+  save();rHome();if(msg)petPop(msg);
+}
+let mvA='walk',mvMin=30;
+function sheetMove(){
+  const t=L(),mv=movesOf();
+  const k=burnOf(mvA,mvMin);
+  openSheet(`<h3 class="fd">${t.mv.title}</h3>
+  ${mv.length?`<div class="card" style="padding:8px 12px">${mv.map((m,i)=>`<div class="meal"><span class="e">${ACTS[m.a]?ACTS[m.a][0]:'🏃'}</span><div class="sp"><div style="font-weight:500">${esc(t.mv.acts[m.a]||m.a)}</div><div class="mute">${m.min} min · ${m.k.toLocaleString()} kcal · ${m.t}</div></div><button class="x" data-mx="${i}" aria-label="delete">×</button></div>`).join('')}</div>`:''}
+  <div><div class="mute" style="margin-bottom:6px">${t.mv.pick}</div><div class="acts">${Object.keys(ACTS).map(a=>`<button data-a="${a}" class="${mvA===a?'on':''}" aria-pressed="${mvA===a}"><span>${ACTS[a][0]}</span>${t.mv.acts[a]}</button>`).join('')}</div></div>
+  <div><div class="mute" style="margin-bottom:6px">${t.mv.min}</div><div class="seg">${[10,15,20,30,45,60].map(x=>`<button data-m="${x}" class="${mvMin===x?'on':''}">${x}</button>`).join('')}</div>
+   <input class="inp" id="mvn" type="number" inputmode="numeric" min="1" max="300" placeholder="${t.mv.other}" aria-label="${t.mv.min}" value="${[10,15,20,30,45,60].includes(mvMin)?'':mvMin}" style="margin-top:8px;min-height:48px;font:500 16px 'Noto Sans Thai',sans-serif;text-align:left"></div>
+  <div class="selsum"><b class="fd" id="mvk">${k.toLocaleString()} kcal</b><div class="mute" style="font-size:12px;margin-top:4px">${t.mv.hint}</div></div>
+  <button class="btn block" id="mvs">${t.mv.save}</button>
+  <button class="btn ghost block" id="cl">${t.close}</button>`);
+  const sh=$('#sheet');
+  sh.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>{mvA=b.dataset.a;sheetMove()});
+  sh.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{mvMin=+b.dataset.m;sheetMove()});
+  const ni=$('#mvn');ni.oninput=()=>{const v=Math.round(+ni.value);if(v>=1&&v<=300){mvMin=v;$('#mvk').textContent=burnOf(mvA,v).toLocaleString()+' kcal';sh.querySelectorAll('[data-m]').forEach(b=>b.classList.remove('on'))}};
+  sh.querySelectorAll('[data-mx]').forEach(b=>b.onclick=()=>{S.moves[today()].splice(+b.dataset.mx,1);save();rHome();sheetMove()});
+  $('#mvs').onclick=()=>{
+    const d=today();(S.moves[d]=S.moves[d]||[]).push({a:mvA,min:mvMin,k:burnOf(mvA,mvMin),t:hhmm()});
+    let gain=0;if(!S.bonus['x'+d]){S.bonus['x'+d]=1;gain=10;S.coins+=gain}
+    save();closeSheet();rHome();
+    petPop(t.snd[S.pet.sp]+(gain?'  '+fmt(t.coin,{n:gain}):''));
+  };
+  $('#cl').onclick=()=>{closeSheet();rHome()};
+}
+function mileSheet([m,c]){
+  const t=L();
+  openSheet(`<div style="text-align:center;display:grid;gap:10px;justify-items:center"><div style="width:120px">${pimg(S.pet.sp,'-happy',stage(),S.pet.name)}</div>
+  <h3 class="fd" style="margin:0">🔥 ${fmt(t.stGot,{m,c})}</h3></div>
+  <button class="btn block" id="cl">${t.close}</button>`);
+  $('#cl').onclick=closeSheet;
+}
+function sheetStreak(){
+  const t=L(),nx=MILES.find(([m])=>m>S.streak);
+  openSheet(`<h3 class="fd">🔥 ${t.stT}</h3>
+  <div class="row"><b class="fd" style="font-size:28px">${fmt(t.stNow,{n:S.streak})}</b></div>
+  <p class="mute" style="margin:0">${t.stBody}</p>
+  ${nx?`<div class="selsum">${fmt(t.stNext,{d:nx[0]-S.streak,m:nx[0],c:nx[1]})}</div>`:''}
+  <div><b>${t.stMiles}</b><div class="miles">${MILES.map(([m,c])=>`<div class="${S.streak>=m?'on':''}"><b>${m}</b><small>${t.days}</small><span>🪙 ${c}</span></div>`).join('')}</div></div>
+  <button class="btn block" id="cl">${t.close}</button>`);
+  $('#cl').onclick=closeSheet;
 }
 /* ---- home pieces ---- */
 const f1=x=>(Math.round(x*10)/10).toLocaleString();
@@ -1081,10 +1267,11 @@ const hhmm=()=>{const d=new Date();return pad(d.getHours())+':'+pad(d.getMinutes
 const SLOTS=['b','l','d','s'];
 function slotNow(){const d=new Date(),h=d.getHours()+d.getMinutes()/60;return h>=5&&h<10.5?'b':h>=10.5&&h<14.5?'l':h>=17&&h<21.5?'d':'s'}
 const sumLog=log=>log.reduce((a,m)=>({k:a.k+m.k,p:a.p+m.p,f:a.f+m.f,c:a.c+m.c}),{k:0,p:0,f:0,c:0});
-function kcalCard(t,tt){
-  const g=S.plan.target,pct=Math.min(100,Math.round(tt.k/g*100)),over=tt.k>g;
+function kcalCard(t,tt,day){
+  const bn=burned(day),g=goalOf(day),pct=Math.min(100,Math.round(tt.k/g*100)),over=tt.k>g;
   return `<div class="card">
     <div class="row"><b class="fd" style="font-size:20px">${tt.k.toLocaleString()}</b><span class="mute">/ ${g.toLocaleString()} kcal</span><span class="sp"></span><b style="color:${over?'#C98A00':'var(--mint-d)'}">${over?t.over+' '+(tt.k-g).toLocaleString():t.left+' '+(g-tt.k).toLocaleString()}</b></div>
+    ${bn?`<div class="mute" style="font-size:13px">${fmt(t.goalPlus,{k:bn.toLocaleString()})}</div>`:''}
     <div class="meter ${over?'over':''}" style="margin:8px 0 12px"><i style="width:${pct}%"></i></div>
     ${[['pro','p','mint',S.plan.p],['fat','f','butter',S.plan.f],['carb','c','coral',S.plan.c]].map(([nm,key,col,tg])=>`<div class="mrow"><span>${t[nm]}</span><div class="meter"><i style="width:${Math.min(100,tt[key]/Math.max(1,tg)*100)}%;background:var(--${col})"></i></div><span class="mute" style="text-align:right">${Math.round(tt[key])}/${tg} ${t.g}</span></div>`).join('')}
   </div>`;
@@ -1100,10 +1287,10 @@ function mealGroups(list,t,del){
   return [...SLOTS,'o'].filter(s=>gs[s]).map(s=>`<div class="mg"><div class="mg-h"><b>${t.slots[s]}</b><span class="mute">${gs[s].reduce((a,[m])=>a+m.k,0).toLocaleString()} kcal</span></div>${gs[s].map(([m,i])=>`<div class="meal"><span class="e">${m.e}</span><div class="sp"><div style="font-weight:500">${esc(m.n)}</div><div class="mute">${m.k.toLocaleString()} kcal${m.t?' · '+m.t:''}</div>${m.p||m.f||m.c?macroLine(t,m.p,m.f,m.c):''}</div>${del?`<button class="x" data-${del}="${i}" aria-label="delete">×</button>`:''}</div>`).join('')}</div>`).join('');
 }
 function weekStrip(t){
-  const g=S.plan.target,out=[];
+  const out=[];
   for(let i=6;i>=0;i--){
     const d=new Date();d.setDate(d.getDate()-i);
-    const k=dkey(d),log=S.logs[k]||[],kc=log.reduce((a,m)=>a+m.k,0),r=kc/g;
+    const k=dkey(d),log=S.logs[k]||[],kc=log.reduce((a,m)=>a+m.k,0),r=kc/goalOf(k);
     const cls=!log.length?'':r>1.15?'over':r>=0.7?'good':'some';
     out.push(`<button class="wday ${i===0?'today':''}" ${i?`data-day="${k}"`:'aria-current="date"'} aria-label="${d.toLocaleDateString(S.lang==='th'?'th-TH':'en-GB',{weekday:'long',day:'numeric',month:'short'})}: ${kc.toLocaleString()} kcal"><small>${t.wdays[d.getDay()]}</small><b>${d.getDate()}</b><i class="dot ${cls}"><span style="width:${Math.min(100,Math.round(r*100))}%"></span></i></button>`);
   }
@@ -1112,7 +1299,7 @@ function weekStrip(t){
 function sheetDay(k){
   const t=L(),log=S.logs[k]||[];
   const head=new Date(k+'T00:00').toLocaleDateString(S.lang==='th'?'th-TH':'en-GB',{weekday:'long',day:'numeric',month:'long'});
-  openSheet(`<h3 class="fd">${head}</h3>${kcalCard(t,sumLog(log))}
+  openSheet(`<h3 class="fd">${head}</h3>${kcalCard(t,sumLog(log),k)}
   <div class="card"><div class="meals">${log.length?mealGroups(log,t,'dd'):`<div class="mute" style="text-align:center;padding:8px">${t.noMeals}</div>`}</div></div>
   <button class="btn ghost block" id="cl">${t.close}</button>`);
   $('#sheet').querySelectorAll('[data-dd]').forEach(b=>b.onclick=()=>{S.logs[k].splice(+b.dataset.dd,1);save();rHome();sheetDay(k)});
@@ -1364,8 +1551,12 @@ function feed(item){
   const day=today();
   item.t=item.t||hhmm();item.m=SLOTS.includes(item.m)?item.m:slotNow();
   S.logs[day]=S.logs[day]||[];S.logs[day].push(item);
-  let gain=0;
-  if(S.lastDay!==day){S.days++;S.streak=(S.lastDay===yest()?S.streak:0)+1;S.lastDay=day}
+  let gain=0,mile=null;
+  if(S.lastDay!==day){
+    S.days++;S.streak=(S.lastDay===yest()?S.streak:0)+1;S.lastDay=day;
+    /* the streak goes up once a day, so a milestone is paid once each time it is reached */
+    mile=MILES.find(([m])=>m===S.streak)||null;if(mile)gain+=mile[1];
+  }
   if(S.logs[day].length<=4)gain+=10;
   const m=moodNow();
   if(m.m==='loved'&&!S.bonus[day]){S.bonus[day]=1;gain+=20}
@@ -1380,7 +1571,9 @@ function feed(item){
     const im=p2.querySelector('img'),orig=im?im.getAttribute('src'):null;
     if(im)im.src=`${IMG}${S.pet.sp}-${stage()}-eating.webp`;
     const pop=document.createElement('span');pop.className='pop';pop.textContent=L().snd[S.pet.sp]+(gain?'  '+fmt(L().coin,{n:gain}):'');s2.appendChild(pop);
-    setTimeout(()=>{pop.remove();p2.classList.remove('chomp');if(im&&orig&&document.contains(im))im.setAttribute('src',orig)},1400);
+    setTimeout(()=>{pop.remove();p2.classList.remove('chomp');if(im&&orig&&document.contains(im))im.setAttribute('src',orig);
+      /* never cover a sheet the user opened meanwhile; the coins were already shown in the pop */
+      if(mile&&$('#wrap').classList.contains('hidden'))mileSheet(mile)},1400);
   },650);
 }
 let wardTab='wear';
@@ -1428,6 +1621,7 @@ function sheetSettings(){
   <button class="btn ghost block" id="rd">${t.redo}</button>
   <button class="btn ghost block" id="rt" style="color:#D0452D">${t.reset}</button>
   ${installCard(t)}
+  ${remindCard(t)}
   ${backupCard(t)}
   <div class="card" style="padding:12px"><b>${t.syncT}</b><div class="mute">${syncSt==='on'?t.syncOn:syncSt==='err'?t.syncErr:t.syncOff}</div></div>
   <p class="mute" style="margin:0">${t.about}</p>
@@ -1435,7 +1629,7 @@ function sheetSettings(){
   const sh=$('#sheet');
   const ib=sh.querySelector('#inst');
   if(ib)ib.onclick=async()=>{const e=instEvt;if(!e)return;instEvt=null;try{e.prompt();await e.userChoice}catch(_){}sheetSettings()};
-  bindBackup(t);
+  bindBackup(t);bindRemind(t);
   sh.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{S.lang=b.dataset.l;save();render();sheetSettings()});
   sh.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{S.pet.sp=b.dataset.s;save();warmArt();render();sheetSettings()});
   $('#rs').onclick=()=>{S.pet.name=($('#rn').value.trim()||t.defName[S.pet.sp]).slice(0,12);save();closeSheet();rHome()};
@@ -1458,19 +1652,49 @@ function backupCard(t){
   <div class="bkrow"><button class="btn mint sm" id="bko">${t.bkOut}</button><button class="btn ghost sm" id="bki">${t.bkIn}</button></div>
   <input type="file" id="bkf" accept="application/json,.json" class="hidden"><div class="err" id="bke" role="alert" style="min-height:0"></div></div>`;
 }
-async function exportBackup(){
-  const name=`imjang-backup-${today()}.json`;
-  const file=new File([JSON.stringify({app:'imjang',v:1,at:new Date().toISOString(),data:S})],name,{type:'application/json'});
-  let done=false;
+/* Hands a file to the user; false when they cancelled the share sheet. */
+async function saveFile(name,type,text){
+  const file=new File([text],name,{type});
   /* an installed app on iPhone cannot download files, so hand it to the share sheet (Save to Files, AirDrop, …) */
   if(isIos()&&navigator.canShare&&navigator.canShare({files:[file]})){
-    try{await navigator.share({files:[file]});done=true}catch(e){if(e&&e.name==='AbortError')return false}
+    try{await navigator.share({files:[file]});return true}catch(e){if(e&&e.name==='AbortError')return false}
   }
-  if(!done){
-    const a=document.createElement('a');a.href=URL.createObjectURL(file);a.download=name;document.body.appendChild(a);a.click();
-    setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500);
-  }
+  const a=document.createElement('a');a.href=URL.createObjectURL(file);a.download=name;document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500);
+  return true;
+}
+async function exportBackup(){
+  const ok=await saveFile(`imjang-backup-${today()}.json`,'application/json',JSON.stringify({app:'imjang',v:1,at:new Date().toISOString(),data:S}));
+  if(!ok)return false;
   S.lastBackup=today();save();return true;
+}
+/* ============ REMINDERS ============ */
+function remindCard(t){
+  const r=S.remind;
+  return `<div class="card" style="padding:12px;display:grid;gap:8px"><b>⏰ ${t.rmT}</b>
+  <label class="keep" style="padding-top:0"><input type="checkbox" id="rmon" ${r.on?'checked':''}> <span>${t.rmIn}</span></label>
+  <div class="rmt">${['b','l','d'].map(s=>`<label><span>${t.rmSlot[s]}</span><input type="time" data-rm="${s}" value="${r[s]}"></label>`).join('')}</div>
+  ${window.claude?'':`<button class="btn ghost sm block" id="rmcal">📅 ${t.rmCal}</button><div class="mute" style="font-size:12px">${t.rmCalHint}</div>`}</div>`;
+}
+/* A calendar file with one daily event per meal, each with an alert at its start (local, floating time). */
+function icsText(t){
+  const esc2=s=>String(s).replace(/\\/g,'\\\\').replace(/([,;])/g,'\\$1').replace(/\n/g,'\\n');
+  const d=new Date(),ymd=d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate());
+  const stamp=new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d+/,'');
+  const url=location.href.split('#')[0].split('?')[0];
+  const ev=['b','l','d'].map(s=>{
+    const [h,m]=S.remind[s].split(':'),title=fmt(t.calTitle,{n:S.pet.name||t.app,s:t.rmSlot[s]});
+    return ['BEGIN:VEVENT',`UID:imjang-${s}-${ymd}@imjang`,`DTSTAMP:${stamp}`,`DTSTART:${ymd}T${h}${m}00`,'DURATION:PT10M','RRULE:FREQ=DAILY',
+      `SUMMARY:${esc2(title)}`,`DESCRIPTION:${esc2(t.calBody+'\n'+url)}`,`URL:${url}`,
+      'BEGIN:VALARM','ACTION:DISPLAY',`DESCRIPTION:${esc2(title)}`,'TRIGGER:PT0M','END:VALARM','END:VEVENT'].join('\r\n');
+  });
+  return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Imjang//Meal reminders//EN','CALSCALE:GREGORIAN',...ev,'END:VCALENDAR'].join('\r\n')+'\r\n';
+}
+function bindRemind(t){
+  const on=$('#rmon');if(!on)return;
+  on.onchange=()=>{S.remind.on=on.checked;save()};
+  document.querySelectorAll('[data-rm]').forEach(i=>i.onchange=()=>{if(/^\d\d:\d\d$/.test(i.value)){S.remind[i.dataset.rm]=i.value;save()}});
+  const c=$('#rmcal');if(c)c.onclick=()=>saveFile('imjang-reminders.ics','text/calendar',icsText(t));
 }
 /* accepts our own export, or a bare save object */
 function readBackup(txt){
