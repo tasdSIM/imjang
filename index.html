@@ -217,7 +217,13 @@ canvas#trace{width:100%;height:220px;background:var(--bg);border:2px dashed var(
 .macin label span{display:flex;align-items:center;gap:4px}
 .macin input{width:100%;min-height:44px;border-radius:12px;border:2px solid var(--line);background:var(--surf);color:var(--ink);font:700 16px 'Mali',sans-serif;text-align:center}
 .food.on{border-color:var(--coral);background:color-mix(in srgb,var(--coral) 14%,var(--surf))}
-.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.seg{display:grid;grid-template-columns:repeat(auto-fit,minmax(52px,1fr));gap:8px}
+.mrow{display:flex;gap:6px;align-items:stretch}.mrow .food{flex:1;min-width:0}
+.del{flex:none;min-width:48px;padding:0 8px;border-radius:14px;border:2px solid var(--line);background:var(--surf);color:#D0452D;font-weight:700}
+.del.on{background:#D0452D;color:#fff;border-color:#D0452D}
+.keep{display:flex;align-items:flex-start;gap:8px;font-size:14px;min-height:44px;padding-top:4px}.keep input{width:22px;height:22px;flex:none;accent-color:var(--coral)}
+.bkrow{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.lnk{background:none;border:0;color:var(--mute);font-weight:700;text-decoration:underline;text-underline-offset:3px;min-height:44px;width:100%}
 .seg button{border:2px solid var(--line);background:var(--surf);border-radius:14px;min-height:44px;font-weight:700}
 .seg button.on{background:var(--ink);color:var(--bg)}
 .tabs{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:8px}
@@ -306,6 +312,8 @@ const T={th:{
   stale:'ไม่ได้ชั่งมา {d} วันแล้ว',evIn:'{e} อีก {d} วัน',evToday:'{e} วันนี้แล้ว! 🎉',plan:'แผน',you:'เธอ',goal:'เป้า',recent:'ที่บันทึกไว้',
   newTarget:'ปรับเป้าแคลอรี่เป็น {x} kcal/วัน (เดิม {y})',reached:'🎉 ถึงเป้าแล้ว! เก่งมาก',reachedCoin:'🎉 ถึงเป้าแล้ว! เก่งมาก +{c} เหรียญ',keepNow:'ตั้งเป้าเป็นรักษาน้ำหนักนี้',keepSet:'ตั้งเป้าเป็นรักษาน้ำหนักแล้ว ฉันจะช่วยดูให้อยู่ตัวนะ'},
  sT:'ตั้งค่า',lang:'ภาษา',rename:'ชื่อสัตว์เลี้ยง',change:'เปลี่ยนสัตว์',redo:'คำนวณแผนใหม่',reset:'ล้างข้อมูลทั้งหมด',resetAsk:'ลบข้อมูลทั้งหมดแล้วเริ่มใหม่ใช่ไหม?',yes:'ใช่ ลบเลย',no:'ยกเลิก',save:'บันทึก',close:'ปิด',about:'ค่าแคลอรี่เป็นค่าประมาณ',
+ mine:'เมนูของฉัน',keepMine:'เก็บไว้ใน "เมนูของฉัน" ครั้งหน้าเลือกได้เลย (เมื่อใส่ชื่อ)',delAsk:'แตะอีกครั้งเพื่อลบ',del:'ลบ',
+ bkT:'สำรองข้อมูล',bkHint:'ข้อมูลทั้งหมดอยู่ในเครื่องนี้เท่านั้น ถ้าล้างเบราว์เซอร์หรือเปลี่ยนเครื่อง ข้อมูลจะหาย ส่งออกเป็นไฟล์เก็บไว้ แล้วนำเข้าในเครื่องใหม่ได้',bkOut:'ส่งออกไฟล์',bkIn:'นำเข้าไฟล์',bkLast:'สำรองล่าสุด {d}',bkNever:'ยังไม่เคยสำรอง',bkAsk:'แทนที่ข้อมูลในเครื่องนี้ด้วยไฟล์สำรองนี้ใช่ไหม? ข้อมูลที่อยู่ในเครื่องตอนนี้จะหายไป',bkInfo:'{n} · เลี้ยงมา {d} วัน · {c} เหรียญ',bkFrom:'ไฟล์สำรองวันที่ {d}',bkYes:'ใช่ นำเข้า',bkHave:'มีไฟล์สำรองอยู่แล้ว? นำเข้าที่นี่',bkBad:'ไฟล์นี้ไม่ใช่ไฟล์สำรองของอิ่มจัง',
  acc:{bell:'กระดิ่ง',bowtie:'โบว์ไท',bow:'โบว์',cape:'ผ้าคลุม',cap:'หมวกแก๊ป',crown:'มงกุฎ',flower:'ดอกไม้',glasses:'แว่นตา',party:'หมวกปาร์ตี้',scarf:'ผ้าพันคอ'},
  wearing:'ใส่อยู่',growl:'ก๊อก~ ก๊อก~',hatchTap:'แตะไข่เพื่อให้ฟัก',hatchT:'{n} ฟักออกมาแล้ว!',hi:'สวัสดี!',
  instT:'ติดตั้งแอป',instBtn:'เพิ่มไปหน้าจอหลัก',instIos:'บน iPhone/iPad: กดปุ่มแชร์ แล้วเลือก "เพิ่มไปยังหน้าจอโฮม"',instDone:'ติดตั้งแล้ว ใช้งานออฟไลน์ได้',photoOff:'ถ่ายรูปด้วย AI ใช้ได้เมื่อเปิดผ่าน Claude',
@@ -375,6 +383,8 @@ en:{
   stale:'Last weighed {d} days ago',evIn:'{e} in {d} days',evToday:'{e} is today! 🎉',plan:'Plan',you:'You',goal:'Goal',recent:'Logged',
   newTarget:'Calorie target is now {x} kcal/day (was {y})',reached:'🎉 You reached your goal! Well done',reachedCoin:'🎉 You reached your goal! Well done +{c} coins',keepNow:'Switch to maintaining this weight',keepSet:"Now maintaining. I'll help you stay here."},
  sT:'Settings',lang:'Language',rename:'Pet name',change:'Change pet',redo:'Recalculate plan',reset:'Erase all data',resetAsk:'Erase everything and start over?',yes:'Yes, erase',no:'Cancel',save:'Save',close:'Close',about:'Calories are estimates.',
+ mine:'My foods',keepMine:'Keep in "My foods" to pick next time (when named)',delAsk:'Tap again to delete',del:'Delete',
+ bkT:'Backup',bkHint:'Everything is stored on this device only. Clearing the browser or changing phones loses it. Export a file to keep, then import it on the new device.',bkOut:'Export file',bkIn:'Import file',bkLast:'Last backup {d}',bkNever:'Never backed up',bkAsk:'Replace the data on this device with this backup? What is here now will be lost.',bkInfo:'{n} · {d} days together · {c} coins',bkFrom:'Backup from {d}',bkYes:'Yes, import',bkHave:'Have a backup file? Import it here',bkBad:'This is not an Imjang backup file',
  acc:{bell:'Bell',bowtie:'Bow tie',bow:'Bow',cape:'Cape',cap:'Cap',crown:'Crown',flower:'Flower',glasses:'Glasses',party:'Party hat',scarf:'Scarf'},
  wearing:'Wearing',growl:'grrr~ grrr~',hatchTap:'Tap the egg to hatch it',hatchT:'{n} hatched!',hi:'Hello!',
  instT:'Install app',instBtn:'Add to Home Screen',instIos:'On iPhone/iPad: tap Share, then "Add to Home Screen"',instDone:'Installed. Works offline',photoOff:'AI photo logging works when opened in Claude',
@@ -642,7 +652,7 @@ function pimg(sp,suf,stg,alt){return `<img class="pimg" src="${IMG}${sp}-${stg}$
 function isNight(){const h=new Date().getHours();return h>=23||h<5}
 /* ============ STATE ============ */
 const KEY='imjang.v1';
-function defState(){return{lang:'th',onboarded:false,pet:{sp:'cat',name:''},prof:null,plan:null,logs:{},coins:0,days:0,streak:0,lastDay:'',owned:[],worn:[],bonus:{},bg:'room',bgOwned:['room']}}
+function defState(){return{lang:'th',onboarded:false,pet:{sp:'cat',name:''},prof:null,plan:null,logs:{},coins:0,days:0,streak:0,lastDay:'',owned:[],worn:[],bonus:{},bg:'room',bgOwned:['room'],myFoods:[]}}
 let S=defState();
 try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(defState(),JSON.parse(r))}catch(e){}
 let DOC=null,syncSt='off',pushT=null;
@@ -699,6 +709,8 @@ function normalize(){
   S.bgOwned=(Array.isArray(S.bgOwned)?S.bgOwned:[]).filter(i=>BGS[i]);
   if(!S.bgOwned.includes('room'))S.bgOwned.unshift('room');
   if(!S.bgOwned.includes(S.bg))S.bg='room';
+  /* foods the user typed and kept: {id:'u_…',e,n,k,p,f,c} */
+  S.myFoods=(Array.isArray(S.myFoods)?S.myFoods:[]).filter(m=>m&&typeof m.id==='string'&&m.n&&m.k>0);
   /* weigh-ins: older saves had only the weight from the questions */
   if(!Array.isArray(S.weights))S.weights=[];
   const pr=S.prof;
@@ -758,10 +770,12 @@ function rWelcome(){
   <h3 class="fd" style="text-align:center">${t.pickPet}</h3>
   <div class="grid6">${SP.map(s=>`<button class="pick ${S.pet.sp===s?'on':''}" data-s="${s}" aria-pressed="${S.pet.sp===s}">${pimg(s,S.pet.sp===s?'-happy':'',1,t.sp[s])}${t.sp[s]}</button>`).join('')}</div>
   <div class="sp"></div>
-  <button class="btn block" id="go">${t.start}</button>`;
+  <button class="btn block" id="go">${t.start}</button>
+  ${window.claude?'':`<button class="lnk" id="wk">${t.bkHave}</button><div class="err" id="wke" role="alert"></div>`}`;
   bindLang();
   app.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{S.pet.sp=b.dataset.s;save();rWelcome()});
   $('#go').onclick=()=>go('hatch');
+  const wk=$('#wk');if(wk)wk.onclick=()=>welcomeImport(t);
 }
 /* ---- intro: three slides before choosing a pet ---- */
 let introI=0;
@@ -1187,8 +1201,25 @@ function openSheet(html){$('#sheet').innerHTML=html;$('#wrap').classList.remove(
 function closeSheet(){$('#wrap').classList.add('hidden');$('#sheet').innerHTML=''}
 $('#scrim').onclick=()=>{closeSheet();if(view==='home')rHome()};
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
-let sel=null,por=1,tab='list',q='',cat='all',mslot='s',photo={st:'idle',items:[],url:''};
-function sheetAdd(){sel=null;por=1;tab='list';q='';cat='all';mslot=slotNow();photo={st:'idle',items:[],url:''};drawAdd()}
+let sel=null,por=1,tab='list',q='',cat='all',mslot='s',photo={st:'idle',items:[],url:''},delArm=null;
+function sheetAdd(){sel=null;por=1;tab='list';q='';cat='all';mslot=slotNow();photo={st:'idle',items:[],url:''};delArm=null;drawAdd()}
+/* The user's kept foods, in the same row format as FOODS (category 'mine'), listed before the built-in foods. */
+const mineRows=()=>(S.myFoods||[]).map(m=>[m.id,m.e||'🍽️',m.n,m.n,m.k,m.p||0,m.f||0,m.c||0,'mine']);
+const allFoods=()=>mineRows().concat(FOODS);
+const findFood=id=>allFoods().find(r=>r[0]===id);
+/* search ignores spaces and case, looks in every category and puts names that start with the query first */
+const sq=s=>String(s).toLowerCase().replace(/\s+/g,'');
+function searchFoods(s){
+  const k=sq(s),hit=[];
+  allFoods().forEach((f,i)=>{const a=sq(f[2]),b=sq(f[3]);if(a.includes(k)||b.includes(k))hit.push({f,i,s:a.startsWith(k)||b.startsWith(k)?0:1})});
+  return hit.sort((x,y)=>x.s-y.s||x.i-y.i).map(x=>x.f);
+}
+function keepMine(o){
+  const n=o.n.trim().slice(0,30),ex=S.myFoods.find(m=>m.n===n);
+  const rec={id:ex?ex.id:'u_'+Date.now().toString(36),e:'🍽️',n,k:o.k,p:o.p,f:o.f,c:o.c};
+  S.myFoods=[rec].concat(S.myFoods.filter(m=>m!==ex)).slice(0,60);
+  return rec;
+}
 /* The foods eaten most in the kept days (latest first on ties), as they were logged. */
 function quickList(){
   const seen=new Map();
@@ -1198,21 +1229,29 @@ function quickList(){
   }));
   return [...seen.values()].sort((a,b)=>b.c-a.c||a.r-b.r).slice(0,6).map(x=>{
     /* list foods show in the current language; custom ones keep the typed name */
-    const f=x.it.id&&FOODS.find(r=>r[0]===x.it.id),por=x.it.por||1;
+    const f=x.it.id&&findFood(x.it.id),por=x.it.por||1;
     return f?Object.assign({},x.it,{n:(S.lang==='th'?f[2]:f[3])+(por!==1?' ×'+por:'')}):x.it;
   });
 }
 function drawAdd(){
   const t=L(),n=esc(S.pet.name);
-  const fl=FOODS.filter(f=>(cat==='all'||f[8]===cat)&&(!q||(f[2]+' '+f[3]).toLowerCase().includes(q.toLowerCase())));
+  const hasMine=S.myFoods.length>0;
+  if(cat==='mine'&&!hasMine)cat='all';
+  const fl=q.trim()?searchFoods(q):allFoods().filter(f=>cat==='all'||f[8]===cat);
   const quick=!q&&cat==='all'?quickList():[];
+  const row=f=>{
+    const b=`<button class="food ${sel&&sel[0]===f[0]?'on':''}" data-f="${f[0]}" aria-pressed="${!!(sel&&sel[0]===f[0])}"><span class="fe">${f[1]}</span><span class="sp"><span class="fn">${esc(S.lang==='th'?f[2]:f[3])}</span>${macroLine(t,f[5],f[6],f[7])}</span><b class="fk">${f[4].toLocaleString()}<small>kcal</small></b></button>`;
+    if(f[8]!=='mine'||cat!=='mine'||q.trim())return b;
+    const arm=delArm===f[0];
+    return `<div class="mrow">${b}<button class="del ${arm?'on':''}" data-del="${f[0]}" aria-label="${esc((arm?t.delAsk:t.del)+' '+f[2])}">${arm?t.del:'✕'}</button></div>`;
+  };
   let main='';
   if(tab==='list'){
-    main=`<input class="inp" id="q" style="font:500 16px 'Noto Sans Thai',sans-serif;min-height:48px;text-align:left" placeholder="${t.search}" value="${esc(q)}" aria-label="${t.search}">
+    main=`<input class="inp" id="q" type="search" style="font:500 16px 'Noto Sans Thai',sans-serif;min-height:48px;text-align:left" placeholder="${t.search}" value="${esc(q)}" aria-label="${t.search}">
     ${quick.length?`<div><div class="mute" style="font-size:13px;margin-bottom:6px">⭐ ${t.quick}</div><div class="quick">${quick.map((it,i)=>`<button class="qk" data-qk="${i}">${it.e} ${esc(it.n)}<small>${it.k.toLocaleString()} kcal</small></button>`).join('')}</div></div>`:''}
-    <div class="cats" role="tablist">${['all',...Object.keys(t.cats).filter(c=>c!=='all')].map(c=>`<button data-cat="${c}" role="tab" aria-selected="${cat===c}" class="${cat===c?'on':''}">${t.cats[c]}</button>`).join('')}</div>
-    <div class="foods">${fl.length?fl.map(f=>`<button class="food ${sel&&sel[0]===f[0]?'on':''}" data-f="${f[0]}" aria-pressed="${!!(sel&&sel[0]===f[0])}"><span class="fe">${f[1]}</span><span class="sp"><span class="fn">${esc(S.lang==='th'?f[2]:f[3])}</span>${macroLine(t,f[5],f[6],f[7])}</span><b class="fk">${f[4].toLocaleString()}<small>kcal</small></b></button>`).join(''):`<span class="mute">${t.nores}</span>`}</div>
-    ${sel?`<div><div class="mute" style="margin-bottom:6px">${t.portion}</div><div class="seg">${[.5,1,1.5,2].map(x=>`<button data-p="${x}" class="${por===x?'on':''}">${t.pf}${x}</button>`).join('')}</div></div>
+    ${q.trim()?'':`<div class="cats" role="tablist">${['all',...(hasMine?['mine']:[]),...Object.keys(t.cats).filter(c=>c!=='all')].map(c=>`<button data-cat="${c}" role="tab" aria-selected="${cat===c}" class="${cat===c?'on':''}">${c==='mine'?'🍽️ '+t.mine:t.cats[c]}</button>`).join('')}</div>`}
+    <div class="foods">${fl.length?fl.map(row).join(''):`<span class="mute">${t.nores}</span>`}</div>
+    ${sel?`<div><div class="mute" style="margin-bottom:6px">${t.portion}</div><div class="seg">${[.5,1,1.5,2,3].map(x=>`<button data-p="${x}" class="${por===x?'on':''}">${t.pf}${x}</button>`).join('')}</div></div>
     <div class="selsum"><b class="fd">${Math.round(sel[4]*por).toLocaleString()} kcal</b>${macroLine(t,sel[5]*por,sel[6]*por,sel[7]*por,true)}</div>`:''}
     <button class="btn block" id="fd" ${sel?'':'disabled'}>${t.feedBtn}</button>`;
   }else if(tab==='photo'){
@@ -1223,6 +1262,7 @@ function drawAdd(){
     <div><div class="mute" style="font-size:13px;margin-bottom:6px">${t.cMac}</div>
     <div class="macin">${[['cp','pro','mp'],['cfat','fat','mf'],['cc','carb','mc']].map(([id,k,cl])=>`<label><span><i class="${cl}"></i>${t[k]} (${t.g})</span><input id="${id}" type="number" inputmode="decimal" min="0" max="500" step="0.1" placeholder="0"></label>`).join('')}</div>
     <div class="mute" style="font-size:12px;margin-top:6px">${t.cMacHint}</div></div>
+    <label class="keep"><input type="checkbox" id="km" checked> <span>${t.keepMine}</span></label>
     <div class="err" id="ce"></div><button class="btn block" id="cf">${t.feedBtn}</button>`;
   }
   openSheet(`<h3 class="fd">${fmt(t.addT,{n})}</h3>
@@ -1231,10 +1271,16 @@ function drawAdd(){
   if(tab==='photo')bindPhoto();
   const sh=$('#sheet');
   sh.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{tab=b.dataset.t;drawAdd()});
-  sh.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{sel=FOODS.find(f=>f[0]===b.dataset.f);drawAdd()});
+  sh.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{sel=findFood(b.dataset.f);delArm=null;drawAdd()});
+  /* deleting a kept food takes two taps; foods already logged keep their name and numbers */
+  sh.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{
+    const id=b.dataset.del;
+    if(delArm!==id){delArm=id;drawAdd();return}
+    S.myFoods=S.myFoods.filter(m=>m.id!==id);delArm=null;if(sel&&sel[0]===id)sel=null;save();drawAdd();
+  });
   sh.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{por=+b.dataset.p;drawAdd()});
   sh.querySelectorAll('[data-sl]').forEach(b=>b.onclick=()=>{mslot=b.dataset.sl;drawAdd()});
-  sh.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{cat=b.dataset.cat;sel=null;drawAdd()});
+  sh.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{cat=b.dataset.cat;sel=null;delArm=null;drawAdd()});
   sh.querySelectorAll('[data-qk]').forEach(b=>b.onclick=()=>{const it=quick[+b.dataset.qk];feed(Object.assign({},it,{t:null,m:mslot}))});
   const qi=sh.querySelector('#q');
   if(qi)qi.oninput=()=>{q=qi.value;const pos=qi.selectionStart;drawAdd();const n2=$('#q');n2.focus();n2.setSelectionRange(pos,pos)};
@@ -1247,7 +1293,13 @@ function drawAdd(){
     /* kcal may be left empty when the nutrients are given: 4 per g of protein and carbs, 9 per g of fat */
     const typed=parseFloat($('#ck').value),k=Math.round(typed>0?typed:4*p+9*f+4*c);
     if(!(k>=1&&k<=3000)){$('#ce').textContent=fmt(t.range,{a:1,b:3000});return}
-    feed({e:'🍽️',n:$('#cn').value.trim()||(S.lang==='th'?'อาหารกรอกเอง':'Custom meal'),k,p,f,c,m:mslot});
+    const nm=$('#cn').value.trim();
+    /* only named foods are kept: a bare number is a one-off */
+    if(nm&&$('#km').checked){
+      const r=keepMine({n:nm,k,p,f,c});
+      feed({id:r.id,por:1,e:r.e,n:r.n,k,p,f,c,m:mslot});return;
+    }
+    feed({e:'🍽️',n:nm||(S.lang==='th'?'อาหารกรอกเอง':'Custom meal'),k,p,f,c,m:mslot});
   };
 }
 function photoMain(t){
@@ -1376,12 +1428,14 @@ function sheetSettings(){
   <button class="btn ghost block" id="rd">${t.redo}</button>
   <button class="btn ghost block" id="rt" style="color:#D0452D">${t.reset}</button>
   ${installCard(t)}
+  ${backupCard(t)}
   <div class="card" style="padding:12px"><b>${t.syncT}</b><div class="mute">${syncSt==='on'?t.syncOn:syncSt==='err'?t.syncErr:t.syncOff}</div></div>
   <p class="mute" style="margin:0">${t.about}</p>
   <button class="btn block" id="cl">${t.close}</button>`);
   const sh=$('#sheet');
   const ib=sh.querySelector('#inst');
   if(ib)ib.onclick=async()=>{const e=instEvt;if(!e)return;instEvt=null;try{e.prompt();await e.userChoice}catch(_){}sheetSettings()};
+  bindBackup(t);
   sh.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{S.lang=b.dataset.l;save();render();sheetSettings()});
   sh.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{S.pet.sp=b.dataset.s;save();warmArt();render();sheetSettings()});
   $('#rs').onclick=()=>{S.pet.name=($('#rn').value.trim()||t.defName[S.pet.sp]).slice(0,12);save();closeSheet();rHome()};
@@ -1393,6 +1447,70 @@ function sheetSettings(){
     $('#n').onclick=sheetSettings;
   };
   $('#cl').onclick=()=>{closeSheet();rHome()};
+}
+/* ============ BACKUP ============ */
+/* Outside Claude the save lives only in this browser, so the user can carry it to a new device as a JSON file.
+   Inside Claude the save is synced already, so the card is not shown. */
+function backupCard(t){
+  if(window.claude)return '';
+  const last=S.lastBackup?fmt(t.bkLast,{d:fmtDate(new Date(S.lastBackup+'T00:00'))}):t.bkNever;
+  return `<div class="card" style="padding:12px;display:grid;gap:8px"><div><b>${t.bkT}</b><div class="mute" style="font-size:13px">${t.bkHint}</div><div class="mute" style="font-size:13px;margin-top:4px" id="bkl">${last}</div></div>
+  <div class="bkrow"><button class="btn mint sm" id="bko">${t.bkOut}</button><button class="btn ghost sm" id="bki">${t.bkIn}</button></div>
+  <input type="file" id="bkf" accept="application/json,.json" class="hidden"><div class="err" id="bke" role="alert" style="min-height:0"></div></div>`;
+}
+async function exportBackup(){
+  const name=`imjang-backup-${today()}.json`;
+  const file=new File([JSON.stringify({app:'imjang',v:1,at:new Date().toISOString(),data:S})],name,{type:'application/json'});
+  let done=false;
+  /* an installed app on iPhone cannot download files, so hand it to the share sheet (Save to Files, AirDrop, …) */
+  if(isIos()&&navigator.canShare&&navigator.canShare({files:[file]})){
+    try{await navigator.share({files:[file]});done=true}catch(e){if(e&&e.name==='AbortError')return false}
+  }
+  if(!done){
+    const a=document.createElement('a');a.href=URL.createObjectURL(file);a.download=name;document.body.appendChild(a);a.click();
+    setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500);
+  }
+  S.lastBackup=today();save();return true;
+}
+/* accepts our own export, or a bare save object */
+function readBackup(txt){
+  let o;try{o=JSON.parse(txt)}catch(e){return null}
+  const d=o&&o.app==='imjang'&&o.data?o.data:o;
+  if(!d||typeof d!=='object'||Array.isArray(d)||!d.pet||typeof d.pet!=='object'||!d.logs||typeof d.logs!=='object'||Array.isArray(d.logs))return null;
+  return {d,at:o&&o.at||null};
+}
+function bindBackup(t){
+  const o=$('#bko');if(!o)return;
+  o.onclick=async()=>{if(await exportBackup()){const l=$('#bkl');if(l)l.textContent=fmt(t.bkLast,{d:fmtDate(new Date())})}};
+  const fi=$('#bkf');
+  $('#bki').onclick=()=>{fi.value='';fi.click()};
+  fi.onchange=()=>importBackup(fi.files&&fi.files[0],t,()=>{$('#bke').textContent=t.bkBad},sheetSettings);
+}
+/* restore a file on the welcome screen, before there is a pet (and before settings can be reached) */
+function welcomeImport(t){
+  if(window.claude)return;
+  const fi=document.createElement('input');fi.type='file';fi.accept='application/json,.json';
+  fi.onchange=()=>importBackup(fi.files&&fi.files[0],t,()=>{const e=$('#wke');if(e)e.textContent=t.bkBad},()=>{closeSheet()});
+  fi.click();
+}
+async function importBackup(f,t,bad,back){
+    if(!f)return;
+    if(f.size>5e6)return bad();
+    let txt;try{txt=await f.text()}catch(e){return bad()}
+    const b=readBackup(txt);if(!b)return bad();
+    const d=b.d,sp=SP.includes(d.pet.sp)?d.pet.sp:OLDSP[d.pet.sp]||'cat';
+    const at=b.at&&!isNaN(new Date(b.at))?new Date(b.at):null;
+    openSheet(`<h3 class="fd">${t.bkIn}</h3>
+    <div class="row"><div style="width:72px;flex:none">${pimg(sp,'-happy',1,t.sp[sp])}</div><div class="sp"><b>${esc(d.pet.name||t.sp[sp])}</b><div class="mute" style="font-size:13px">${fmt(t.bkInfo,{n:t.sp[sp],d:(+d.days||0).toLocaleString(),c:(+d.coins||0).toLocaleString()})}</div>${at?`<div class="mute" style="font-size:13px">${fmt(t.bkFrom,{d:fmtDate(at)})}</div>`:''}</div></div>
+    <p style="margin:0">${t.bkAsk}</p>
+    <button class="btn block" id="y">${t.bkYes}</button><button class="btn ghost block" id="n">${t.no}</button>`);
+    $('#n').onclick=back;
+    $('#y').onclick=()=>{
+      S=Object.assign(defState(),d);S.introSeen=true;normalize();
+      if(at)S.lastBackup=dkey(at);
+      save();closeSheet();
+      go(S.onboarded&&S.plan?'home':'welcome');warmArt();
+    };
 }
 /* ============ PWA ============ */
 let instEvt=null;
