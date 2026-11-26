@@ -199,8 +199,23 @@ canvas#trace{width:100%;height:220px;background:var(--bg);border:2px dashed var(
 .scrim{position:absolute;inset:0;background:rgba(40,25,20,.5)}
 .sheet{position:relative;width:100%;max-width:480px;max-height:88dvh;overflow:auto;background:var(--bg);border-radius:28px 28px 0 0;padding:18px 16px max(20px,env(safe-area-inset-bottom));display:grid;gap:12px;animation:up .22s ease-out}
 @keyframes up{from{transform:translateY(40px);opacity:0}}
-.foods{display:flex;flex-wrap:wrap;gap:8px;max-height:230px;overflow:auto}
-.food{background:var(--surf);border:2px solid var(--line);border-radius:14px;padding:8px 12px;min-height:44px;font-weight:500}
+.foods{display:grid;gap:6px;max-height:300px;overflow:auto;padding-right:2px}
+.food{background:var(--surf);border:2px solid var(--line);border-radius:14px;padding:8px 10px;min-height:52px;display:flex;align-items:center;gap:10px;text-align:left;width:100%}
+.food .fe{font-size:24px;flex:none}
+.food .fn{display:block;font-weight:500;line-height:1.3}
+.food .fk{flex:none;text-align:right;font:700 16px 'Mali',sans-serif;line-height:1.1}
+.food .fk small{display:block;font:500 11px 'Noto Sans Thai',sans-serif;color:var(--mute)}
+.mac{display:flex;flex-wrap:wrap;gap:2px 10px;font-size:12px;color:var(--mute);margin-top:2px}
+.mac span{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.mac i,.macin i{width:8px;height:8px;border-radius:50%;display:inline-block;flex:none}
+.mac.big{font-size:14px;color:var(--ink);gap:4px 14px;margin-top:4px}
+.mp{background:var(--mint)}.mf{background:var(--butter)}.mc{background:var(--coral)}
+.selsum{background:color-mix(in srgb,var(--coral) 8%,var(--surf));border:2px solid var(--line);border-radius:14px;padding:10px 12px}
+.selsum b{font-size:20px}
+.macin{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.macin label{display:grid;gap:4px;font-size:12px;color:var(--mute)}
+.macin label span{display:flex;align-items:center;gap:4px}
+.macin input{width:100%;min-height:44px;border-radius:12px;border:2px solid var(--line);background:var(--surf);color:var(--ink);font:700 16px 'Mali',sans-serif;text-align:center}
 .food.on{border-color:var(--coral);background:color-mix(in srgb,var(--coral) 14%,var(--surf))}
 .seg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .seg button{border:2px solid var(--line);background:var(--surf);border-radius:14px;min-height:44px;font-weight:700}
@@ -281,7 +296,7 @@ const T={th:{
  eaten:'กินแล้ว',left:'เหลืออีก',over:'เกินมา',feed:'ให้อาหาร',ward:'ตู้เสื้อผ้า',photo:'ถ่ายรูปอาหาร',tPhoto:'ถ่ายรูป',photoPick:'ถ่ายรูป หรือเลือกรูปอาหาร',busy:'กำลังให้ AI ดูรูป…',photoHint:'AI ประเมินคร่าวๆ อาจคลาดเคลื่อน แก้ตัวเลขได้ก่อนป้อน',photoErr:'วิเคราะห์ไม่สำเร็จ ลองใหม่ หรือกรอกเอง',retake:'เลือกรูปใหม่',total:'รวม',syncT:'ซิงค์ข้ามเครื่อง',syncOn:'เปิดอยู่ ข้อมูลตามบัญชี Claude ของเธอ',syncOff:'ใช้ไม่ได้ในมุมมองนี้ ข้อมูลอยู่ในเครื่องนี้เท่านั้น',syncErr:'ซิงค์ไม่สำเร็จ ข้อมูลยังอยู่ในเครื่องนี้',none:'ยังไม่ได้ให้อาหารเลย',
  stg:['ตัวจิ๋ว','วัยซน','โตเต็มวัย'],days:'วัน',
  say:{hungry:'{n} หิวจัง… ขออาหารหน่อยนะ',neutral:'อืม… ยังไม่อิ่มเลย {s}',happy:'อร่อย! {s} ขออีกนิดนะ',loved:'อิ่มสุขสุดๆ! วันนี้เธอเก่งมาก {s}',stuffed:'อึ๊ก… อิ่มเกินไปนิดนึง ไม่เป็นไร พรุ่งนี้ค่อยๆ กินนะ',sleep:'zzZ… {n} กำลังหลับฝันดี'},
- addT:'ให้ {n} กินอะไรดี?',search:'ค้นหาอาหาร',portion:'ปริมาณ',custom:'กรอกเอง',list:'เลือกจากรายการ',cName:'ชื่ออาหาร (ไม่ใส่ก็ได้)',cKcal:'แคลอรี่ (kcal)',feedBtn:'ป้อนเลย',nores:'ไม่พบ ลองกรอกเองนะ',coin:'+{n} เหรียญ',
+ addT:'ให้ {n} กินอะไรดี?',search:'ค้นหาอาหาร',portion:'ปริมาณ',custom:'กรอกเอง',list:'เลือกจากรายการ',cName:'ชื่ออาหาร (ไม่ใส่ก็ได้)',cKcal:'แคลอรี่ (kcal)',cMac:'สารอาหาร (ไม่ใส่ก็ได้)',cMacHint:'ถ้ากรอกสารอาหารแต่ไม่ใส่แคลอรี่ แอปจะคำนวณแคลอรี่ให้',feedBtn:'ป้อนเลย',nores:'ไม่พบ ลองกรอกเองนะ',coin:'+{n} เหรียญ',
  wT:'ตู้เสื้อผ้า',buy:'ซื้อ',wear:'ใส่',take:'ถอด',worn:'ใส่อยู่',poor:'เหรียญไม่พอ',
  tabWear:'ชุด',tabBg:'ฉาก',bgUse:'ใช้ฉากนี้',bgOn:'ใช้อยู่',bgs:{room:'ห้องนอน',sea:'ชายทะเล',forest:'ป่า',stars:'ดวงดาว'},
  slots:{b:'🌅 เช้า',l:'🌞 กลางวัน',d:'🌙 เย็น',s:'🍪 ของว่าง',o:'🍽️ อื่นๆ'},
@@ -350,7 +365,7 @@ en:{
  eaten:'Eaten',left:'left',over:'over',feed:'Feed',ward:'Wardrobe',photo:'Photo log',tPhoto:'Photo',photoPick:'Take or choose a food photo',busy:'AI is looking at your photo…',photoHint:'Rough AI estimate, may be off. Edit numbers before feeding.',photoErr:"Couldn't analyze it. Try again or enter manually.",retake:'Choose another photo',total:'Total',syncT:'Cross-device sync',syncOn:'On. Data follows your Claude account',syncOff:'Not available in this view. Data stays on this device only',syncErr:"Sync failed. Data is still on this device",none:"No meals yet — {n} is hungry",
  stg:['Tiny','Playful','Grown-up'],days:'days',
  say:{hungry:"{n} is so hungry… feed me please",neutral:"Hmm… not full yet {s}",happy:"Yummy! {s} A little more?",loved:"So happy and full! You did great today {s}",stuffed:"Oof… a bit too full. It's okay, go gentler tomorrow.",sleep:'zzZ… {n} is sleeping soundly'},
- addT:'What should {n} eat?',search:'Search food',portion:'Portion',custom:'Custom',list:'From list',cName:'Food name (optional)',cKcal:'Calories (kcal)',feedBtn:'Feed!',nores:'Nothing found — try custom',coin:'+{n} coins',
+ addT:'What should {n} eat?',search:'Search food',portion:'Portion',custom:'Custom',list:'From list',cName:'Food name (optional)',cKcal:'Calories (kcal)',cMac:'Nutrients (optional)',cMacHint:'Leave calories empty and they are worked out from the nutrients',feedBtn:'Feed!',nores:'Nothing found — try custom',coin:'+{n} coins',
  wT:'Wardrobe',buy:'Buy',wear:'Wear',take:'Take off',worn:'Wearing',poor:'Not enough coins',
  tabWear:'Outfits',tabBg:'Scenes',bgUse:'Use',bgOn:'In use',bgs:{room:'Bedroom',sea:'Beach',forest:'Forest',stars:'Stars'},
  slots:{b:'🌅 Breakfast',l:'🌞 Lunch',d:'🌙 Dinner',s:'🍪 Snack',o:'🍽️ Other'},
@@ -387,7 +402,7 @@ const FOODS=[
 ['kapaomoo','🌿','ข้าวกะเพราหมู 1 จาน','Basil pork on rice',580,24.5,22.3,69.2,'one'],
 ['garlicpork','🧄','ข้าวหมูทอดกระเทียม','Garlic pork on rice',525,22.4,22.4,56.8,'one'],
 ['khakha','🍖','ข้าวขาหมู 1 จาน','Stewed pork leg rice',690,31,25,83,'one'],
-['khaokluk','🍚','ข้าวคลุกกะปิ 1 จาน','Shrimp-paste fried rice',410,13.4,14.8,55.1,'one'],
+['khaokluk','🍚','ข้าวคลุกกะปิ 1 จาน','Shrimp-paste fried rice',630,20.6,22.7,84.7,'one'],
 ['khaomok','🍗','ข้าวหมกไก่ 1 จาน','Thai chicken biryani',534,21,17.5,71,'one'],
 ['khaopalo','🥚','ข้าวไข่พะโล้ 1 จาน','Five-spice egg & pork on rice',520,19,21.7,54,'one'],
 ['ratkaeng','🍛','ข้าวราดแกง 2 อย่าง','Rice with two curries',600,22,24,72,'one'],
@@ -406,7 +421,7 @@ const FOODS=[
 ['bami','🍜','บะหมี่น้ำเกี๊ยวหมูแดง','Egg noodle soup, wonton, BBQ pork',305,15.6,7.8,43,'noodle'],
 ['guayjub','🍜','ก๋วยจั๊บ 1 ชาม','Rolled rice noodle soup',240,12.6,6.3,32.8,'noodle'],
 ['khanomjeen','🍝','ขนมจีนน้ำยา 1 จาน','Rice vermicelli with fish curry',330,11,8.5,52,'noodle'],
-['khaosoi','🍛','ข้าวซอยไก่ 1 ชาม','Khao soi chicken',395,16.6,19.1,38.2,'noodle'],
+['khaosoi','🍛','ข้าวซอยไก่ 1 ชาม','Khao soi chicken',620,26.1,30,60,'noodle'],
 ['suki','🍲','สุกี้น้ำ 1 ชาม','Thai suki soup',345,23.7,7.9,44.4,'noodle'],
 ['senlekhaeng','🍜','ก๋วยเตี๋ยวเส้นเล็กหมูแห้ง 1 ชาม','Dry thin rice noodles with pork',330,16,12,40,'noodle'],
 ['tomyumkungn','🍜','ก๋วยเตี๋ยวต้มยำกุ้ง 1 ถ้วย','Tom yum shrimp noodle soup',320,16,10,42,'noodle'],
@@ -1030,10 +1045,15 @@ function kcalCard(t,tt){
     ${[['pro','p','mint',S.plan.p],['fat','f','butter',S.plan.f],['carb','c','coral',S.plan.c]].map(([nm,key,col,tg])=>`<div class="mrow"><span>${t[nm]}</span><div class="meter"><i style="width:${Math.min(100,tt[key]/Math.max(1,tg)*100)}%;background:var(--${col})"></i></div><span class="mute" style="text-align:right">${Math.round(tt[key])}/${tg} ${t.g}</span></div>`).join('')}
   </div>`;
 }
+/* Protein / fat / carbs in grams, each with its colour dot; `big` for the selected-food summary. */
+const g0=x=>{x=+x||0;return x>0&&x<1?'<1':Math.round(x)};
+function macroLine(t,p,f,c,big){
+  return `<span class="mac${big?' big':''}"><span><i class="mp"></i>${t.pro} ${g0(p)}</span><span><i class="mf"></i>${t.fat} ${g0(f)}</span><span><i class="mc"></i>${t.carb} ${g0(c)} ${t.g}</span></span>`;
+}
 /* Meals grouped by breakfast / lunch / dinner / snack; `del` names the data- attribute of the delete buttons. */
 function mealGroups(list,t,del){
   const gs={};list.forEach((m,i)=>{const s=SLOTS.includes(m.m)?m.m:'o';(gs[s]=gs[s]||[]).push([m,i])});
-  return [...SLOTS,'o'].filter(s=>gs[s]).map(s=>`<div class="mg"><div class="mg-h"><b>${t.slots[s]}</b><span class="mute">${gs[s].reduce((a,[m])=>a+m.k,0).toLocaleString()} kcal</span></div>${gs[s].map(([m,i])=>`<div class="meal"><span class="e">${m.e}</span><div class="sp"><div style="font-weight:500">${esc(m.n)}</div><div class="mute">${m.k.toLocaleString()} kcal${m.t?' · '+m.t:''}</div></div>${del?`<button class="x" data-${del}="${i}" aria-label="delete">×</button>`:''}</div>`).join('')}</div>`).join('');
+  return [...SLOTS,'o'].filter(s=>gs[s]).map(s=>`<div class="mg"><div class="mg-h"><b>${t.slots[s]}</b><span class="mute">${gs[s].reduce((a,[m])=>a+m.k,0).toLocaleString()} kcal</span></div>${gs[s].map(([m,i])=>`<div class="meal"><span class="e">${m.e}</span><div class="sp"><div style="font-weight:500">${esc(m.n)}</div><div class="mute">${m.k.toLocaleString()} kcal${m.t?' · '+m.t:''}</div>${m.p||m.f||m.c?macroLine(t,m.p,m.f,m.c):''}</div>${del?`<button class="x" data-${del}="${i}" aria-label="delete">×</button>`:''}</div>`).join('')}</div>`).join('');
 }
 function weekStrip(t){
   const g=S.plan.target,out=[];
@@ -1161,15 +1181,18 @@ function drawAdd(){
     main=`<input class="inp" id="q" style="font:500 16px 'Noto Sans Thai',sans-serif;min-height:48px;text-align:left" placeholder="${t.search}" value="${esc(q)}" aria-label="${t.search}">
     ${quick.length?`<div><div class="mute" style="font-size:13px;margin-bottom:6px">⭐ ${t.quick}</div><div class="quick">${quick.map((it,i)=>`<button class="qk" data-qk="${i}">${it.e} ${esc(it.n)}<small>${it.k.toLocaleString()} kcal</small></button>`).join('')}</div></div>`:''}
     <div class="cats" role="tablist">${['all',...Object.keys(t.cats).filter(c=>c!=='all')].map(c=>`<button data-cat="${c}" role="tab" aria-selected="${cat===c}" class="${cat===c?'on':''}">${t.cats[c]}</button>`).join('')}</div>
-    <div class="foods">${fl.length?fl.map(f=>`<button class="food ${sel&&sel[0]===f[0]?'on':''}" data-f="${f[0]}">${f[1]} ${esc(S.lang==='th'?f[2]:f[3])}</button>`).join(''):`<span class="mute">${t.nores}</span>`}</div>
+    <div class="foods">${fl.length?fl.map(f=>`<button class="food ${sel&&sel[0]===f[0]?'on':''}" data-f="${f[0]}" aria-pressed="${!!(sel&&sel[0]===f[0])}"><span class="fe">${f[1]}</span><span class="sp"><span class="fn">${esc(S.lang==='th'?f[2]:f[3])}</span>${macroLine(t,f[5],f[6],f[7])}</span><b class="fk">${f[4].toLocaleString()}<small>kcal</small></b></button>`).join(''):`<span class="mute">${t.nores}</span>`}</div>
     ${sel?`<div><div class="mute" style="margin-bottom:6px">${t.portion}</div><div class="seg">${[.5,1,1.5,2].map(x=>`<button data-p="${x}" class="${por===x?'on':''}">${t.pf}${x}</button>`).join('')}</div></div>
-    <div class="mute">${Math.round(sel[4]*por)} kcal · ${t.pro} ${Math.round(sel[5]*por)} · ${t.fat} ${Math.round(sel[6]*por)} · ${t.carb} ${Math.round(sel[7]*por)}</div>`:''}
+    <div class="selsum"><b class="fd">${Math.round(sel[4]*por).toLocaleString()} kcal</b>${macroLine(t,sel[5]*por,sel[6]*por,sel[7]*por,true)}</div>`:''}
     <button class="btn block" id="fd" ${sel?'':'disabled'}>${t.feedBtn}</button>`;
   }else if(tab==='photo'){
     main=photoMain(t);
   }else{
     main=`<input class="inp" id="cn" style="font:500 16px 'Noto Sans Thai',sans-serif;min-height:48px;text-align:left" maxlength="30" placeholder="${t.cName}" aria-label="${t.cName}">
     <input class="inp" id="ck" type="number" inputmode="numeric" placeholder="${t.cKcal}" aria-label="${t.cKcal}">
+    <div><div class="mute" style="font-size:13px;margin-bottom:6px">${t.cMac}</div>
+    <div class="macin">${[['cp','pro','mp'],['cfat','fat','mf'],['cc','carb','mc']].map(([id,k,cl])=>`<label><span><i class="${cl}"></i>${t[k]} (${t.g})</span><input id="${id}" type="number" inputmode="decimal" min="0" max="500" step="0.1" placeholder="0"></label>`).join('')}</div>
+    <div class="mute" style="font-size:12px;margin-top:6px">${t.cMacHint}</div></div>
     <div class="err" id="ce"></div><button class="btn block" id="cf">${t.feedBtn}</button>`;
   }
   openSheet(`<h3 class="fd">${fmt(t.addT,{n})}</h3>
@@ -1189,9 +1212,12 @@ function drawAdd(){
   if(fd)fd.onclick=()=>feed({id:sel[0],por,e:sel[1],n:(S.lang==='th'?sel[2]:sel[3])+(por!==1?' ×'+por:''),k:Math.round(sel[4]*por),p:sel[5]*por,f:sel[6]*por,c:sel[7]*por,m:mslot});
   const cf=sh.querySelector('#cf');
   if(cf)cf.onclick=()=>{
-    const k=Math.round(parseFloat($('#ck').value));
+    const num=id=>{const v=parseFloat($(id).value);return v>0?Math.min(500,v):0};
+    const p=num('#cp'),f=num('#cfat'),c=num('#cc');
+    /* kcal may be left empty when the nutrients are given: 4 per g of protein and carbs, 9 per g of fat */
+    const typed=parseFloat($('#ck').value),k=Math.round(typed>0?typed:4*p+9*f+4*c);
     if(!(k>=1&&k<=3000)){$('#ce').textContent=fmt(t.range,{a:1,b:3000});return}
-    feed({e:'🍽️',n:$('#cn').value.trim()||(S.lang==='th'?'อาหารกรอกเอง':'Custom meal'),k,p:0,f:0,c:0,m:mslot});
+    feed({e:'🍽️',n:$('#cn').value.trim()||(S.lang==='th'?'อาหารกรอกเอง':'Custom meal'),k,p,f,c,m:mslot});
   };
 }
 function photoMain(t){
