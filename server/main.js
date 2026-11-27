@@ -174,7 +174,7 @@ function createApp({ dataDir, staticDir }) {
   // ---- the app's own files (only these; never server/, deploy/, data …) ----
   const TYPES = { html: 'text/html; charset=utf-8', js: 'text/javascript; charset=utf-8', webmanifest: 'application/manifest+json',
     png: 'image/png', webp: 'image/webp', svg: 'image/svg+xml', ico: 'image/x-icon' };
-  const STATIC = /^\/(index\.html|privacy\.html|sw\.js|manifest\.webmanifest|(?:icons|pet|bg)\/[\w.-]+\.(?:png|webp|svg))$/;
+  const STATIC = /^\/(index\.html|privacy\.html|sw\.js|manifest\.webmanifest|(?:icons|pet|bg)\/[\w.-]+\.(?:png|webp|svg)|vendor\/[\w.-]+\.js)$/;
   const SEC = { 'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'same-origin', 'X-Frame-Options': 'SAMEORIGIN' };
 
   const server = http.createServer((req, res) => {
@@ -190,7 +190,7 @@ function createApp({ dataDir, staticDir }) {
         let body; try { body = fs.readFileSync(path.join(staticDir, m[1])); } catch (e) { return send(404, E('notFound')); }
         const ext = m[1].split('.').pop();
         // pages and the service worker are checked on every visit; pictures are kept a day
-        const cache = /^(html|js|webmanifest)$/.test(ext) ? 'no-cache' : 'public, max-age=86400';
+        const cache = /^(html|webmanifest)$/.test(ext) || m[1] === 'sw.js' ? 'no-cache' : 'public, max-age=86400';
         res.writeHead(200, Object.assign({ 'Content-Type': TYPES[ext], 'Cache-Control': cache }, SEC));
         return res.end(req.method === 'HEAD' ? undefined : body);
       }

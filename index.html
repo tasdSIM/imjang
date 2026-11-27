@@ -240,11 +240,12 @@ canvas#trace{width:100%;height:220px;background:var(--bg);border:2px dashed var(
 .rmt label{display:grid;gap:4px;font-size:12px;color:var(--mute)}
 .rmt input{width:100%;min-height:44px;border-radius:12px;border:2px solid var(--line);background:var(--surf);color:var(--ink);font:600 14px 'Noto Sans Thai',sans-serif;text-align:center;min-width:0;padding:0 2px}
 .rmt input::-webkit-calendar-picker-indicator{margin:0;padding:0;width:14px}
-.keep a{color:var(--coral-d)}.fl{display:grid;gap:4px}.fl .mute{font-size:12px}.inp.tx{font:500 16px 'Noto Sans Thai',sans-serif;min-height:48px;text-align:left;border-radius:14px}
+.keep a,.card a{color:var(--coral-d)}.fl{display:grid;gap:4px}.fl .mute{font-size:12px}.inp.tx{font:500 16px 'Noto Sans Thai',sans-serif;min-height:48px;text-align:left;border-radius:14px}
 .lnk{background:none;border:0;color:var(--mute);font-weight:700;text-decoration:underline;text-underline-offset:3px;min-height:44px;width:100%}
 .seg button{border:2px solid var(--line);background:var(--surf);border-radius:14px;min-height:44px;font-weight:700}
 .seg button.on{background:var(--ink);color:var(--bg)}
 .tabs{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:8px}
+.pitem.col{flex-direction:column;align-items:stretch;gap:6px}.src{display:block;font-size:11px;font-weight:700;color:var(--mute)}.src.db{color:var(--mint-d)}.seg.sm button{min-height:34px;font-size:13px;padding:0 4px}
 .pitem{display:flex;align-items:center;gap:8px;background:var(--surf);border:2px solid var(--line);border-radius:14px;padding:8px 10px}
 .pitem input[type=number]{width:78px;min-height:40px;border-radius:10px;border:2px solid var(--line);background:var(--bg);color:var(--ink);font:700 16px 'Mali',sans-serif;text-align:center}
 .thumb{width:100%;max-height:170px;object-fit:cover;border-radius:16px}
@@ -317,7 +318,7 @@ const T={th:{
  lose:'ถึงเป้าหมายราว {w} สัปดาห์',gain:'ถึงเป้าหมายราว {w} สัปดาห์',keep:'รักษาน้ำหนักปัจจุบัน',cap:'ปรับให้อยู่ในเกณฑ์ปลอดภัย จึงอาจช้ากว่าที่เลือก',
  disc:'เป็นค่าประมาณทั่วไป ไม่ใช่คำแนะนำทางการแพทย์ หากมีโรคประจำตัว ตั้งครรภ์ หรือให้นม ควรปรึกษาแพทย์หรือนักกำหนดอาหาร',
  pTitle:'สัญญากับ {n} นะ',pText:'ฉันจะดูแล {n} และกินอย่างใส่ใจไปด้วยกัน',pHint:'ลากนิ้วเซ็นชื่อในกรอบ',clear:'ล้าง',promise:'สัญญาเลย!',
- eaten:'กินแล้ว',left:'เหลืออีก',over:'เกินมา',feed:'ให้อาหาร',ward:'ตู้เสื้อผ้า',photo:'ถ่ายรูปอาหาร',tPhoto:'ถ่ายรูป',photoPick:'ถ่ายรูป หรือเลือกรูปอาหาร',busy:'กำลังให้ AI ดูรูป…',photoHint:'AI ประเมินคร่าวๆ อาจคลาดเคลื่อน แก้ตัวเลขได้ก่อนป้อน',photoErr:'วิเคราะห์ไม่สำเร็จ ลองใหม่ หรือกรอกเอง',retake:'เลือกรูปใหม่',total:'รวม',syncT:'ซิงค์ข้ามเครื่อง',syncOn:'เปิดอยู่ ข้อมูลตามบัญชี Claude ของเธอ',syncOff:'ใช้ไม่ได้ในมุมมองนี้ ข้อมูลอยู่ในเครื่องนี้เท่านั้น',syncErr:'ซิงค์ไม่สำเร็จ ข้อมูลยังอยู่ในเครื่องนี้',none:'ยังไม่ได้ให้อาหารเลย',
+ eaten:'กินแล้ว',left:'เหลืออีก',over:'เกินมา',feed:'ให้อาหาร',ward:'ตู้เสื้อผ้า',photo:'ถ่ายรูปอาหาร',tPhoto:'ถ่ายรูป',photoPick:'ถ่ายรูป หรือเลือกรูปอาหาร',busy:'กำลังให้ AI ดูรูป…',photoHint:'ตรวจก่อนป้อน: เมนูที่ตรงกับตารางใช้ค่าจากตาราง เมนูอื่น AI ประมาณให้ ปรับปริมาณหรือแก้ตัวเลขได้',photoTip:'ถ่ายจากด้านบนให้เห็นทั้งจาน และมีช้อนหรือมืออยู่ในภาพ ช่วยให้กะปริมาณได้แม่นขึ้น',srcDb:'จากตาราง',srcAi:'AI ประมาณ',tScan:'บาร์โค้ด',bcSnap:'ถ่ายรูปบาร์โค้ด',bcTip:'ถ่ายให้บาร์โค้ดชัดและเต็มกรอบ หรือพิมพ์ตัวเลขใต้บาร์โค้ด',bcNum:'ตัวเลขบาร์โค้ด',bcFind:'ค้นหา',bcBusy:'กำลังค้นหา…',bcRead:'อ่านบาร์โค้ดในรูปไม่ได้ ลองถ่ายใหม่ใกล้ๆ หรือพิมพ์ตัวเลขแทน',bcNone:'ไม่พบสินค้า {c} ใน Open Food Facts กรอกเองได้ แล้วครั้งหน้าสแกนจะเจอเลย',bcNoNut:'พบสินค้า แต่ยังไม่มีข้อมูลพลังงาน กรอกจากฉลากเองได้',bcNet:'ค้นหาไม่ได้ ตรวจอินเทอร์เน็ตแล้วลองใหม่',bcManual:'กรอกเอง',bcAgain:'สแกนใหม่',bcGrams:'ปริมาณที่กิน (กรัม หรือ มล.)',bcServ:'1 หน่วยบริโภค',bcPack:'ทั้งชิ้น',bcPer:'{k} kcal ต่อ 100 ก.',bcFrom:'ข้อมูลจาก Open Food Facts',bcMine:'จากเมนูของฉัน',bcBad:'ตัวเลขบาร์โค้ดต้องมี 8–14 หลัก',bcKeep:'เก็บไว้ในเมนูของฉัน ครั้งหน้าสแกนหรือเลือกได้เลย',bcEach:'1 ส่วน = {n}',photoErr:'วิเคราะห์ไม่สำเร็จ ลองใหม่ หรือกรอกเอง',retake:'เลือกรูปใหม่',total:'รวม',syncT:'ซิงค์ข้ามเครื่อง',syncOn:'เปิดอยู่ ข้อมูลตามบัญชี Claude ของเธอ',syncOff:'ใช้ไม่ได้ในมุมมองนี้ ข้อมูลอยู่ในเครื่องนี้เท่านั้น',syncErr:'ซิงค์ไม่สำเร็จ ข้อมูลยังอยู่ในเครื่องนี้',none:'ยังไม่ได้ให้อาหารเลย',
  stg:['ตัวจิ๋ว','วัยซน','โตเต็มวัย'],days:'วัน',
  say:{hungry:'{n} หิวจัง… ขออาหารหน่อยนะ',neutral:'อืม… ยังไม่อิ่มเลย {s}',happy:'อร่อย! {s} ขออีกนิดนะ',loved:'อิ่มสุขสุดๆ! วันนี้เธอเก่งมาก {s}',stuffed:'อึ๊ก… อิ่มเกินไปนิดนึง ไม่เป็นไร พรุ่งนี้ค่อยๆ กินนะ',sleep:'zzZ… {n} กำลังหลับฝันดี'},
  addT:'ให้ {n} กินอะไรดี?',search:'ค้นหาอาหาร',portion:'ปริมาณ',custom:'กรอกเอง',list:'เลือกจากรายการ',cName:'ชื่ออาหาร (ไม่ใส่ก็ได้)',cKcal:'แคลอรี่ (kcal)',cMac:'สารอาหาร (ไม่ใส่ก็ได้)',cMacHint:'ถ้ากรอกสารอาหารแต่ไม่ใส่แคลอรี่ แอปจะคำนวณแคลอรี่ให้',feedBtn:'ป้อนเลย',nores:'ไม่พบ ลองกรอกเองนะ',coin:'+{n} เหรียญ',
@@ -405,7 +406,7 @@ en:{
  lose:'About {w} weeks to your goal',gain:'About {w} weeks to your goal',keep:'Maintaining your current weight',cap:'Adjusted to stay in a safe range, so it may be slower than you picked',
  disc:'This is a general estimate, not medical advice. If you have a health condition, are pregnant or nursing, check with a doctor or dietitian.',
  pTitle:'Promise {n}',pText:"I'll look after {n} and eat mindfully together.",pHint:'Draw your signature in the box',clear:'Clear',promise:'I promise!',
- eaten:'Eaten',left:'left',over:'over',feed:'Feed',ward:'Wardrobe',photo:'Photo log',tPhoto:'Photo',photoPick:'Take or choose a food photo',busy:'AI is looking at your photo…',photoHint:'Rough AI estimate, may be off. Edit numbers before feeding.',photoErr:"Couldn't analyze it. Try again or enter manually.",retake:'Choose another photo',total:'Total',syncT:'Cross-device sync',syncOn:'On. Data follows your Claude account',syncOff:'Not available in this view. Data stays on this device only',syncErr:"Sync failed. Data is still on this device",none:"No meals yet — {n} is hungry",
+ eaten:'Eaten',left:'left',over:'over',feed:'Feed',ward:'Wardrobe',photo:'Photo log',tPhoto:'Photo',photoPick:'Take or choose a food photo',busy:'AI is looking at your photo…',photoHint:'Check before feeding: dishes that match our table use its numbers; others are AI estimates. Adjust portions or numbers as needed.',photoTip:'Shoot from above with the whole plate in view, and a spoon or hand in the picture to help judge the portion.',srcDb:'From table',srcAi:'AI estimate',tScan:'Barcode',bcSnap:'Take a photo of the barcode',bcTip:'Keep the barcode sharp and filling the frame, or type the number under it',bcNum:'Barcode number',bcFind:'Find',bcBusy:'Looking it up…',bcRead:'Couldn\'t read a barcode in that photo. Try closer, or type the number.',bcNone:'Product {c} isn\'t in Open Food Facts. Enter it yourself and the next scan will find it.',bcNoNut:'Product found, but it has no energy data yet. Enter it from the label.',bcNet:'Couldn\'t look it up. Check your internet and try again.',bcManual:'Enter myself',bcAgain:'Scan again',bcGrams:'Amount eaten (g or ml)',bcServ:'1 serving',bcPack:'Whole pack',bcPer:'{k} kcal per 100 g',bcFrom:'Data from Open Food Facts',bcMine:'From my foods',bcBad:'A barcode number has 8–14 digits',bcKeep:'Keep in My foods, so next time you can scan or pick it',bcEach:'1 portion = {n}',photoErr:"Couldn't analyze it. Try again or enter manually.",retake:'Choose another photo',total:'Total',syncT:'Cross-device sync',syncOn:'On. Data follows your Claude account',syncOff:'Not available in this view. Data stays on this device only',syncErr:"Sync failed. Data is still on this device",none:"No meals yet — {n} is hungry",
  stg:['Tiny','Playful','Grown-up'],days:'days',
  say:{hungry:"{n} is so hungry… feed me please",neutral:"Hmm… not full yet {s}",happy:"Yummy! {s} A little more?",loved:"So happy and full! You did great today {s}",stuffed:"Oof… a bit too full. It's okay, go gentler tomorrow.",sleep:'zzZ… {n} is sleeping soundly'},
  addT:'What should {n} eat?',search:'Search food',portion:'Portion',custom:'Custom',list:'From list',cName:'Food name (optional)',cKcal:'Calories (kcal)',cMac:'Nutrients (optional)',cMacHint:'Leave calories empty and they are worked out from the nutrients',feedBtn:'Feed!',nores:'Nothing found — try custom',coin:'+{n} coins',
@@ -1663,8 +1664,8 @@ function openSheet(html){$('#sheet').innerHTML=html;$('#wrap').classList.remove(
 function closeSheet(){$('#wrap').classList.add('hidden');$('#sheet').innerHTML=''}
 $('#scrim').onclick=()=>{closeSheet();if(view==='home')rHome()};
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!GATE&&!$('#pa'))closeSheet()});
-let sel=null,por=1,tab='list',q='',cat='all',mslot='s',photo={st:'idle',items:[],url:''},delArm=null;
-function sheetAdd(){sel=null;por=1;tab='list';q='';cat='all';mslot=slotNow();photo={st:'idle',items:[],url:''};delArm=null;drawAdd()}
+let sel=null,por=1,tab='list',q='',cat='all',mslot='s',photo={st:'idle',items:[],url:''},delArm=null,bc={st:'idle'},bcCode='';
+function sheetAdd(){sel=null;por=1;tab='list';q='';cat='all';mslot=slotNow();photo={st:'idle',items:[],url:''};delArm=null;bc={st:'idle'};bcCode='';drawAdd()}
 /* The user's kept foods, in the same row format as FOODS (category 'mine'), listed before the built-in foods. */
 const mineRows=()=>(S.myFoods||[]).map(m=>[m.id,m.e||'🍽️',m.n,m.n,m.k,m.p||0,m.f||0,m.c||0,'mine']);
 const allFoods=()=>mineRows().concat(FOODS);
@@ -1677,8 +1678,10 @@ function searchFoods(s){
   return hit.sort((x,y)=>x.s-y.s||x.i-y.i).map(x=>x.f);
 }
 function keepMine(o){
-  const n=o.n.trim().slice(0,30),ex=S.myFoods.find(m=>m.n===n);
-  const rec={id:ex?ex.id:'u_'+Date.now().toString(36),e:'🍽️',n,k:o.k,p:o.p,f:o.f,c:o.c};
+  const n=o.n.trim().slice(0,40),ex=S.myFoods.find(m=>m.n===n||(o.b&&m.b===o.b));
+  const rec={id:ex?ex.id:'u_'+Date.now().toString(36),e:o.e||'🍽️',n,k:o.k,p:o.p,f:o.f,c:o.c};
+  /* b: the barcode it was scanned from, so the next scan finds it here first (also offline) */
+  const b=o.b||ex&&ex.b;if(b)rec.b=b;
   S.myFoods=[rec].concat(S.myFoods.filter(m=>m!==ex)).slice(0,60);
   return rec;
 }
@@ -1718,8 +1721,10 @@ function drawAdd(){
     <button class="btn block" id="fd" ${sel?'':'disabled'}>${t.feedBtn}</button>`;
   }else if(tab==='photo'){
     main=photoMain(t);
+  }else if(tab==='scan'){
+    main=scanMain(t);
   }else{
-    main=`<input class="inp" id="cn" style="font:500 16px 'Noto Sans Thai',sans-serif;min-height:48px;text-align:left" maxlength="30" placeholder="${t.cName}" aria-label="${t.cName}">
+    main=`${bcCode?`<div class="mute" style="font-size:13px">▮▯▮ ${esc(bcCode)}</div>`:''}<input class="inp" id="cn" style="font:500 16px 'Noto Sans Thai',sans-serif;min-height:48px;text-align:left" maxlength="40" placeholder="${t.cName}" aria-label="${t.cName}" value="${esc(bc.prefill||'')}">
     <input class="inp" id="ck" type="number" inputmode="numeric" placeholder="${t.cKcal}" aria-label="${t.cKcal}">
     <div><div class="mute" style="font-size:13px;margin-bottom:6px">${t.cMac}</div>
     <div class="macin">${[['cp','pro','mp'],['cfat','fat','mf'],['cc','carb','mc']].map(([id,k,cl])=>`<label><span><i class="${cl}"></i>${t[k]} (${t.g})</span><input id="${id}" type="number" inputmode="decimal" min="0" max="500" step="0.1" placeholder="0"></label>`).join('')}</div>
@@ -1729,8 +1734,9 @@ function drawAdd(){
   }
   openSheet(`<h3 class="fd">${fmt(t.addT,{n})}</h3>
   <div class="slots" role="radiogroup">${SLOTS.map(s=>`<button data-sl="${s}" role="radio" aria-checked="${mslot===s}" class="${mslot===s?'on':''}">${t.slots[s]}</button>`).join('')}</div>
-  <div class="tabs"><button data-t="list" class="${tab==='list'?'on':''}">${t.list}</button>${SAMPLE?`<button data-t="photo" class="${tab==='photo'?'on':''}">${t.tPhoto}</button>`:''}<button data-t="custom" class="${tab==='custom'?'on':''}">${t.custom}</button></div>${main}`);
+  <div class="tabs"><button data-t="list" class="${tab==='list'?'on':''}">${t.list}</button>${SAMPLE?`<button data-t="photo" class="${tab==='photo'?'on':''}">${t.tPhoto}</button>`:''}${window.claude?'':`<button data-t="scan" class="${tab==='scan'?'on':''}">${t.tScan}</button>`}<button data-t="custom" class="${tab==='custom'?'on':''}">${t.custom}</button></div>${main}`);
   if(tab==='photo')bindPhoto();
+  if(tab==='scan')bindScan(t);
   const sh=$('#sheet');
   sh.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{tab=b.dataset.t;drawAdd()});
   sh.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{sel=findFood(b.dataset.f);delArm=null;drawAdd()});
@@ -1758,21 +1764,131 @@ function drawAdd(){
     const nm=$('#cn').value.trim();
     /* only named foods are kept: a bare number is a one-off */
     if(nm&&$('#km').checked){
-      const r=keepMine({n:nm,k,p,f,c});
+      const r=keepMine({n:nm,k,p,f,c,b:bcCode||undefined});bcCode='';
       feed({id:r.id,por:1,e:r.e,n:r.n,k,p,f,c,m:mslot});return;
     }
     feed({e:'🍽️',n:nm||(S.lang==='th'?'อาหารกรอกเอง':'Custom meal'),k,p,f,c,m:mslot});
   };
 }
+/* ============ BARCODE (Open Food Facts) ============
+   A photo of the barcode is read on the device (BarcodeDetector where the browser has it, else the bundled ZXing),
+   then only the number goes to Open Food Facts. Foods kept from a scan carry the code and are found locally first. */
+function scanMain(t){
+  const s=bc;let h=`<input type="file" id="bf" accept="image/*" capture="environment" class="hidden">`;
+  if(s.st==='busy')return h+`<div class="card mute" style="text-align:center" role="status">${t.bcBusy}</div>`;
+  if(s.st==='found'&&s.mine){
+    const f=findFood(s.mine);if(!f){bc={st:'idle'};return scanMain(t)}
+    const x=s.por||1;
+    return h+`<div class="card" style="padding:12px;display:grid;gap:8px"><div class="row" style="gap:10px"><span style="font-size:30px">${f[1]}</span><div class="sp"><b>${esc(f[2])}</b><div class="mute" style="font-size:12px">${t.bcMine} · ${esc(s.code)}</div></div></div>
+      <div class="mute" style="font-size:13px">${fmt(t.bcEach,{n:f[4].toLocaleString()+' kcal'})}</div>
+      <div class="seg sm">${PORS.map(v=>`<button data-bp="${v}" class="${x===v?'on':''}">${t.pf}${v}</button>`).join('')}</div>
+      <div class="selsum"><b class="fd">${Math.round(f[4]*x).toLocaleString()} kcal</b>${macroLine(t,f[5]*x,f[6]*x,f[7]*x,true)}</div></div>
+      <button class="btn block" id="bfd">${t.feedBtn}</button><button class="btn ghost block" id="bre">${t.bcAgain}</button>`;
+  }
+  if(s.st==='found'){
+    const p=s.p,g=s.g,k=Math.round(p.k100*g/100),m=x=>Math.round(x*g)/100;
+    h+=`<div class="card" style="padding:12px;display:grid;gap:8px">
+      <div class="row" style="gap:10px">${p.img?`<img src="${esc(p.img)}" alt="" style="width:56px;height:56px;object-fit:contain;border-radius:10px;background:#fff;flex:none">`:'<span style="font-size:30px">🛒</span>'}
+      <div class="sp"><b>${esc(p.n)}</b><div class="mute" style="font-size:13px">${esc([p.brand,p.qty].filter(Boolean).join(' · '))}</div><div class="mute" style="font-size:12px">${fmt(t.bcPer,{k:Math.round(p.k100)}).replace(/(ก\.|g)$/,unitOf(p))}</div></div></div>
+      <label class="fl"><b>${t.bcGrams}</b><input class="inp tx" id="bg" type="number" inputmode="decimal" min="1" max="3000" value="${g}"></label>
+      <div class="seg sm">${p.sg?`<button data-g="${p.sg}">${t.bcServ} (${p.sg})</button>`:''}${p.pg&&p.pg!==p.sg?`<button data-g="${p.pg}">${t.bcPack} (${p.pg})</button>`:''}<button data-g="100">100</button></div>
+      <div class="selsum"><b class="fd">${k.toLocaleString()} kcal</b>${macroLine(t,m(p.p100),m(p.f100),m(p.c100),true)}</div>
+      <label class="keep"><input type="checkbox" id="bk" ${s.keep?'checked':''}> <span>${t.bcKeep}</span></label>
+      <div class="mute" style="font-size:12px"><a href="https://world.openfoodfacts.org/product/${esc(s.code)}" target="_blank" rel="noopener">${t.bcFrom}</a> · ${esc(s.code)}</div></div>
+      <button class="btn block" id="bfd" ${k>0?'':'disabled'}>${t.feedBtn}</button><button class="btn ghost block" id="bre">${t.bcAgain}</button>`;
+    return h;
+  }
+  if(s.st==='none'||s.st==='nonut')h+=`<div class="err" style="text-align:left">${s.st==='none'?fmt(t.bcNone,{c:esc(s.code)}):t.bcNoNut}</div><button class="btn mint block" id="bman">${t.bcManual}</button>`;
+  if(s.st==='read'||s.st==='net'||s.st==='bad')h+=`<div class="err" style="text-align:left">${s.st==='read'?t.bcRead:s.st==='bad'?t.bcBad:t.bcNet}</div>`;
+  h+=`<button class="btn ${s.st==='none'||s.st==='nonut'?'ghost':'mint'} block" id="bsn">▮▯▮ ${t.bcSnap}</button>
+  <div class="mute" style="font-size:13px">${t.bcTip}</div>
+  <div class="row" style="gap:8px"><input class="inp tx sp" id="bn" inputmode="numeric" maxlength="14" placeholder="${t.bcNum}" aria-label="${t.bcNum}" value="${esc(s.code||'')}"><button class="btn ghost sm" id="bgo" style="flex:none">${t.bcFind}</button></div>`;
+  return h;
+}
+let zxing=null;
+function loadZxing(){
+  if(window.ZXing)return Promise.resolve(window.ZXing);
+  return zxing||(zxing=new Promise((res,rej)=>{const s=document.createElement('script');s.src='vendor/zxing-library-0.21.3.min.js';s.onload=()=>res(window.ZXing);s.onerror=()=>{zxing=null;rej(new Error('zxing'))};document.head.appendChild(s)}));
+}
+async function readBarcode(file){
+  const {url}=await shrink(file);
+  try{
+    if('BarcodeDetector' in window){
+      try{const bm=await createImageBitmap(file),d=new BarcodeDetector({formats:['ean_13','ean_8','upc_a','upc_e']}),r=await d.detect(bm);if(r[0])return r[0].rawValue}catch(e){}
+    }
+    const Z=await loadZxing(),hints=new Map();
+    hints.set(Z.DecodeHintType.POSSIBLE_FORMATS,[Z.BarcodeFormat.EAN_13,Z.BarcodeFormat.EAN_8,Z.BarcodeFormat.UPC_A,Z.BarcodeFormat.UPC_E]);hints.set(Z.DecodeHintType.TRY_HARDER,true);
+    const r=await new Z.BrowserMultiFormatReader(hints).decodeFromImageUrl(url);
+    return r&&r.getText();
+  }catch(e){return null}finally{URL.revokeObjectURL(url)}
+}
+const okCode=c=>/^\d{8,14}$/.test(c);
+/* drinks are labelled in ml */
+const unitOf=p=>/\d\s*(ml|cl|l|มล|ลิตร)\b/i.test(p.qty||'')?(S.lang==='th'?'มล.':'ml'):(S.lang==='th'?'ก.':'g');
+/* per-100 g numbers from an Open Food Facts product; null when it has no energy */
+function offFood(p,code){
+  const nu=p.nutriments||{},n=x=>{const v=parseFloat(x);return isFinite(v)&&v>=0?v:null};
+  const sg=n(p.serving_quantity),pg=n(p.product_quantity);
+  let k100=n(nu['energy-kcal_100g']);
+  if(k100==null&&n(nu['energy_100g'])!=null)k100=nu['energy_100g']/4.184;
+  if(k100==null&&n(nu['energy-kcal_serving'])!=null&&sg)k100=nu['energy-kcal_serving']*100/sg;
+  if(k100==null||k100>950)return null;
+  const per=(key)=>{const a=n(nu[key+'_100g']);if(a!=null)return a;const b=n(nu[key+'_serving']);return b!=null&&sg?b*100/sg:0};
+  const name=String((S.lang==='th'?p.product_name_th:p.product_name_en)||p.product_name||p.product_name_th||p.product_name_en||code).trim();
+  return {n:name.slice(0,60),brand:String(p.brands||'').split(',')[0].trim().slice(0,30),qty:String(p.quantity||'').slice(0,20),img:/^https:\/\//.test(p.image_front_small_url||'')?p.image_front_small_url:'',
+    k100,p100:per('proteins'),f100:per('fat'),c100:per('carbohydrates'),sg:sg&&sg<=3000?Math.round(sg):0,pg:pg&&pg<=3000?Math.round(pg):0};
+}
+async function lookupCode(code){
+  bcCode='';
+  if(!okCode(code)){bc={st:'bad',code};return drawAdd()}
+  /* kept from an earlier scan: no network needed */
+  const mine=S.myFoods.find(m=>m.b===code);
+  if(mine){bc={st:'found',code,mine:mine.id,por:1};return drawAdd()}
+  bc={st:'busy',code};drawAdd();
+  let j=null;
+  try{
+    const r=await fetch(`https://world.openfoodfacts.org/api/v2/product/${code}.json?fields=product_name,product_name_th,product_name_en,brands,quantity,product_quantity,serving_quantity,nutriments,image_front_small_url`,{cache:'no-store'});
+    j=r.status===404?{status:0}:await r.json();
+  }catch(e){bc={st:'net',code};return tab==='scan'&&drawAdd()}
+  const f=j&&j.status===1&&j.product?offFood(j.product,code):null;
+  if(f)bc={st:'found',code,keep:true,p:f,g:f.sg||f.pg||100};
+  else bc={st:j&&j.status===1?'nonut':'none',code,prefill:j&&j.product?String(j.product.product_name_th||j.product.product_name||'').slice(0,40):''};
+  if(tab==='scan'&&!$('#wrap').classList.contains('hidden'))drawAdd();
+}
+function bindScan(t){
+  const sh=$('#sheet'),on=(id,f)=>{const b=sh.querySelector(id);if(b)b.onclick=f};
+  const bf=sh.querySelector('#bf');
+  on('#bsn',()=>bf.click());
+  bf.onchange=async()=>{const f=bf.files&&bf.files[0];if(!f)return;bc={st:'busy'};drawAdd();const code=await readBarcode(f);if(!code){bc={st:'read'};return drawAdd()}lookupCode(code)};
+  const go2=()=>lookupCode(($('#bn').value||'').replace(/\D/g,''));
+  on('#bgo',go2);const bn=sh.querySelector('#bn');if(bn)bn.onkeydown=e=>{if(e.key==='Enter')go2()};
+  on('#bre',()=>{bc={st:'idle'};drawAdd()});
+  on('#bman',()=>{bcCode=bc.code||'';tab='custom';drawAdd()});
+  sh.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{bc.g=+b.dataset.g;drawAdd()});
+  sh.querySelectorAll('[data-bp]').forEach(b=>b.onclick=()=>{bc.por=+b.dataset.bp;drawAdd()});
+  const bg=sh.querySelector('#bg');if(bg)bg.onchange=()=>{const v=parseFloat(bg.value);if(v>0&&v<=3000){bc.g=Math.round(v*10)/10;drawAdd()}};
+  const bk=sh.querySelector('#bk');if(bk)bk.onchange=()=>{bc.keep=bk.checked};
+  on('#bfd',()=>{
+    if(bc.mine){const f=findFood(bc.mine),x=bc.por||1;
+      return feed({id:f[0],por:x,e:f[1],n:f[2]+(x!==1?' ×'+x:''),k:Math.round(f[4]*x),p:f[5]*x,f:f[6]*x,c:f[7]*x,m:mslot})}
+    const p=bc.p,g=bc.g,k=Math.round(p.k100*g/100),m=x=>Math.round(x*g)/100,u=unitOf(p);
+    const item={e:'🛒',n:`${p.n} (${g} ${u})`.slice(0,60),k,p:m(p.p100),f:m(p.f100),c:m(p.c100),m:mslot};
+    /* kept per 100 g (or ml), so the list shows the label's basis and any amount is a portion of it */
+    if(bc.keep){const r=keepMine({n:p.n+(p.brand&&!p.n.includes(p.brand)?' '+p.brand:'')+` (100 ${u})`,e:'🛒',k:Math.round(p.k100),p:Math.round(p.p100*10)/10,f:Math.round(p.f100*10)/10,c:Math.round(p.c100*10)/10,b:bc.code});
+      return feed(Object.assign(item,{id:r.id,por:g/100}))}
+    feed(item);
+  });
+}
 function photoMain(t){
   const p=photo;
   let h=`<input type="file" id="pf" accept="image/*" class="hidden">`;
   if(p.url)h+=`<img class="thumb" src="${p.url}" alt="">`;
-  if(p.st==='idle')h+=`<button class="btn mint block" id="pk">${I('cam')} ${t.photoPick}</button>`;
+  if(p.st==='idle')h+=`<button class="btn mint block" id="pk">${I('cam')} ${t.photoPick}</button><div class="mute" style="font-size:13px">${t.photoTip}</div>`;
   if(p.st==='busy')h+=`<div class="card mute" style="text-align:center" role="status">${t.busy}</div>`;
   if(p.st==='err')h+=`<div class="err">${t.photoErr}</div><button class="btn ghost block" id="pk">${t.retake}</button>`;
   if(p.st==='done'){
-    h+=`<div class="mute">${t.photoHint}</div>`+p.items.map((it,i)=>`<div class="pitem"><input type="checkbox" data-c="${i}" ${it.on?'checked':''} aria-label="${esc(it.n)}"><span style="font-size:22px">${esc(it.e)}</span><span class="sp" style="font-weight:500">${esc(it.n)}</span><input type="number" inputmode="numeric" data-k="${i}" value="${it.k}" aria-label="kcal"></div>`).join('')+
+    h+=`<div class="mute" style="font-size:13px">${t.photoHint}</div>`+p.items.map((it,i)=>`<div class="pitem col"><div class="row" style="gap:8px"><input type="checkbox" data-c="${i}" ${it.on?'checked':''} aria-label="${esc(it.n)}"><span style="font-size:22px">${esc(it.e)}</span><span class="sp" style="font-weight:500">${esc(it.n)}<small class="src ${it.src}">${it.src==='db'?'📗 '+t.srcDb:'🤖 '+t.srcAi}</small></span><input type="number" inputmode="numeric" data-k="${i}" value="${it.k}" aria-label="kcal"></div>
+      <div class="seg sm">${[.5,1,1.5,2,3].map(x=>`<button data-pp="${i}:${x}" class="${it.por===x?'on':''}">${t.pf}${x}</button>`).join('')}</div></div>`).join('')+
     `<div class="row"><b class="sp">${t.total}</b><b id="ptot">${photoTotal()} kcal</b></div><button class="btn block" id="pg" ${photoTotal()>0?'':'disabled'}>${t.feedBtn}</button><button class="btn ghost block" id="pk">${t.retake}</button>`;
   }
   return h;
@@ -1791,11 +1907,29 @@ function shrink(file){
     im.onerror=()=>rej(new Error('img'));im.src=url;
   });
 }
+/* The AI names the dish and how many servings it sees; when the dish is in our table (or the user's own foods)
+   the numbers come from there, the same as picking it from the list. Only dishes we don't have use its estimate. */
+const PORS=[.5,1,1.5,2,3];
+const nearPor=v=>PORS.reduce((a,b)=>Math.abs(b-v)<Math.abs(a-v)?b:a,1);
+function photoCatalog(){return allFoods().map(f=>f[0]+'|'+f[2]+'|'+f[4]).join('\n')}
+function photoPrompt(){
+  return 'You estimate food for a Thai calorie app. CATALOG lines are id|Thai name with serving|kcal per serving.\n'+
+  'Look at the photo and list each distinct food or drink. For each: if it is the same dish as a CATALOG entry (the serving size may differ), give that id and portion = how many CATALOG servings are visible (0.5, 1, 1.5, 2 or 3). '+
+  'If nothing in CATALOG is the same dish, set id to null and estimate kcal and p/f/c grams for the visible amount yourself. Use a spoon, hand or plate in the photo to judge size.\n'+
+  'Reply with JSON only, no prose: {"items":[{"id":"kapao","portion":1,"th":"Thai name","en":"English name","emoji":"one emoji","kcal":0,"p":0,"f":0,"c":0}]}. If no food is visible reply {"items":[]}.\n\nCATALOG:\n'+photoCatalog();
+}
 function parseItems(txt){
   const a=txt.indexOf('{'),b=txt.lastIndexOf('}');
   const j=JSON.parse(txt.slice(a,b+1));
-  return (j.items||[]).slice(0,8).map(x=>({e:String(x.emoji||'🍽️').slice(0,4),n:String((S.lang==='th'?x.th:x.en)||x.th||x.en||'?').slice(0,40),k:Math.max(0,Math.min(3000,Math.round(+x.kcal||0))),p:+x.p||0,f:+x.f||0,c:+x.c||0,on:true})).filter(x=>x.k>0);
+  return (j.items||[]).slice(0,8).map(x=>{
+    const f=typeof x.id==='string'&&findFood(x.id);
+    if(f){const por=nearPor(+x.portion||1);
+      return {id:f[0],src:'db',e:f[1],n:(S.lang==='th'?f[2]:f[3]).slice(0,40),base:{k:f[4],p:f[5],f:f[6],c:f[7]},por,k:Math.round(f[4]*por),p:f[5]*por,f:f[6]*por,c:f[7]*por,on:true}}
+    const k=Math.max(0,Math.min(3000,Math.round(+x.kcal||0)));
+    return {src:'ai',e:String(x.emoji||'🍽️').slice(0,4),n:String((S.lang==='th'?x.th:x.en)||x.th||x.en||'?').slice(0,40),base:{k,p:+x.p||0,f:+x.f||0,c:+x.c||0},por:1,k,p:+x.p||0,f:+x.f||0,c:+x.c||0,on:true};
+  }).filter(x=>x.k>0);
 }
+function setPhotoPor(it,por){it.por=por;['k','p','f','c'].forEach(m=>{it[m]=m==='k'?Math.round(it.base.k*por):it.base[m]*por})}
 function bindPhoto(){
   const sh=$('#sheet'),pf=sh.querySelector('#pf'),pk=sh.querySelector('#pk');
   if(pk)pk.onclick=()=>pf.click();
@@ -1804,8 +1938,7 @@ function bindPhoto(){
     photo={st:'busy',items:[],url:''};drawAdd();
     try{
       const {blob,url}=await shrink(f);photo.url=url;
-      const prompt='You are a nutrition estimator for Thai and everyday foods. Look at the photo and list each distinct food or drink with the portion visible. Estimate calories and macros per item for that portion. Reply with JSON only, no prose: {"items":[{"th":"Thai name","en":"English name","emoji":"one emoji","kcal":0,"p":0,"f":0,"c":0}]}. kcal integers, p/f/c grams. If no food is visible reply {"items":[]}.';
-      const out=await SAMPLE(prompt,{images:[blob],modelTier:'quick'});
+      const out=await SAMPLE(photoPrompt(),{images:[blob],modelTier:'quick'});
       const items=parseItems(out.text||'');
       if(!items.length)throw new Error('none');
       photo.items=items;photo.st='done';
@@ -1814,10 +1947,13 @@ function bindPhoto(){
   };
   sh.querySelectorAll('[data-c]').forEach(c=>c.onchange=()=>{photo.items[+c.dataset.c].on=c.checked;drawAdd()});
   sh.querySelectorAll('[data-k]').forEach(c=>c.onchange=()=>{photo.items[+c.dataset.k].k=Math.max(0,Math.round(+c.value||0));drawAdd()});
+  sh.querySelectorAll('[data-pp]').forEach(b=>b.onclick=()=>{const [i,x]=b.dataset.pp.split(':');setPhotoPor(photo.items[+i],+x);drawAdd()});
   const pg=sh.querySelector('#pg');
   if(pg)pg.onclick=()=>{
     const on=photo.items.filter(i=>i.on);if(!on.length)return;
-    feed({m:mslot,e:on[0].e,n:on.map(i=>i.n).join(' + ').slice(0,60),k:photoTotal(),p:on.reduce((a,i)=>a+i.p,0),f:on.reduce((a,i)=>a+i.f,0),c:on.reduce((a,i)=>a+i.c,0)});
+    const one=on.length===1&&on[0].id&&on[0].k===Math.round(on[0].base.k*on[0].por)?on[0]:null;
+    if(one)return feed({id:one.id,por:one.por,e:one.e,n:one.n+(one.por!==1?' ×'+one.por:''),k:one.k,p:one.p,f:one.f,c:one.c,m:mslot});
+    feed({m:mslot,e:on[0].e,n:on.map(i=>i.n+(i.por!==1?' ×'+i.por:'')).join(' + ').slice(0,60),k:photoTotal(),p:on.reduce((a,i)=>a+i.p,0),f:on.reduce((a,i)=>a+i.f,0),c:on.reduce((a,i)=>a+i.c,0)});
   };
 }
 function feed(item){

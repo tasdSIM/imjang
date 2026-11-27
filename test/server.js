@@ -28,6 +28,7 @@ app.listen(0, async () => {
     ok((await call('GET', '/icons/icon-192.png')).type === 'image/png', 'icon');
     ok((await call('GET', '/pet/cat-1-happy.webp')).type === 'image/webp', 'pet art');
     ok((await call('GET', '/privacy.html')).status === 200, 'privacy page');
+    ok((await call('GET', '/vendor/zxing-library-0.21.3.min.js')).type.startsWith('text/javascript'), 'barcode reader script');
     for (const p of ['/server/main.js', '/test/server.js', '/deploy/deploy-vm.sh', '/Dockerfile', '/data/imjang.db', '/.git/config', '/pet/../server/main.js', '/README.md'])
       ok((await call('GET', p)).status === 404, 'hidden: ' + p);
     ok((await call('GET', '/health')).text === 'ok', 'health');

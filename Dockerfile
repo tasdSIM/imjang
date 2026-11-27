@@ -6,6 +6,7 @@ COPY index.html privacy.html sw.js manifest.webmanifest ./
 COPY icons ./icons
 COPY pet ./pet
 COPY bg ./bg
+COPY vendor ./vendor
 COPY server ./server
 COPY test ./test
 # A failing test stops the build, so the version already running stays up.
