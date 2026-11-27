@@ -339,7 +339,7 @@ const T={th:{
   st:{ok:'ซิงค์แล้ว {t}',busy:'กำลังซิงค์…',off:'ออฟไลน์อยู่ ข้อมูลจะส่งขึ้นบัญชีเมื่อต่อเน็ต',exp:'ต้องเข้าสู่ระบบอีกครั้งเพื่อซิงค์ต่อ (เช่น หลังเปลี่ยนรหัสผ่านจากเครื่องอื่น)'},
   pick:'เลือกข้อมูลที่จะใช้',pickAsk:'ทั้งบัญชีนี้และเครื่องนี้มีข้อมูลอยู่ จะใช้ชุดไหน? อีกชุดจะถูกแทนที่',inAcc:'ในบัญชี',onDev:'ในเครื่องนี้',useAcc:'ใช้ข้อมูลในบัญชี',useDev:'ใช้ข้อมูลในเครื่องนี้',
   outAsk:'ออกจากระบบแล้ว ข้อมูลจะถูกลบออกจากเครื่องนี้ แต่ยังอยู่ในบัญชี เข้าสู่ระบบอีกครั้งเมื่อไรก็กลับมา',outUnsent:'ยังส่งข้อมูลล่าสุดขึ้นบัญชีไม่ได้ ถ้าออกตอนนี้ สิ่งที่บันทึกหลังจากซิงค์ครั้งล่าสุดจะหาย',outYes:'ออกจากระบบ',
-  delAsk:'ลบบัญชีและข้อมูลทั้งหมดบนเซิร์ฟเวอร์ทันที กู้คืนไม่ได้ ข้อมูลในเครื่องนี้ยังอยู่ ใส่รหัสผ่านเพื่อยืนยัน',delYes:'ลบบัญชีถาวร',delDone:'ลบบัญชีแล้ว ข้อมูลยังอยู่ในเครื่องนี้',
+  delAsk:'ลบบัญชีและข้อมูลทั้งหมด ทั้งบนเซิร์ฟเวอร์และในเครื่องนี้ทันที กู้คืนไม่ได้ ถ้าอยากเก็บไว้ ส่งออกไฟล์สำรองก่อน ใส่รหัสผ่านเพื่อยืนยัน',delYes:'ลบบัญชีถาวร',delDone:'ลบบัญชีและข้อมูลแล้ว',regStart:'สร้างบัญชีแล้วเริ่มเลย',gateT:'สร้างบัญชีก่อนเล่นต่อ',gateBody:'ตอนนี้อิ่มจังเก็บข้อมูลไว้ในบัญชี เปลี่ยนมือถือก็ไม่หาย สร้างบัญชีหรือเข้าสู่ระบบ แล้วข้อมูลในเครื่องนี้จะถูกเก็บเข้าบัญชีให้',gateExp:'เข้าสู่ระบบอีกครั้งเพื่อเล่นต่อ ข้อมูลในเครื่องนี้ยังอยู่ และจะซิงค์ต่อหลังเข้าสู่ระบบ',
   oldPw:'รหัสผ่านเดิม',newPw:'รหัสผ่านใหม่',pwDone:'เปลี่ยนรหัสผ่านแล้ว เครื่องอื่นต้องเข้าสู่ระบบใหม่',privacy:'นโยบายความเป็นส่วนตัว',
   err:{name:'ชื่อต้องยาว 2–20 ตัวอักษร',nameChars:'ห้ามใช้อีเมล ลิงก์ หรืออักขระพิเศษในชื่อ',pw:'รหัสผ่านต้องยาว 6–72 ตัวอักษร',consent:'ติ๊กยินยอมก่อนสร้างบัญชี',taken:'ชื่อนี้มีคนใช้แล้ว ลองชื่ออื่น',wrong:'ชื่อหรือรหัสผ่านไม่ถูกต้อง',badPw:'รหัสผ่านไม่ถูกต้อง',oldPw:'รหัสผ่านเดิมไม่ถูกต้อง',tooMany:'ลองหลายครั้งเกินไป รอ 15 นาทีแล้วลองใหม่',net:'ต่อเซิร์ฟเวอร์ไม่ได้ ตรวจอินเทอร์เน็ตแล้วลองใหม่',x:'เกิดข้อผิดพลาด ลองใหม่อีกครั้ง'}},
  dy:{water:'น้ำ',cups:'{n}/{g} แก้ว',cupL:'แก้วที่ {i}',move:'ขยับตัว',moveNone:'ยังไม่ได้ขยับ',moveSum:'{m} นาที · เผา {k} kcal',add:'เพิ่ม',less:'ลดน้ำ 1 แก้ว',more:'เพิ่มน้ำ 1 แก้ว'},
@@ -427,7 +427,7 @@ en:{
   st:{ok:'Synced {t}',busy:'Syncing…',off:'Offline. Your data goes up when you\'re back online.',exp:'Sign in again to keep syncing (for example after the password was changed on another device).'},
   pick:'Choose your data',pickAsk:'Both this account and this device have data. Which one do you want to keep? The other is replaced.',inAcc:'In the account',onDev:'On this device',useAcc:'Use account data',useDev:'Use this device\'s data',
   outAsk:'Signing out removes the data from this device. It stays in your account; sign in again any time to get it back.',outUnsent:'Your latest changes haven\'t reached the account yet. Signing out now loses what you logged since the last sync.',outYes:'Sign out',
-  delAsk:'This deletes your account and all its data on the server right away. It cannot be undone. Data on this device stays. Enter your password to confirm.',delYes:'Delete account forever',delDone:'Account deleted. Your data is still on this device.',
+  delAsk:'This deletes your account and all its data, on the server and on this device, right away. It cannot be undone. To keep a copy, export a backup file first. Enter your password to confirm.',delYes:'Delete account forever',delDone:'Account and data deleted.',regStart:'Create account and start',gateT:'Create an account to continue',gateBody:'Imjang now keeps your data in an account, so changing phones won\'t lose it. Create an account or sign in, and the data on this device goes into it.',gateExp:'Sign in again to continue. Your data on this device is still here and syncs again once you sign in.',
   oldPw:'Current password',newPw:'New password',pwDone:'Password changed. Other devices need to sign in again.',privacy:'Privacy policy',
   err:{name:'Name must be 2–20 characters',nameChars:'No e-mail, links or special characters in the name',pw:'Password must be 6–72 characters',consent:'Tick the consent box to create an account',taken:'That name is taken. Try another.',wrong:'Wrong name or password',badPw:'Wrong password',oldPw:'Current password is wrong',tooMany:'Too many tries. Wait 15 minutes and try again.',net:'Can\'t reach the server. Check your internet and try again.',x:'Something went wrong. Try again.'}},
  dy:{water:'Water',cups:'{n}/{g} glasses',cupL:'Glass {i}',move:'Activity',moveNone:'No activity yet',moveSum:'{m} min · {k} kcal burned',add:'Add',less:'One glass less',more:'One glass more'},
@@ -831,7 +831,21 @@ async function api(method,p,body){
 }
 /* writes the state locally without touching S.ts, so taking the account's copy does not count as a change */
 function keepLocal(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
-function acExpired(){if(ACCT){ACCT.tok=null;keepAcct()}acSt='exp';acShow()}
+function acExpired(){if(ACCT){ACCT.tok=null;keepAcct()}acSt='exp';acShow();if(gateHere())openGate()}
+/* On the app's own server an account is required: nobody plays without one (the welcome screen signs up first).
+   Data already on the device (moved from the old address, imported, or signed out by time) waits behind this sheet. */
+let GATE=false;
+const gateNeeded=()=>SRV&&!acOn();
+const gateHere=()=>gateNeeded()&&!['intro','welcome','moved'].includes(view);
+function gateDone(){GATE=false;closeSheet();render()}
+function openGate(){
+  const t=L(),a=t.ac,exp=!!ACCT;GATE=true;
+  openSheet(`<h3 class="fd">${exp?a.in:a.gateT}</h3><p style="margin:0">${exp?a.gateExp:a.gateBody}</p>
+  ${exp?`<button class="btn block" id="gi">${a.in}</button><button class="btn ghost block" id="gr">${a.reg}</button>`:`<button class="btn block" id="gr">${a.reg}</button><button class="btn ghost block" id="gi">${a.in}</button>`}
+  <a class="mute" style="font-size:13px;text-align:center" href="privacy.html${S.lang==='en'?'?lang=en':''}" target="_blank" rel="noopener">${a.privacy}</a>`);
+  $('#gr').onclick=()=>sheetAuth('reg',openGate,'',gateDone);
+  $('#gi').onclick=()=>sheetAuth('in',openGate,ACCT&&ACCT.name,gateDone);
+}
 function acSched(){if(!acOn())return;clearTimeout(acT);acT=setTimeout(acPush,1500)}
 async function acPush(){
   if(!acOn())return;
@@ -905,13 +919,14 @@ async function initAcct(){
   try{const r=await api('GET','ping');SRV=r.s===200&&r.j.ok===true}catch(e){SRV=false}
   if(!SRV)return;
   if(view==='welcome')rWelcome();
+  if(gateHere())openGate();
   if(acOn())acPull(true);
   document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')acPull()});
   window.addEventListener('online',()=>acPull(true));
 }
 /* ---- account sheets ---- */
 function acErr(t,r){return t.ac.err[r&&r.j&&r.j.error]||t.ac.err[r&&r.s===0?'net':'x']||t.ac.err.x}
-function sheetAuth(mode,back,pre){
+function sheetAuth(mode,back,pre,then){
   const t=L(),a=t.ac,reg=mode==='reg';
   openSheet(`<h3 class="fd">${reg?a.reg:a.in}</h3>
   ${reg?`<div class="mute" style="font-size:14px">${a.hint}</div>`:''}
@@ -924,7 +939,7 @@ function sheetAuth(mode,back,pre){
   ${reg?'':`<div class="mute" style="font-size:13px;text-align:center">${a.forgot}</div>`}
   <button class="btn ghost block" id="n">${t.no}</button>`);
   $('#n').onclick=back;
-  $('#asw').onclick=()=>sheetAuth(reg?'in':'reg',back,$('#an').value);
+  $('#asw').onclick=()=>sheetAuth(reg?'in':'reg',back,$('#an').value,then);
   const go2=async()=>{
     const b=$('#ago'),e=$('#ae'),name=$('#an').value,password=$('#ap').value;
     if(reg&&!$('#ak').checked){e.textContent=a.err.consent;return}
@@ -933,28 +948,28 @@ function sheetAuth(mode,back,pre){
     b.disabled=false;
     if(r.s!==200){e.textContent=acErr(t,r);return}
     ACCT={tok:r.j.token,name:r.j.me.name,rev:0,ts:0};keepAcct();
-    acSignedIn(reg,back);
+    acSignedIn(reg,back,then);
   };
   $('#ago').onclick=go2;
   $('#ap').onkeydown=e=>{if(e.key==='Enter')go2()};
   setTimeout(()=>{const i=$(pre?'#ap':'#an');if(i)i.focus()},50);
 }
 /* just signed in: decide whose data wins */
-async function acSignedIn(reg,back){
+async function acSignedIn(reg,back,then){
   const t=L(),a=t.ac;
   let r;try{r=await api('GET','save')}catch(e){r={s:0,j:{}}}
-  const done=()=>{closeSheet();acRedraw();if(view==='home')rHome();sheetSettings()};
+  const done=()=>{GATE=false;closeSheet();if(then)return then();acRedraw();if(view==='home')rHome();sheetSettings()};
   if(r.s!==200){acSt='off';return done()}
   const rm=r.j;
   if(!rm.data){ACCT.rev=rm.rev;ACCT.ts=0;keepAcct();if(S.onboarded)acPush();return done()}
   if(!S.onboarded){acTake(rm,false);acSt='ok';acAt=Date.now();acShow();
-    closeSheet();go(S.onboarded&&S.plan?'home':'welcome');warmArt();return}
+    GATE=false;closeSheet();go(S.onboarded&&S.plan?'home':'welcome');warmArt();return}
   const card=(d,lbl)=>{const sp=SP.includes(d.pet&&d.pet.sp)?d.pet.sp:'cat';
     return `<div class="card row" style="padding:10px"><div style="width:56px;flex:none">${pimg(sp,'-happy',1,t.sp[sp])}</div><div class="sp"><div class="mute" style="font-size:13px">${lbl}</div><b>${esc(d.pet&&d.pet.name||t.sp[sp])}</b><div class="mute" style="font-size:13px">${fmt(t.bkInfo,{n:t.sp[sp],d:(+d.days||0).toLocaleString(),c:(+d.coins||0).toLocaleString()})}</div></div></div>`};
   openSheet(`<h3 class="fd">${a.pick}</h3><p style="margin:0">${a.pickAsk}</p>
   ${card(rm.data,a.inAcc)}${card(S,a.onDev)}
   <button class="btn block" id="pa">${a.useAcc}</button><button class="btn ghost block" id="pd">${a.useDev}</button>`);
-  $('#pa').onclick=()=>{acTake(rm,false);acSt='ok';acAt=Date.now();closeSheet();go(S.onboarded&&S.plan?'home':'welcome');warmArt()};
+  $('#pa').onclick=()=>{acTake(rm,false);acSt='ok';acAt=Date.now();GATE=false;closeSheet();go(S.onboarded&&S.plan?'home':'welcome');warmArt()};
   $('#pd').onclick=()=>{ACCT.rev=rm.rev;ACCT.ts=0;keepAcct();acPush();done()};
 }
 function accountCard(t){
@@ -1015,8 +1030,9 @@ function bindAccount(t){
       if(r.s===401)return acExpired(),sheetSettings();
       if(r.s!==200){$('#ae').textContent=acErr(t,r);return}
       ACCT=null;keepAcct();acSt='';acAt=0;
+      const l=S.lang;S=defState();S.lang=l;S.introSeen=true;save();
       openSheet(`<h3 class="fd">${a.del}</h3><p style="margin:0">${a.delDone}</p><button class="btn block" id="n">${t.close}</button>`);
-      $('#n').onclick=sheetSettings;
+      $('#n').onclick=()=>{closeSheet();go('welcome')};
     };
   });
 }
@@ -1116,6 +1132,7 @@ function render(){
   document.documentElement.lang=S.lang;
   ({moved:rMoved,intro:rIntro,welcome:rWelcome,hatch:rHatch,onb:rOnb,plan:rPlan,tut:rTut,pledge:rPledge,home:rHome})[view]();
   window.scrollTo(0,0);
+  if(!GATE&&gateHere())openGate();
 }
 function langSw(){return `<div class="lang" role="group" aria-label="Language"><button class="${S.lang==='th'?'on':''}" data-l="th">ไทย</button><button class="${S.lang==='en'?'on':''}" data-l="en">EN</button></div>`}
 function bindLang(){app.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{S.lang=b.dataset.l;save();render()})}
@@ -1127,13 +1144,13 @@ function rWelcome(){
   <h3 class="fd" style="text-align:center">${t.pickPet}</h3>
   <div class="grid6">${SP.map(s=>`<button class="pick ${S.pet.sp===s?'on':''}" data-s="${s}" aria-pressed="${S.pet.sp===s}">${pimg(s,S.pet.sp===s?'-happy':'',1,t.sp[s])}${t.sp[s]}</button>`).join('')}</div>
   <div class="sp"></div>
-  <button class="btn block" id="go">${t.start}</button>
-  ${SRV&&!ACCT?`<button class="lnk" id="wl" style="min-height:40px">${t.ac.haveAcc}</button>`:''}
+  <button class="btn block" id="go">${gateNeeded()?t.ac.regStart:t.start}</button>
+  ${gateNeeded()?`<button class="lnk" id="wl" style="min-height:40px">${t.ac.haveAcc}</button>`:''}
   ${window.claude?'':`<button class="lnk" id="wk">${t.bkHave}</button><div class="err" id="wke" role="alert"></div>`}`;
   bindLang();
-  const wl=$('#wl');if(wl)wl.onclick=()=>sheetAuth('in',closeSheet);
+  const wl=$('#wl');if(wl)wl.onclick=()=>sheetAuth('in',closeSheet,ACCT&&ACCT.name,()=>{closeSheet();rWelcome()});
   app.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{S.pet.sp=b.dataset.s;save();rWelcome()});
-  $('#go').onclick=()=>go('hatch');
+  $('#go').onclick=()=>gateNeeded()?sheetAuth('reg',closeSheet,'',()=>{closeSheet();go('hatch')}):go('hatch');
   const wk=$('#wk');if(wk)wk.onclick=()=>welcomeImport(t);
 }
 /* ---- intro: three slides before choosing a pet ---- */
@@ -1645,7 +1662,7 @@ function saveWeight(w){
 function openSheet(html){$('#sheet').innerHTML=html;$('#wrap').classList.remove('hidden')}
 function closeSheet(){$('#wrap').classList.add('hidden');$('#sheet').innerHTML=''}
 $('#scrim').onclick=()=>{closeSheet();if(view==='home')rHome()};
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!GATE&&!$('#pa'))closeSheet()});
 let sel=null,por=1,tab='list',q='',cat='all',mslot='s',photo={st:'idle',items:[],url:''},delArm=null;
 function sheetAdd(){sel=null;por=1;tab='list';q='';cat='all';mslot=slotNow();photo={st:'idle',items:[],url:''};delArm=null;drawAdd()}
 /* The user's kept foods, in the same row format as FOODS (category 'mine'), listed before the built-in foods. */
