@@ -1,6 +1,6 @@
 /* Imjang service worker — offline app shell + cached pet art.
    Bump VERSION whenever index.html or core files change so users get the update. */
-const VERSION = 'imjang-v13';
+const VERSION = 'imjang-v14';
 const CORE = `${VERSION}-core`;
 // Pet images are cached forever by name. Bump this when pictures are replaced
 // under the same names, so installed apps drop the old ones.
@@ -56,6 +56,8 @@ self.addEventListener('fetch', e => {
   const url = new URL(req.url);
 
   if (url.origin === location.origin) {
+    // the account server's answers are never cached (server/main.js)
+    if (url.pathname.includes('/api/') || url.pathname.endsWith('/health')) return;
     if (req.mode === 'navigate' || url.pathname.endsWith('/index.html')) {
       e.respondWith(networkFirst(req));
     } else if (url.pathname.includes('/pet/')) {

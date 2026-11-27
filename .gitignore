@@ -3,3 +3,7 @@ node_modules/
 Thumbs.db
 .vscode/
 *.log
+data/
+deploy/tunnel.env
+deploy/.env
+docker-compose.override.yml

@@ -240,6 +240,7 @@ canvas#trace{width:100%;height:220px;background:var(--bg);border:2px dashed var(
 .rmt label{display:grid;gap:4px;font-size:12px;color:var(--mute)}
 .rmt input{width:100%;min-height:44px;border-radius:12px;border:2px solid var(--line);background:var(--surf);color:var(--ink);font:600 14px 'Noto Sans Thai',sans-serif;text-align:center;min-width:0;padding:0 2px}
 .rmt input::-webkit-calendar-picker-indicator{margin:0;padding:0;width:14px}
+.keep a{color:var(--coral-d)}.fl{display:grid;gap:4px}.fl .mute{font-size:12px}.inp.tx{font:500 16px 'Noto Sans Thai',sans-serif;min-height:48px;text-align:left;border-radius:14px}
 .lnk{background:none;border:0;color:var(--mute);font-weight:700;text-decoration:underline;text-underline-offset:3px;min-height:44px;width:100%}
 .seg button{border:2px solid var(--line);background:var(--surf);border-radius:14px;min-height:44px;font-weight:700}
 .seg button.on{background:var(--ink);color:var(--bg)}
@@ -330,7 +331,17 @@ const T={th:{
   newTarget:'ปรับเป้าแคลอรี่เป็น {x} kcal/วัน (เดิม {y})',reached:'🎉 ถึงเป้าแล้ว! เก่งมาก',reachedCoin:'🎉 ถึงเป้าแล้ว! เก่งมาก +{c} เหรียญ',keepNow:'ตั้งเป้าเป็นรักษาน้ำหนักนี้',keepSet:'ตั้งเป้าเป็นรักษาน้ำหนักแล้ว ฉันจะช่วยดูให้อยู่ตัวนะ'},
  sT:'ตั้งค่า',lang:'ภาษา',rename:'ชื่อสัตว์เลี้ยง',change:'เปลี่ยนสัตว์',redo:'คำนวณแผนใหม่',reset:'ล้างข้อมูลทั้งหมด',resetAsk:'ลบข้อมูลทั้งหมดแล้วเริ่มใหม่ใช่ไหม?',yes:'ใช่ ลบเลย',no:'ยกเลิก',save:'บันทึก',close:'ปิด',about:'ค่าแคลอรี่เป็นค่าประมาณ',
  mine:'เมนูของฉัน',keepMine:'เก็บไว้ใน "เมนูของฉัน" ครั้งหน้าเลือกได้เลย (เมื่อใส่ชื่อ)',delAsk:'แตะอีกครั้งเพื่อลบ',del:'ลบ',
- bkT:'สำรองข้อมูล',bkHint:'ข้อมูลทั้งหมดอยู่ในเครื่องนี้เท่านั้น ถ้าล้างเบราว์เซอร์หรือเปลี่ยนเครื่อง ข้อมูลจะหาย ส่งออกเป็นไฟล์เก็บไว้ แล้วนำเข้าในเครื่องใหม่ได้',bkOut:'ส่งออกไฟล์',bkIn:'นำเข้าไฟล์',bkLast:'สำรองล่าสุด {d}',bkNever:'ยังไม่เคยสำรอง',bkAsk:'แทนที่ข้อมูลในเครื่องนี้ด้วยไฟล์สำรองนี้ใช่ไหม? ข้อมูลที่อยู่ในเครื่องตอนนี้จะหายไป',bkInfo:'{n} · เลี้ยงมา {d} วัน · {c} เหรียญ',bkFrom:'ไฟล์สำรองวันที่ {d}',bkYes:'ใช่ นำเข้า',bkHave:'มีไฟล์สำรองอยู่แล้ว? นำเข้าที่นี่',
+ bkT:'สำรองข้อมูล',bkHint:'ข้อมูลทั้งหมดอยู่ในเครื่องนี้เท่านั้น ถ้าล้างเบราว์เซอร์หรือเปลี่ยนเครื่อง ข้อมูลจะหาย ส่งออกเป็นไฟล์เก็บไว้ แล้วนำเข้าในเครื่องใหม่ได้',bkOut:'ส่งออกไฟล์',bkIn:'นำเข้าไฟล์',bkLast:'สำรองล่าสุด {d}',bkNever:'ยังไม่เคยสำรอง',bkAsk:'แทนที่ข้อมูลในเครื่องนี้ด้วยไฟล์สำรองนี้ใช่ไหม? ข้อมูลที่อยู่ในเครื่องตอนนี้จะหายไป',bkInfo:'{n} · เลี้ยงมา {d} วัน · {c} เหรียญ',bkFrom:'ไฟล์สำรองวันที่ {d}',bkYes:'ใช่ นำเข้า',bkHave:'มีไฟล์สำรองอยู่แล้ว? นำเข้าที่นี่',bkHintAcc:'ข้อมูลซิงค์กับบัญชีอยู่แล้ว จะส่งออกเป็นไฟล์เก็บไว้อีกชุดก็ได้',resetAcc:'ข้อมูลในบัญชีจะถูกล้างด้วย',
+ ac:{t:'บัญชี',hint:'สร้างบัญชีเพื่อเก็บข้อมูลไว้บนเซิร์ฟเวอร์ เปลี่ยนมือถือหรือล้างเบราว์เซอร์ก็ไม่หาย และใช้หลายเครื่องได้',reg:'สร้างบัญชี',in:'เข้าสู่ระบบ',out:'ออกจากระบบ',pw:'เปลี่ยนรหัสผ่าน',del:'ลบบัญชี',as:'บัญชี {n}',
+  name:'ชื่อบัญชี',nameHint:'2–20 ตัวอักษร ใช้ชื่อเล่นได้ ไม่ต้องใช้อีเมล',pass:'รหัสผ่าน',passHint:'อย่างน้อย 6 ตัวอักษร',
+  consent:'ฉันอายุ 18 ปีขึ้นไป และยินยอมให้เก็บข้อมูลในแอป รวมถึงน้ำหนักและอาหารที่กิน ตาม<a href="privacy.html" target="_blank" rel="noopener">นโยบายความเป็นส่วนตัว</a>',
+  haveAcc:'มีบัญชีแล้ว? เข้าสู่ระบบ',noAcc:'ยังไม่มีบัญชี? สร้างบัญชี',forgot:'ลืมรหัสผ่าน? ติดต่อผู้ดูแลแอปให้ตั้งรหัสใหม่',
+  st:{ok:'ซิงค์แล้ว {t}',busy:'กำลังซิงค์…',off:'ออฟไลน์อยู่ ข้อมูลจะส่งขึ้นบัญชีเมื่อต่อเน็ต',exp:'ต้องเข้าสู่ระบบอีกครั้งเพื่อซิงค์ต่อ (เช่น หลังเปลี่ยนรหัสผ่านจากเครื่องอื่น)'},
+  pick:'เลือกข้อมูลที่จะใช้',pickAsk:'ทั้งบัญชีนี้และเครื่องนี้มีข้อมูลอยู่ จะใช้ชุดไหน? อีกชุดจะถูกแทนที่',inAcc:'ในบัญชี',onDev:'ในเครื่องนี้',useAcc:'ใช้ข้อมูลในบัญชี',useDev:'ใช้ข้อมูลในเครื่องนี้',
+  outAsk:'ออกจากระบบแล้ว ข้อมูลจะถูกลบออกจากเครื่องนี้ แต่ยังอยู่ในบัญชี เข้าสู่ระบบอีกครั้งเมื่อไรก็กลับมา',outUnsent:'ยังส่งข้อมูลล่าสุดขึ้นบัญชีไม่ได้ ถ้าออกตอนนี้ สิ่งที่บันทึกหลังจากซิงค์ครั้งล่าสุดจะหาย',outYes:'ออกจากระบบ',
+  delAsk:'ลบบัญชีและข้อมูลทั้งหมดบนเซิร์ฟเวอร์ทันที กู้คืนไม่ได้ ข้อมูลในเครื่องนี้ยังอยู่ ใส่รหัสผ่านเพื่อยืนยัน',delYes:'ลบบัญชีถาวร',delDone:'ลบบัญชีแล้ว ข้อมูลยังอยู่ในเครื่องนี้',
+  oldPw:'รหัสผ่านเดิม',newPw:'รหัสผ่านใหม่',pwDone:'เปลี่ยนรหัสผ่านแล้ว เครื่องอื่นต้องเข้าสู่ระบบใหม่',privacy:'นโยบายความเป็นส่วนตัว',
+  err:{name:'ชื่อต้องยาว 2–20 ตัวอักษร',nameChars:'ห้ามใช้อีเมล ลิงก์ หรืออักขระพิเศษในชื่อ',pw:'รหัสผ่านต้องยาว 6–72 ตัวอักษร',consent:'ติ๊กยินยอมก่อนสร้างบัญชี',taken:'ชื่อนี้มีคนใช้แล้ว ลองชื่ออื่น',wrong:'ชื่อหรือรหัสผ่านไม่ถูกต้อง',badPw:'รหัสผ่านไม่ถูกต้อง',oldPw:'รหัสผ่านเดิมไม่ถูกต้อง',tooMany:'ลองหลายครั้งเกินไป รอ 15 นาทีแล้วลองใหม่',net:'ต่อเซิร์ฟเวอร์ไม่ได้ ตรวจอินเทอร์เน็ตแล้วลองใหม่',x:'เกิดข้อผิดพลาด ลองใหม่อีกครั้ง'}},
  dy:{water:'น้ำ',cups:'{n}/{g} แก้ว',cupL:'แก้วที่ {i}',move:'ขยับตัว',moveNone:'ยังไม่ได้ขยับ',moveSum:'{m} นาที · เผา {k} kcal',add:'เพิ่ม',less:'ลดน้ำ 1 แก้ว',more:'เพิ่มน้ำ 1 แก้ว'},
  waterDone:'ดื่มน้ำครบแล้ว! {n} สดชื่นเลย',goalPlus:'รวมที่ขยับตัว +{k}',
  mv:{title:'ขยับตัววันนี้',pick:'ทำอะไร',min:'กี่นาที',other:'อื่นๆ',save:'บันทึก',today:'วันนี้',none:'ยังไม่มี',
@@ -408,7 +419,17 @@ en:{
   newTarget:'Calorie target is now {x} kcal/day (was {y})',reached:'🎉 You reached your goal! Well done',reachedCoin:'🎉 You reached your goal! Well done +{c} coins',keepNow:'Switch to maintaining this weight',keepSet:"Now maintaining. I'll help you stay here."},
  sT:'Settings',lang:'Language',rename:'Pet name',change:'Change pet',redo:'Recalculate plan',reset:'Erase all data',resetAsk:'Erase everything and start over?',yes:'Yes, erase',no:'Cancel',save:'Save',close:'Close',about:'Calories are estimates.',
  mine:'My foods',keepMine:'Keep in "My foods" to pick next time (when named)',delAsk:'Tap again to delete',del:'Delete',
- bkT:'Backup',bkHint:'Everything is stored on this device only. Clearing the browser or changing phones loses it. Export a file to keep, then import it on the new device.',bkOut:'Export file',bkIn:'Import file',bkLast:'Last backup {d}',bkNever:'Never backed up',bkAsk:'Replace the data on this device with this backup? What is here now will be lost.',bkInfo:'{n} · {d} days together · {c} coins',bkFrom:'Backup from {d}',bkYes:'Yes, import',bkHave:'Have a backup file? Import it here',
+ bkT:'Backup',bkHint:'Everything is stored on this device only. Clearing the browser or changing phones loses it. Export a file to keep, then import it on the new device.',bkOut:'Export file',bkIn:'Import file',bkLast:'Last backup {d}',bkNever:'Never backed up',bkAsk:'Replace the data on this device with this backup? What is here now will be lost.',bkInfo:'{n} · {d} days together · {c} coins',bkFrom:'Backup from {d}',bkYes:'Yes, import',bkHave:'Have a backup file? Import it here',bkHintAcc:'Your data already syncs with your account. You can still export a file as an extra copy.',resetAcc:'Your account data will be erased too.',
+ ac:{t:'Account',hint:'Create an account to keep your data on the server. Changing phones or clearing the browser won\'t lose it, and you can use several devices.',reg:'Create account',in:'Sign in',out:'Sign out',pw:'Change password',del:'Delete account',as:'Account {n}',
+  name:'Account name',nameHint:'2–20 characters. A nickname is fine; no e-mail needed.',pass:'Password',passHint:'At least 6 characters',
+  consent:'I am 18 or older and agree to my app data, including weight and food, being stored as described in the <a href="privacy.html?lang=en" target="_blank" rel="noopener">privacy policy</a>.',
+  haveAcc:'Have an account? Sign in',noAcc:'No account yet? Create one',forgot:'Forgot your password? Ask the app\'s admin to set a new one.',
+  st:{ok:'Synced {t}',busy:'Syncing…',off:'Offline. Your data goes up when you\'re back online.',exp:'Sign in again to keep syncing (for example after the password was changed on another device).'},
+  pick:'Choose your data',pickAsk:'Both this account and this device have data. Which one do you want to keep? The other is replaced.',inAcc:'In the account',onDev:'On this device',useAcc:'Use account data',useDev:'Use this device\'s data',
+  outAsk:'Signing out removes the data from this device. It stays in your account; sign in again any time to get it back.',outUnsent:'Your latest changes haven\'t reached the account yet. Signing out now loses what you logged since the last sync.',outYes:'Sign out',
+  delAsk:'This deletes your account and all its data on the server right away. It cannot be undone. Data on this device stays. Enter your password to confirm.',delYes:'Delete account forever',delDone:'Account deleted. Your data is still on this device.',
+  oldPw:'Current password',newPw:'New password',pwDone:'Password changed. Other devices need to sign in again.',privacy:'Privacy policy',
+  err:{name:'Name must be 2–20 characters',nameChars:'No e-mail, links or special characters in the name',pw:'Password must be 6–72 characters',consent:'Tick the consent box to create an account',taken:'That name is taken. Try another.',wrong:'Wrong name or password',badPw:'Wrong password',oldPw:'Current password is wrong',tooMany:'Too many tries. Wait 15 minutes and try again.',net:'Can\'t reach the server. Check your internet and try again.',x:'Something went wrong. Try again.'}},
  dy:{water:'Water',cups:'{n}/{g} glasses',cupL:'Glass {i}',move:'Activity',moveNone:'No activity yet',moveSum:'{m} min · {k} kcal burned',add:'Add',less:'One glass less',more:'One glass more'},
  waterDone:'Water goal done! {n} feels fresh',goalPlus:'includes activity +{k}',
  mv:{title:'Activity today',pick:'What did you do?',min:'How many minutes?',other:'Other',save:'Save',today:'Today',none:'Nothing yet',
@@ -739,7 +760,7 @@ function defState(){return{lang:'th',onboarded:false,pet:{sp:'cat',name:''},prof
 let S=defState();
 try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(defState(),JSON.parse(r))}catch(e){}
 let DOC=null,syncSt='off',pushT=null;
-function save(){S.ts=Date.now();try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}schedPush()}
+function save(){S.ts=Date.now();try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}schedPush();acSched()}
 function schedPush(){if(syncSt!=='on'||!DOC)return;clearTimeout(pushT);pushT=setTimeout(pushNow,1500)}
 async function pushNow(){try{await DOC.set({json:JSON.stringify(S),ts:S.ts})}catch(e){syncSt='err'}}
 async function initSync(){
@@ -763,6 +784,216 @@ async function initSync(){
       }else if((S.ts||0)>(r.ts||0))pushNow();
     }else if(S.onboarded)pushNow();
   }catch(e){syncSt='err'}
+}
+/* ============ ACCOUNT (the app's own server: server/main.js) ============
+   Only where the page is served by that server (it answers api/ping); on GitHub Pages or inside Claude there is none.
+   ACCT={tok,name,rev,ts}: rev = the server copy this device last matched, ts = S.ts at that moment,
+   so S.ts>ACCT.ts means this device has changes the account has not seen yet. */
+const AKEY='imjang.acct';
+let ACCT=null;try{ACCT=JSON.parse(localStorage.getItem(AKEY)||'null')}catch(e){}
+let SRV=false,acSt='',acT=null,acBusy=false,acAgain=false,acAt=0,acPulled=0;
+function keepAcct(){try{ACCT?localStorage.setItem(AKEY,JSON.stringify(ACCT)):localStorage.removeItem(AKEY)}catch(e){}}
+const acOn=()=>SRV&&ACCT&&ACCT.tok;
+const acDirty=()=>!!ACCT&&(S.ts||0)>(ACCT.ts||0);
+async function api(method,p,body){
+  const h={'Content-Type':'application/json'};if(ACCT&&ACCT.tok)h.Authorization='Bearer '+ACCT.tok;
+  const ctl=new AbortController(),tm=setTimeout(()=>ctl.abort(),15000);
+  try{
+    const r=await fetch('api/'+p,{method,headers:h,cache:'no-store',signal:ctl.signal,body:body===undefined?undefined:JSON.stringify(body)});
+    let j=null;try{j=await r.json()}catch(e){}
+    return {s:r.status,j:j||{}};
+  }finally{clearTimeout(tm)}
+}
+/* writes the state locally without touching S.ts, so taking the account's copy does not count as a change */
+function keepLocal(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function acExpired(){if(ACCT){ACCT.tok=null;keepAcct()}acSt='exp';acShow()}
+function acSched(){if(!acOn())return;clearTimeout(acT);acT=setTimeout(acPush,1500)}
+async function acPush(){
+  if(!acOn())return;
+  if(acBusy){acAgain=true;return}
+  acBusy=true;acSt='busy';acShow();
+  try{
+    for(let i=0;i<3;i++){
+      const ts=S.ts||0,r=await api('PUT','save',{base:ACCT.rev||0,data:S});
+      if(r.s===200){ACCT.rev=r.j.rev;ACCT.ts=ts;acSt='ok';acAt=Date.now();break}
+      if(r.s===409){acTake(r.j,true);continue}
+      if(r.s===401){acExpired();break}
+      acSt='off';break;
+    }
+  }catch(e){acSt='off'}
+  acBusy=false;keepAcct();acShow();
+  if(acAgain){acAgain=false;if(acDirty())acSched()}
+}
+/* the account has a newer copy {rev,data}: take it, or fold this device's unsent changes into it */
+function acTake(rm,dirty){
+  if(!rm||!rm.data)return;
+  const was=JSON.stringify(S);
+  S=Object.assign(defState(),dirty?mergeSaves(S,rm.data):rm.data);normalize();
+  ACCT.rev=rm.rev;
+  if(dirty)S.ts=Math.max(S.ts||0,Date.now());else ACCT.ts=S.ts||0;
+  keepLocal();keepAcct();
+  if(JSON.stringify(S)!==was)acRedraw();
+}
+/* Two copies changed apart (say, phone offline and tablet online): keep the newer one and add the other's
+   meals, water, activity, weigh-ins and own foods it does not have. Coins, pet and plan come from the newer. */
+function mergeSaves(a,b){
+  const [n,o]=(a.ts||0)>=(b.ts||0)?[a,b]:[b,a],m=JSON.parse(JSON.stringify(n));
+  const byDay=(f,key)=>{m[f]=m[f]||{};Object.keys(o[f]||{}).forEach(d=>{const have=m[f][d]||[],ks=new Set(have.map(key));m[f][d]=have.concat((o[f][d]||[]).filter(x=>!ks.has(key(x))))})};
+  byDay('logs',x=>[x.n,x.k,x.m,x.t].join('|'));
+  byDay('moves',x=>[x.a,x.min,x.t].join('|'));
+  m.water=m.water||{};Object.keys(o.water||{}).forEach(d=>{m.water[d]=Math.max(m.water[d]||0,o.water[d]||0)});
+  const uni=(f,key)=>{const have=Array.isArray(m[f])?m[f]:[],ks=new Set(have.map(key));m[f]=have.concat((Array.isArray(o[f])?o[f]:[]).filter(x=>!ks.has(key(x))))};
+  uni('weights',x=>x&&x.d);if(Array.isArray(m.weights))m.weights.sort((x,y)=>x.d<y.d?-1:1);
+  uni('myFoods',x=>x&&x.id);uni('owned',x=>x);uni('bgOwned',x=>x);
+  m.bonus=Object.assign({},o.bonus||{},m.bonus||{});
+  return m;
+}
+async function acPull(force){
+  if(!acOn()||acBusy)return;
+  if(!force&&Date.now()-acPulled<10000)return;
+  acPulled=Date.now();
+  try{
+    const r=await api('GET','save');
+    if(r.s===401)return acExpired();
+    if(r.s!==200){acSt='off';return acShow()}
+    if(r.j.rev!==(ACCT.rev||0)&&r.j.data)acTake(r.j,acDirty());
+    if(acDirty())acPush();else{acSt='ok';acAt=Date.now();acShow()}
+  }catch(e){acSt='off';acShow()}
+}
+/* redraw after the account's copy came in, without closing what the user has open */
+function acRedraw(){
+  if((view==='welcome'||view==='intro')&&S.onboarded&&S.plan){view='home';return render()}
+  if(view==='home'&&$('#wrap').classList.contains('hidden'))rHome();
+}
+function acStText(t){
+  const a=t.ac;
+  if(!ACCT||!ACCT.tok)return a.st.exp;
+  if(acSt==='busy')return a.st.busy;
+  if(acSt==='off')return a.st.off;
+  if(acAt)return fmt(a.st.ok,{t:new Date(acAt).toLocaleTimeString(S.lang==='th'?'th-TH':'en-GB',{hour:'2-digit',minute:'2-digit'})});
+  return a.st.busy;
+}
+function acShow(){const e=$('#acst');if(e)e.textContent=acStText(L())}
+async function initAcct(){
+  /* GitHub Pages only serves files: no need to ask */
+  if(window.claude||!/^https?:$/.test(location.protocol)||/\.github\.io$/.test(location.hostname))return;
+  try{const r=await api('GET','ping');SRV=r.s===200&&r.j.ok===true}catch(e){SRV=false}
+  if(!SRV)return;
+  if(view==='welcome')rWelcome();
+  if(acOn())acPull(true);
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')acPull()});
+  window.addEventListener('online',()=>acPull(true));
+}
+/* ---- account sheets ---- */
+function acErr(t,r){return t.ac.err[r&&r.j&&r.j.error]||t.ac.err[r&&r.s===0?'net':'x']||t.ac.err.x}
+function sheetAuth(mode,back,pre){
+  const t=L(),a=t.ac,reg=mode==='reg';
+  openSheet(`<h3 class="fd">${reg?a.reg:a.in}</h3>
+  ${reg?`<div class="mute" style="font-size:14px">${a.hint}</div>`:''}
+  <label class="fl"><b>${a.name}</b><input class="inp tx" id="an" maxlength="20" autocomplete="username" autocapitalize="off" value="${esc(pre||'')}">${reg?`<span class="mute">${a.nameHint}</span>`:''}</label>
+  <label class="fl"><b>${a.pass}</b><input class="inp tx" id="ap" type="password" maxlength="72" autocomplete="${reg?'new-password':'current-password'}">${reg?`<span class="mute">${a.passHint}</span>`:''}</label>
+  ${reg?`<label class="keep"><input type="checkbox" id="ak"> <span>${a.consent}</span></label>`:''}
+  <div class="err" id="ae" role="alert"></div>
+  <button class="btn block" id="ago">${reg?a.reg:a.in}</button>
+  <button class="lnk" id="asw" style="min-height:36px">${reg?a.haveAcc:a.noAcc}</button>
+  ${reg?'':`<div class="mute" style="font-size:13px;text-align:center">${a.forgot}</div>`}
+  <button class="btn ghost block" id="n">${t.no}</button>`);
+  $('#n').onclick=back;
+  $('#asw').onclick=()=>sheetAuth(reg?'in':'reg',back,$('#an').value);
+  const go2=async()=>{
+    const b=$('#ago'),e=$('#ae'),name=$('#an').value,password=$('#ap').value;
+    if(reg&&!$('#ak').checked){e.textContent=a.err.consent;return}
+    b.disabled=true;e.textContent='';
+    let r;try{r=await api('POST',reg?'register':'login',reg?{name,password,consent:true}:{name,password})}catch(x){r={s:0,j:{}}}
+    b.disabled=false;
+    if(r.s!==200){e.textContent=acErr(t,r);return}
+    ACCT={tok:r.j.token,name:r.j.me.name,rev:0,ts:0};keepAcct();
+    acSignedIn(reg,back);
+  };
+  $('#ago').onclick=go2;
+  $('#ap').onkeydown=e=>{if(e.key==='Enter')go2()};
+  setTimeout(()=>{const i=$(pre?'#ap':'#an');if(i)i.focus()},50);
+}
+/* just signed in: decide whose data wins */
+async function acSignedIn(reg,back){
+  const t=L(),a=t.ac;
+  let r;try{r=await api('GET','save')}catch(e){r={s:0,j:{}}}
+  const done=()=>{closeSheet();acRedraw();if(view==='home')rHome();sheetSettings()};
+  if(r.s!==200){acSt='off';return done()}
+  const rm=r.j;
+  if(!rm.data){ACCT.rev=rm.rev;ACCT.ts=0;keepAcct();if(S.onboarded)acPush();return done()}
+  if(!S.onboarded){acTake(rm,false);acSt='ok';acAt=Date.now();acShow();
+    closeSheet();go(S.onboarded&&S.plan?'home':'welcome');warmArt();return}
+  const card=(d,lbl)=>{const sp=SP.includes(d.pet&&d.pet.sp)?d.pet.sp:'cat';
+    return `<div class="card row" style="padding:10px"><div style="width:56px;flex:none">${pimg(sp,'-happy',1,t.sp[sp])}</div><div class="sp"><div class="mute" style="font-size:13px">${lbl}</div><b>${esc(d.pet&&d.pet.name||t.sp[sp])}</b><div class="mute" style="font-size:13px">${fmt(t.bkInfo,{n:t.sp[sp],d:(+d.days||0).toLocaleString(),c:(+d.coins||0).toLocaleString()})}</div></div></div>`};
+  openSheet(`<h3 class="fd">${a.pick}</h3><p style="margin:0">${a.pickAsk}</p>
+  ${card(rm.data,a.inAcc)}${card(S,a.onDev)}
+  <button class="btn block" id="pa">${a.useAcc}</button><button class="btn ghost block" id="pd">${a.useDev}</button>`);
+  $('#pa').onclick=()=>{acTake(rm,false);acSt='ok';acAt=Date.now();closeSheet();go(S.onboarded&&S.plan?'home':'welcome');warmArt()};
+  $('#pd').onclick=()=>{ACCT.rev=rm.rev;ACCT.ts=0;keepAcct();acPush();done()};
+}
+function accountCard(t){
+  if(!SRV)return '';
+  const a=t.ac;
+  if(!ACCT)return `<div class="card" style="padding:12px;display:grid;gap:8px"><div><b>☁️ ${a.t}</b><div class="mute" style="font-size:13px">${a.hint}</div></div>
+  <div class="bkrow"><button class="btn mint sm" id="acr">${a.reg}</button><button class="btn ghost sm" id="aci">${a.in}</button></div>
+  <a class="mute" style="font-size:13px" href="privacy.html${S.lang==='en'?'?lang=en':''}" target="_blank" rel="noopener">${a.privacy}</a></div>`;
+  return `<div class="card" style="padding:12px;display:grid;gap:8px"><div><b>☁️ ${fmt(a.as,{n:esc(ACCT.name)})}</b><div class="mute" style="font-size:13px" id="acst">${acStText(t)}</div></div>
+  ${ACCT.tok?`<div class="bkrow"><button class="btn ghost sm" id="acp">${a.pw}</button><button class="btn ghost sm" id="aco">${a.out}</button></div>`:`<div class="bkrow"><button class="btn mint sm" id="aci">${a.in}</button><button class="btn ghost sm" id="aco">${a.out}</button></div>`}
+  <div class="row" style="justify-content:space-between"><a class="mute" style="font-size:13px" href="privacy.html${S.lang==='en'?'?lang=en':''}" target="_blank" rel="noopener">${a.privacy}</a>${ACCT.tok?`<button class="lnk" id="acd" style="width:auto;min-height:36px;color:#D0452D">${a.del}</button>`:''}</div></div>`;
+}
+function bindAccount(t){
+  const a=t.ac,on=(id,f)=>{const b=$(id);if(b)b.onclick=f};
+  on('#acr',()=>sheetAuth('reg',sheetSettings));
+  on('#aci',()=>sheetAuth('in',sheetSettings,ACCT&&ACCT.name));
+  on('#aco',async()=>{
+    if(acDirty()&&ACCT.tok){await acPush()}
+    const lost=acDirty();
+    openSheet(`<h3 class="fd">${a.out}</h3><p style="margin:0">${a.outAsk}</p>${lost?`<p class="err" style="text-align:left;margin:0">${a.outUnsent}</p>`:''}
+    <button class="btn block" id="y">${a.outYes}</button><button class="btn ghost block" id="n">${t.no}</button>`);
+    $('#n').onclick=sheetSettings;
+    $('#y').onclick=async()=>{
+      try{if(ACCT.tok)await api('POST','logout',{})}catch(e){}
+      ACCT=null;keepAcct();acSt='';acAt=0;
+      const l=S.lang;S=defState();S.lang=l;S.introSeen=true;save();closeSheet();go('welcome');
+    };
+  });
+  on('#acp',()=>{
+    openSheet(`<h3 class="fd">${a.pw}</h3>
+    <input class="hidden" autocomplete="username" value="${esc(ACCT.name)}">
+    <label class="fl"><b>${a.oldPw}</b><input class="inp tx" id="po" type="password" maxlength="72" autocomplete="current-password"></label>
+    <label class="fl"><b>${a.newPw}</b><input class="inp tx" id="pn" type="password" maxlength="72" autocomplete="new-password"><span class="mute">${a.passHint}</span></label>
+    <div class="err" id="ae" role="alert"></div>
+    <button class="btn block" id="y">${t.save}</button><button class="btn ghost block" id="n">${t.no}</button>`);
+    $('#n').onclick=sheetSettings;
+    $('#y').onclick=async()=>{
+      const b=$('#y');b.disabled=true;
+      let r;try{r=await api('POST','password',{old:$('#po').value,password:$('#pn').value})}catch(e){r={s:0,j:{}}}
+      b.disabled=false;
+      if(r.s===401)return acExpired(),sheetSettings();
+      if(r.s!==200){$('#ae').textContent=acErr(t,r);return}
+      openSheet(`<h3 class="fd">${a.pw}</h3><p style="margin:0">${a.pwDone}</p><button class="btn block" id="n">${t.close}</button>`);
+      $('#n').onclick=sheetSettings;
+    };
+  });
+  on('#acd',()=>{
+    openSheet(`<h3 class="fd">${a.del}</h3><p style="margin:0">${a.delAsk}</p>
+    <input class="hidden" autocomplete="username" value="${esc(ACCT.name)}">
+    <label class="fl"><b>${a.pass}</b><input class="inp tx" id="dp" type="password" maxlength="72" autocomplete="current-password"></label>
+    <div class="err" id="ae" role="alert"></div>
+    <button class="btn block" id="y" style="background:#D0452D;box-shadow:0 5px 0 #A33520">${a.delYes}</button><button class="btn ghost block" id="n">${t.no}</button>`);
+    $('#n').onclick=sheetSettings;
+    $('#y').onclick=async()=>{
+      const b=$('#y');b.disabled=true;
+      let r;try{r=await api('POST','delete',{password:$('#dp').value})}catch(e){r={s:0,j:{}}}
+      b.disabled=false;
+      if(r.s===401)return acExpired(),sheetSettings();
+      if(r.s!==200){$('#ae').textContent=acErr(t,r);return}
+      ACCT=null;keepAcct();acSt='';acAt=0;
+      openSheet(`<h3 class="fd">${a.del}</h3><p style="margin:0">${a.delDone}</p><button class="btn block" id="n">${t.close}</button>`);
+      $('#n').onclick=sheetSettings;
+    };
+  });
 }
 let SAMPLE=null;
 async function initSample(){
@@ -872,8 +1103,10 @@ function rWelcome(){
   <div class="grid6">${SP.map(s=>`<button class="pick ${S.pet.sp===s?'on':''}" data-s="${s}" aria-pressed="${S.pet.sp===s}">${pimg(s,S.pet.sp===s?'-happy':'',1,t.sp[s])}${t.sp[s]}</button>`).join('')}</div>
   <div class="sp"></div>
   <button class="btn block" id="go">${t.start}</button>
+  ${SRV&&!ACCT?`<button class="lnk" id="wl" style="min-height:40px">${t.ac.haveAcc}</button>`:''}
   ${window.claude?'':`<button class="lnk" id="wk">${t.bkHave}</button><div class="err" id="wke" role="alert"></div>`}`;
   bindLang();
+  const wl=$('#wl');if(wl)wl.onclick=()=>sheetAuth('in',closeSheet);
   app.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{S.pet.sp=b.dataset.s;save();rWelcome()});
   $('#go').onclick=()=>go('hatch');
   const wk=$('#wk');if(wk)wk.onclick=()=>welcomeImport(t);
@@ -1620,23 +1853,24 @@ function sheetSettings(){
   <button class="btn ghost block" id="why">${t.why}</button>
   <button class="btn ghost block" id="rd">${t.redo}</button>
   <button class="btn ghost block" id="rt" style="color:#D0452D">${t.reset}</button>
+  ${accountCard(t)}
   ${installCard(t)}
   ${remindCard(t)}
   ${backupCard(t)}
-  <div class="card" style="padding:12px"><b>${t.syncT}</b><div class="mute">${syncSt==='on'?t.syncOn:syncSt==='err'?t.syncErr:t.syncOff}</div></div>
+  ${SRV?'':`<div class="card" style="padding:12px"><b>${t.syncT}</b><div class="mute">${syncSt==='on'?t.syncOn:syncSt==='err'?t.syncErr:t.syncOff}</div></div>`}
   <p class="mute" style="margin:0">${t.about}</p>
   <button class="btn block" id="cl">${t.close}</button>`);
   const sh=$('#sheet');
   const ib=sh.querySelector('#inst');
   if(ib)ib.onclick=async()=>{const e=instEvt;if(!e)return;instEvt=null;try{e.prompt();await e.userChoice}catch(_){}sheetSettings()};
-  bindBackup(t);bindRemind(t);
+  bindBackup(t);bindRemind(t);bindAccount(t);
   sh.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{S.lang=b.dataset.l;save();render();sheetSettings()});
   sh.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{S.pet.sp=b.dataset.s;save();warmArt();render();sheetSettings()});
   $('#rs').onclick=()=>{S.pet.name=($('#rn').value.trim()||t.defName[S.pet.sp]).slice(0,12);save();closeSheet();rHome()};
   $('#rd').onclick=()=>{closeSheet();startOb();go('onb')};
   $('#why').onclick=()=>{closeSheet();go('plan')};
   $('#rt').onclick=()=>{
-    openSheet(`<h3 class="fd">${t.reset}</h3><p style="margin:0">${t.resetAsk}</p><button class="btn block" id="y" style="background:#D0452D;box-shadow:0 5px 0 #A33520">${t.yes}</button><button class="btn ghost block" id="n">${t.no}</button>`);
+    openSheet(`<h3 class="fd">${t.reset}</h3><p style="margin:0">${t.resetAsk}${acOn()?' '+t.resetAcc:''}</p><button class="btn block" id="y" style="background:#D0452D;box-shadow:0 5px 0 #A33520">${t.yes}</button><button class="btn ghost block" id="n">${t.no}</button>`);
     $('#y').onclick=()=>{const l=S.lang;S=defState();S.lang=l;save();closeSheet();go('welcome')};
     $('#n').onclick=sheetSettings;
   };
@@ -1648,7 +1882,7 @@ function sheetSettings(){
 function backupCard(t){
   if(window.claude)return '';
   const last=S.lastBackup?fmt(t.bkLast,{d:fmtDate(new Date(S.lastBackup+'T00:00'))}):t.bkNever;
-  return `<div class="card" style="padding:12px;display:grid;gap:8px"><div><b>${t.bkT}</b><div class="mute" style="font-size:13px">${t.bkHint}</div><div class="mute" style="font-size:13px;margin-top:4px" id="bkl">${last}</div></div>
+  return `<div class="card" style="padding:12px;display:grid;gap:8px"><div><b>${t.bkT}</b><div class="mute" style="font-size:13px">${acOn()?t.bkHintAcc:t.bkHint}</div><div class="mute" style="font-size:13px;margin-top:4px" id="bkl">${last}</div></div>
   <div class="bkrow"><button class="btn mint sm" id="bko">${t.bkOut}</button><button class="btn ghost sm" id="bki">${t.bkIn}</button></div>
   <input type="file" id="bkf" accept="application/json,.json" class="hidden"><div class="err" id="bke" role="alert" style="min-height:0"></div></div>`;
 }
@@ -1767,7 +2001,7 @@ function initPWA(){
 /* ============ BOOT ============ */
 view=S.onboarded&&S.plan?'home':S.introSeen?'welcome':'intro';
 render();
-initSync();initSample();initPWA();
+initSync();initSample();initPWA();initAcct();
 </script>
 </body>
 </html>

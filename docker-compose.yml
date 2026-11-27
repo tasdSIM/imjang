@@ -1,0 +1,18 @@
+# Serves the app on http://127.0.0.1:8095 (for checks on the VM). The public address,
+# https://imjang.cpxsim.online, comes through the app's own Cloudflare tunnel: its cloudflared
+# runs beside the app from the VM-only docker-compose.override.yml (token in deploy/tunnel.env,
+# never committed) and reaches the app as http://web:8080 (also answers as imjang-web).
+services:
+  web:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8095:8080"
+    volumes:
+      - data:/data
+    networks:
+      default:
+        aliases: [imjang-web]
+
+volumes:
+  data:
