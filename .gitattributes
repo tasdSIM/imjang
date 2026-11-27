@@ -1,0 +1,5 @@
+# Shell scripts and server files run on the Linux VM: always LF.
+*.sh text eol=lf
+Dockerfile text eol=lf
+*.yml text eol=lf
+server/*.js text eol=lf
