@@ -110,7 +110,7 @@
 - แยกจากแอปอื่นบน VM ทั้งหมด: `/opt/imjang`, project `imjang`, พอร์ต `127.0.0.1:8095`, tunnel ของตัวเอง (route `imjang.cpxsim.online` → `http://web:8080`)
 - ครั้งแรกต้องมี `deploy/tunnel.env` (`TUNNEL_TOKEN=...` ห้าม commit) สคริปต์จะคัดลอกขึ้น VM ให้
 - สำรอง: `/opt/imjang-backups` (ทุกคืนเก็บ 30, ก่อน deploy เก็บ 14, ไม่เกิน 30 วัน) วิธีกู้อยู่หัวไฟล์ `deploy/vm-backup.sh`
-  ดึงลงเครื่องนี้ทุกวัน 09:10 ด้วย Windows Task "Imjang backup pull" (`deploy/pull-backups.cmd` → `C:\Imjang-backupsm` และ OneDrive, ลบที่เก่ากว่า 31 วัน)
+  ดึงลงเครื่องนี้ทุกวัน 09:10 ด้วย Windows Task "Imjang backup pull" (`deploy/pull-backups.cmd` → `C:\Imjang-backups\vm` และ OneDrive, ลบที่เก่ากว่า 31 วัน)
   ตั้งใหม่: `powershell -ExecutionPolicy Bypass -File deploy\install-backup-pull.ps1`
 - แจ้งเว็บล่ม: `deploy/uptime-check.sh` ตรวจ `/health` ทุก 5 นาที จาก VM (cron `/etc/cron.d/imjang-uptime`) และจากเครื่องนี้ (Task "Imjang uptime", `C:\Imjang-uptime`)
   ล่ม 2 ครั้งติดกันส่ง LINE OA แจ้งเตือนตัวเดียวกับระบบตารางผู้บริหารและแอปนักสืบ (token คัดลอกจาก `uptime.env` ของระบบนั้น ไม่ผ่าน git) กลับมาแล้วแจ้งอีกครั้ง
