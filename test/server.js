@@ -41,7 +41,8 @@ app.listen(0, async () => {
     ok((await call('POST', '/api/register', { name: 'มะลิ', password: 'secret1' })).j.error === 'consent', 'consent required');
     r = await call('POST', '/api/register', { name: '  มะลิ  Cat ', password: 'secret1', consent: true });
     ok(r.status === 200 && r.j.me.name === 'มะลิ Cat' && r.j.token, 'registered');
-    const A = r.j.token;
+    ok(/^[A-HJKMNP-TV-Z2-9]{4}(-[A-HJKMNP-TV-Z2-9]{4}){3}$/.test(r.j.recovery), 'recovery code given at sign-up');
+    const A = r.j.token, RC1 = r.j.recovery;
     ok((await call('POST', '/api/register', { name: 'มะลิ cat', password: 'secret2', consent: true })).status === 409, 'name taken (any case)');
 
     // sign in
@@ -70,8 +71,28 @@ app.listen(0, async () => {
     ok((await call('GET', '/api/me', undefined, B)).status === 401, 'other device signed out');
     ok((await call('GET', '/api/me', undefined, A)).status === 200, 'this device still in');
 
+    // forgotten password: the recovery code (any case, no dashes) sets a new one, signs everyone out, and is replaced
+    const A2 = (await call('POST', '/api/login', { name: 'มะลิ cat', password: 'secret9' })).j.token;
+    ok((await call('POST', '/api/recover', { name: 'มะลิ cat', code: 'AAAA-AAAA-AAAA-AAAA', password: 'fresh12' })).j.error === 'badCode', 'wrong recovery code');
+    ok((await call('POST', '/api/recover', { name: 'nobody', code: RC1, password: 'fresh12' })).j.error === 'badCode', 'recovery code of someone else');
+    ok((await call('POST', '/api/recover', { name: 'มะลิ cat', code: RC1, password: '12' })).j.error === 'pw', 'new password checked');
+    r = await call('POST', '/api/recover', { name: 'มะลิ cat', code: RC1.toLowerCase().replace(/-/g, ' '), password: 'fresh12' });
+    ok(r.status === 200 && r.j.token && r.j.recovery && r.j.recovery !== RC1, 'recovered with a new code');
+    const RC2 = r.j.recovery;
+    ok((await call('GET', '/api/me', undefined, A2)).status === 401, 'recovery signs other devices out');
+    ok((await call('POST', '/api/login', { name: 'มะลิ cat', password: 'fresh12' })).status === 200, 'new password works');
+    ok((await call('POST', '/api/recover', { name: 'มะลิ cat', code: RC1, password: 'other12' })).status === 400, 'old code used up');
+    ok((await call('GET', '/api/save', undefined, r.j.token)).j.data.pet.name === 'Both', 'save kept after recovery');
+    const R = r.j.token;
+    ok((await call('POST', '/api/recovery', { password: 'wrong' }, R)).j.error === 'badPw', 'new code needs the password');
+    const r3 = await call('POST', '/api/recovery', { password: 'fresh12' }, R);
+    ok(r3.status === 200 && r3.j.recovery !== RC2, 'new code on request');
+    ok((await call('POST', '/api/recover', { name: 'มะลิ cat', code: RC2, password: 'other12' })).status === 400, 'replaced code stops working');
+    ok((await call('POST', '/api/recover', { name: 'มะลิ cat', code: r3.j.recovery, password: 'secret9' })).status === 200, 'latest code works');
+    const A3 = (await call('POST', '/api/login', { name: 'มะลิ cat', password: 'secret9' })).j.token;
+
     // logout
-    ok((await call('POST', '/api/logout', {}, A)).status === 200 && (await call('GET', '/api/me', undefined, A)).status === 401, 'logout');
+    ok((await call('POST', '/api/logout', {}, A3)).status === 200 && (await call('GET', '/api/me', undefined, A3)).status === 401, 'logout');
 
     // delete: needs the password, then the account, its save and sessions are gone
     const C = (await call('POST', '/api/login', { name: 'มะลิ cat', password: 'secret9' })).j.token;
@@ -82,10 +103,11 @@ app.listen(0, async () => {
     r = await call('POST', '/api/register', { name: 'มะลิ cat', password: 'secret1', consent: true });
     ok(r.status === 200 && (await call('GET', '/api/save', undefined, r.j.token)).j.rev === 0, 'name free again, old save not inherited');
 
-    // too many tries from one address
-    let last;
-    for (let i = 0; i < 20; i++) last = await call('POST', '/api/login', { name: 'nobody', password: 'xxxxxx' });
-    ok(last.status === 429, 'sign-in tries are limited');
+    // too many wrong tries from one address (earlier wrong ones count too; right ones don't)
+    let last, n429 = 0;
+    for (let i = 0; i < 25; i++) { last = await call('POST', '/api/login', { name: 'nobody', password: 'xxxxxx' }); if (last.status === 429) n429++; }
+    ok(last.status === 429 && n429 >= 5, 'wrong sign-ins are limited');
+    ok((await call('POST', '/api/recover', { name: 'มะลิ cat', code: r3.j.recovery, password: 'x12345' })).status === 429, 'recovery limited too');
 
     console.log(`server test passed (${n} checks)`);
   } catch (e) {

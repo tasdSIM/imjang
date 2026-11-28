@@ -97,7 +97,11 @@
   ทุกหน้าอื่นนอกจาก intro/welcome ถ้ายังไม่มีบัญชีหรือ token หมดอายุ จะขึ้นชีตที่ปิดไม่ได้ (`openGate`, Esc ก็ปิดไม่ได้) เช่นคนที่ย้ายข้อมูลมาจาก GitHub Pages หรือนำเข้าไฟล์
   ถ้าเปิดตอนออฟไลน์ (ถาม `api/ping` ไม่ได้) ใช้งานต่อได้ตามปกติ แล้วค่อยบังคับเมื่อออนไลน์
 - ออกจากระบบ: ล้างข้อมูลในเครื่อง (ยังอยู่ในบัญชี) · ลบบัญชี: ต้องใส่รหัสผ่าน ลบทั้งบนเซิร์ฟเวอร์และในเครื่องทันที
-- ลืมรหัสผ่าน: ไม่มีอีเมล ผู้ดูแลตั้งรหัสชั่วคราวให้ `bash deploy/admin.sh` (ดูรายชื่อ) → `bash deploy/admin.sh u_xxx`
+- รหัสกู้คืน: สมัครแล้วได้รหัส 16 ตัว (`XXXX-XXXX-XXXX-XXXX`) แสดงครั้งเดียว ต้องติ๊กว่าเก็บแล้วถึงไปต่อได้ (`sheetRecovery`) เซิร์ฟเวอร์เก็บแค่ค่าแฮช
+  ลืมรหัสผ่าน: หน้าเข้าสู่ระบบ → "ลืมรหัสผ่าน?" (`sheetForgot` → `POST api/recover`) ตั้งรหัสใหม่ ออกจากระบบทุกเครื่อง และได้รหัสกู้คืนชุดใหม่ (ชุดเดิมใช้ไม่ได้)
+  ตั้งค่า → บัญชี → "รหัสกู้คืนใหม่" (`POST api/recovery` ต้องใส่รหัสผ่าน)
+  ไม่มีรหัสกู้คืน: ผู้ดูแลตั้งรหัสชั่วคราวให้ `bash deploy/admin.sh` (ดูรายชื่อ) → `bash deploy/admin.sh u_xxx`
+- ลองผิด (รหัสผ่าน/รหัสกู้คืน) ได้ 20 ครั้ง/15 นาที/IP ครั้งที่ถูกไม่นับ สมัครได้ 20 ครั้ง/15 นาที/IP
 - สมัครต้องติ๊กยินยอม (อายุ 18+ และเก็บข้อมูลสุขภาพตาม PDPA) นโยบายอยู่ที่ `privacy.html` ถ้าเปลี่ยนสิ่งที่เก็บหรือระยะเวลาสำรอง ต้องแก้หน้านี้ด้วย
 
 รันบนเครื่อง: `node server/main.js` แล้วเปิด http://localhost:8080 (ข้อมูลอยู่ใน `./data`) · ทดสอบ: `node test/server.js`
@@ -105,7 +109,12 @@
 ขึ้น VM: `bash deploy/deploy-vm.sh` (commit ก่อน) ทำแบบเดียวกับแอปนักสืบ: สำรองฐานข้อมูล → คัดลอก → `docker compose -p imjang up -d --build` (ชุดทดสอบรันตอน build ถ้าไม่ผ่าน ตัวเดิมยังรันอยู่) → ตั้งสำรองทุกคืน 02:50 → เช็ก `/health`
 - แยกจากแอปอื่นบน VM ทั้งหมด: `/opt/imjang`, project `imjang`, พอร์ต `127.0.0.1:8095`, tunnel ของตัวเอง (route `imjang.cpxsim.online` → `http://web:8080`)
 - ครั้งแรกต้องมี `deploy/tunnel.env` (`TUNNEL_TOKEN=...` ห้าม commit) สคริปต์จะคัดลอกขึ้น VM ให้
-- สำรอง: `/opt/imjang-backups` (ทุกคืนเก็บ 30, ก่อน deploy เก็บ 14, ไม่เกิน 30 วัน) ดึงลงเครื่อง `bash deploy/pull-backups.sh` วิธีกู้อยู่หัวไฟล์ `deploy/vm-backup.sh`
+- สำรอง: `/opt/imjang-backups` (ทุกคืนเก็บ 30, ก่อน deploy เก็บ 14, ไม่เกิน 30 วัน) วิธีกู้อยู่หัวไฟล์ `deploy/vm-backup.sh`
+  ดึงลงเครื่องนี้ทุกวัน 09:10 ด้วย Windows Task "Imjang backup pull" (`deploy/pull-backups.cmd` → `C:\Imjang-backupsm` และ OneDrive, ลบที่เก่ากว่า 31 วัน)
+  ตั้งใหม่: `powershell -ExecutionPolicy Bypass -File deploy\install-backup-pull.ps1`
+- แจ้งเว็บล่ม: `deploy/uptime-check.sh` ตรวจ `/health` ทุก 5 นาที จาก VM (cron `/etc/cron.d/imjang-uptime`) และจากเครื่องนี้ (Task "Imjang uptime", `C:\Imjang-uptime`)
+  ล่ม 2 ครั้งติดกันส่ง LINE OA แจ้งเตือนตัวเดียวกับระบบตารางผู้บริหารและแอปนักสืบ (token คัดลอกจาก `uptime.env` ของระบบนั้น ไม่ผ่าน git) กลับมาแล้วแจ้งอีกครั้ง
+  ติดตั้ง/อัปเดต: `bash deploy/install-uptime.sh` · ส่งข้อความทดสอบ: `--test` · เอาออก: `--remove`
 
 ## ฟีเจอร์ที่ต้องเปิดผ่าน Claude Artifact
 - ถ่ายรูปประเมินแคลอรี่ด้วย AI (`sample`) และซิงค์ข้ามเครื่อง (`db` + `user`)

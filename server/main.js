@@ -14,6 +14,12 @@
 //   PUT  /api/save               { base, data }      -> { rev } or 409 { rev, ts, data } when another device saved first
 //   POST /api/password           { old, password }   -> { ok } (other devices are signed out)
 //   POST /api/delete             { password }        -> { ok } (account, save and sessions are gone)
+//   POST /api/recover            { name, code, password } -> { token, me, recovery } forgotten password: the recovery code
+//                                given at sign-up sets a new password, signs out every device and is replaced by a new code
+//   POST /api/recovery           { password }        -> { recovery } a new recovery code (the old one stops working)
+//
+// There is no e-mail. The recovery code (16 letters/digits, ~78 bits) is shown once at sign-up for the user to keep;
+// only its scrypt hash is stored. An admin can still reset a password by hand (server/admin.js).
 //
 // The save is the page's own state object (food log, weight, plan, pet …) kept as JSON. The server checks only
 // its size and shape; it never reads the contents. Health data: see privacy.html.
@@ -49,8 +55,15 @@ function openDb(dir) {
     CREATE TABLE IF NOT EXISTS saves (
       user_id TEXT PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
       rev INTEGER NOT NULL, ts INTEGER NOT NULL, json TEXT NOT NULL, updated INTEGER NOT NULL);`);
+  if (!db.prepare('PRAGMA table_info(users)').all().some(c => c.name === 'recovery'))
+    db.exec("ALTER TABLE users ADD COLUMN recovery TEXT NOT NULL DEFAULT ''");
   return db;
 }
+
+// Recovery codes: no 0/O, 1/I/L or U, grouped XXXX-XXXX-XXXX-XXXX; typed in any case, with or without dashes/spaces.
+const RC_ABC = 'ABCDEFGHJKMNPQRSTVWXYZ23456789';
+const newRecovery = () => Array.from({ length: 16 }, () => RC_ABC[crypto.randomInt(RC_ABC.length)]).join('').replace(/(.{4})(?!$)/g, '$1-');
+const cleanRecovery = c => String(c || '').toUpperCase().replace(/[\s-]/g, '');
 
 const nameKey = n => n.normalize('NFC').toLowerCase();
 function cleanName(n) {
@@ -74,6 +87,8 @@ function createApp({ dataDir, staticDir }) {
     byName: db.prepare('SELECT * FROM users WHERE name_key = ?'),
     insert: db.prepare('INSERT INTO users (id, name, name_key, pw, consent, created, updated) VALUES (?, ?, ?, ?, ?, ?, ?)'),
     setPw: db.prepare('UPDATE users SET pw = ?, updated = ? WHERE id = ?'),
+    setRecovery: db.prepare('UPDATE users SET recovery = ?, updated = ? WHERE id = ?'),
+    dropAll: db.prepare('DELETE FROM sessions WHERE user_id = ?'),
     delUser: db.prepare('DELETE FROM users WHERE id = ?'),
     session: db.prepare('SELECT * FROM sessions WHERE token = ?'),
     addSession: db.prepare('INSERT INTO sessions (token, user_id, created) VALUES (?, ?, ?)'),
@@ -86,14 +101,14 @@ function createApp({ dataDir, staticDir }) {
   };
   q.oldSessions.run(Date.now() - SESSION_DAYS * 864e5);
 
-  // At most 20 sign-in/sign-up/password tries per address per 15 minutes.
-  const tries = new Map();
-  function limited(ip) {
-    const now = Date.now(), t = (tries.get(ip) || []).filter(x => now - x < 15 * 60e3);
-    t.push(now); tries.set(ip, t);
-    if (tries.size > 5000) for (const [k, v] of tries) if (!v.some(x => now - x < 15 * 60e3)) tries.delete(k);
-    return t.length > 20;
-  }
+  // Per address, 15 minutes: at most 20 wrong passwords / recovery codes (successful sign-ins don't count, so a
+  // family on one Wi-Fi isn't blocked), and at most 20 sign-ups.
+  const fails = new Map(), signups = new Map();
+  const recent = (m, ip) => { const now = Date.now(), t = (m.get(ip) || []).filter(x => now - x < 15 * 60e3); m.set(ip, t);
+    if (m.size > 5000) for (const [k, v] of m) if (!v.some(x => now - x < 15 * 60e3)) m.delete(k); return t; };
+  const blocked = ip => recent(fails, ip).length >= 20;
+  const failed = (ip, out) => { recent(fails, ip).push(Date.now()); return out; };
+  function limited(ip) { const t = recent(signups, ip); t.push(Date.now()); return t.length > 20; }
   function newSession(id) {
     const token = crypto.randomBytes(32).toString('base64url');
     q.addSession.run(sha(token), id, Date.now());
@@ -122,12 +137,14 @@ function createApp({ dataDir, staticDir }) {
       if (q.byName.get(nameKey(name))) return [409, E('taken')];
       const id = 'u_' + crypto.randomBytes(9).toString('base64url'), now = Date.now();
       q.insert.run(id, name, nameKey(name), hashPassword(b.password), now, now, now);
-      return [200, { token: newSession(id), me: meOf(q.byId.get(id)) }];
+      const recovery = newRecovery();
+      q.setRecovery.run(hashPassword(cleanRecovery(recovery)), now, id);
+      return [200, { token: newSession(id), me: meOf(q.byId.get(id)), recovery }];
     },
     'POST /api/login': (req, b, ip) => {
-      if (limited(ip)) return [429, E('tooMany')];
+      if (blocked(ip)) return [429, E('tooMany')];
       const r = q.byName.get(nameKey(String(b.name || '').normalize('NFC').replace(/\s+/g, ' ').trim()));
-      if (!r || !checkPassword(String(b.password || ''), r.pw)) return [401, E('wrong')];
+      if (!r || !checkPassword(String(b.password || ''), r.pw)) return failed(ip, [401, E('wrong')]);
       return [200, { token: newSession(r.id), me: meOf(r) }];
     },
     'POST /api/logout': req => { const t = bearer(req); if (t) q.dropSession.run(sha(t)); return [200, { ok: true }]; },
@@ -155,17 +172,37 @@ function createApp({ dataDir, staticDir }) {
     },
     'POST /api/password': (req, b, ip) => {
       const r = auth(req); if (!r) return [401, E('auth')];
-      if (limited(ip)) return [429, E('tooMany')];
-      if (!checkPassword(String(b.old || ''), r.pw)) return [400, E('oldPw')];
+      if (blocked(ip)) return [429, E('tooMany')];
+      if (!checkPassword(String(b.old || ''), r.pw)) return failed(ip, [400, E('oldPw')]);
       if (!okPw(b.password)) return [400, E('pw')];
       q.setPw.run(hashPassword(b.password), Date.now(), r.id);
       q.dropOthers.run(r.id, sha(bearer(req)));
       return [200, { ok: true }];
     },
+    'POST /api/recover': (req, b, ip) => {
+      if (blocked(ip)) return [429, E('tooMany')];
+      const r = q.byName.get(nameKey(String(b.name || '').normalize('NFC').replace(/\s+/g, ' ').trim()));
+      const code = cleanRecovery(b.code);
+      if (!r || !r.recovery || code.length !== 16 || !checkPassword(code, r.recovery)) return failed(ip, [400, E('badCode')]);
+      if (!okPw(b.password)) return [400, E('pw')];
+      const recovery = newRecovery(), now = Date.now();
+      q.setPw.run(hashPassword(b.password), now, r.id);
+      q.setRecovery.run(hashPassword(cleanRecovery(recovery)), now, r.id);
+      q.dropAll.run(r.id);
+      return [200, { token: newSession(r.id), me: meOf(r), recovery }];
+    },
+    'POST /api/recovery': (req, b, ip) => {
+      const r = auth(req); if (!r) return [401, E('auth')];
+      if (blocked(ip)) return [429, E('tooMany')];
+      if (!checkPassword(String(b.password || ''), r.pw)) return failed(ip, [400, E('badPw')]);
+      const recovery = newRecovery();
+      q.setRecovery.run(hashPassword(cleanRecovery(recovery)), Date.now(), r.id);
+      return [200, { recovery }];
+    },
     'POST /api/delete': (req, b, ip) => {
       const r = auth(req); if (!r) return [401, E('auth')];
-      if (limited(ip)) return [429, E('tooMany')];
-      if (!checkPassword(String(b.password || ''), r.pw)) return [400, E('badPw')];
+      if (blocked(ip)) return [429, E('tooMany')];
+      if (!checkPassword(String(b.password || ''), r.pw)) return failed(ip, [400, E('badPw')]);
       q.delUser.run(r.id);  // sessions and the save go with it (ON DELETE CASCADE)
       return [200, { ok: true }];
     },

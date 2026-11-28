@@ -240,7 +240,7 @@ canvas#trace{width:100%;height:220px;background:var(--bg);border:2px dashed var(
 .rmt label{display:grid;gap:4px;font-size:12px;color:var(--mute)}
 .rmt input{width:100%;min-height:44px;border-radius:12px;border:2px solid var(--line);background:var(--surf);color:var(--ink);font:600 14px 'Noto Sans Thai',sans-serif;text-align:center;min-width:0;padding:0 2px}
 .rmt input::-webkit-calendar-picker-indicator{margin:0;padding:0;width:14px}
-.keep a,.card a{color:var(--coral-d)}.fl{display:grid;gap:4px}.fl .mute{font-size:12px}.inp.tx{font:500 16px 'Noto Sans Thai',sans-serif;min-height:48px;text-align:left;border-radius:14px}
+.keep a,.card a{color:var(--coral-d)}.rcode{font:700 24px/1.3 ui-monospace,Menlo,Consolas,monospace;letter-spacing:1px;text-align:center;background:var(--surf);border:2px dashed var(--coral);border-radius:14px;padding:14px 8px;user-select:all;word-break:break-all}.rcin{font-family:ui-monospace,Menlo,Consolas,monospace!important;text-transform:uppercase}.fl{display:grid;gap:4px}.fl .mute{font-size:12px}.inp.tx{font:500 16px 'Noto Sans Thai',sans-serif;min-height:48px;text-align:left;border-radius:14px}
 .lnk{background:none;border:0;color:var(--mute);font-weight:700;text-decoration:underline;text-underline-offset:3px;min-height:44px;width:100%}
 .seg button{border:2px solid var(--line);background:var(--surf);border-radius:14px;min-height:44px;font-weight:700}
 .seg button.on{background:var(--ink);color:var(--bg)}
@@ -336,13 +336,13 @@ const T={th:{
  ac:{t:'บัญชี',hint:'สร้างบัญชีเพื่อเก็บข้อมูลไว้บนเซิร์ฟเวอร์ เปลี่ยนมือถือหรือล้างเบราว์เซอร์ก็ไม่หาย และใช้หลายเครื่องได้',reg:'สร้างบัญชี',in:'เข้าสู่ระบบ',out:'ออกจากระบบ',pw:'เปลี่ยนรหัสผ่าน',del:'ลบบัญชี',as:'บัญชี {n}',
   name:'ชื่อบัญชี',nameHint:'2–20 ตัวอักษร ใช้ชื่อเล่นได้ ไม่ต้องใช้อีเมล',pass:'รหัสผ่าน',passHint:'อย่างน้อย 6 ตัวอักษร',
   consent:'ฉันอายุ 18 ปีขึ้นไป และยินยอมให้เก็บข้อมูลในแอป รวมถึงน้ำหนักและอาหารที่กิน ตาม<a href="privacy.html" target="_blank" rel="noopener">นโยบายความเป็นส่วนตัว</a>',
-  haveAcc:'มีบัญชีแล้ว? เข้าสู่ระบบ',noAcc:'ยังไม่มีบัญชี? สร้างบัญชี',forgot:'ลืมรหัสผ่าน? ติดต่อผู้ดูแลแอปให้ตั้งรหัสใหม่',
+  haveAcc:'มีบัญชีแล้ว? เข้าสู่ระบบ',rcT:'รหัสกู้คืน',rcBody:'ถ้าลืมรหัสผ่าน ใช้รหัสนี้ตั้งรหัสใหม่ได้เอง แอปจะแสดงรหัสนี้ครั้งเดียว จดหรือบันทึกเก็บไว้ในที่ที่ปลอดภัย และอย่าให้คนอื่นเห็น',rcCopy:'คัดลอก',rcCopied:'คัดลอกแล้ว',rcFile:'บันทึกเป็นไฟล์',rcOk:'ฉันเก็บรหัสนี้ไว้แล้ว',rcNext:'ต่อไป',rcForgot:'ลืมรหัสผ่าน?',rcFT:'ตั้งรหัสผ่านใหม่',rcFBody:'ใส่ชื่อบัญชีและรหัสกู้คืนที่ได้ตอนสมัคร แล้วตั้งรหัสผ่านใหม่ ทุกเครื่องจะต้องเข้าสู่ระบบใหม่',rcCode:'รหัสกู้คืน',rcNo:'ไม่มีรหัสกู้คืน? ติดต่อผู้ดูแลแอปให้ตั้งรหัสใหม่',rcGo:'ตั้งรหัสใหม่',rcNew:'รหัสกู้คืนใหม่',rcNewBody:'ใส่รหัสผ่านเพื่อสร้างรหัสกู้คืนใหม่ รหัสเดิมจะใช้ไม่ได้อีก',rcFileText:'รหัสกู้คืนอิ่มจัง\nบัญชี: {n}\nรหัส: {c}\nใช้ตั้งรหัสผ่านใหม่เมื่อลืม (หน้าเข้าสู่ระบบ > ลืมรหัสผ่าน?) เก็บเป็นความลับ\n',noAcc:'ยังไม่มีบัญชี? สร้างบัญชี',forgot:'ลืมรหัสผ่าน? ติดต่อผู้ดูแลแอปให้ตั้งรหัสใหม่',
   st:{ok:'ซิงค์แล้ว {t}',busy:'กำลังซิงค์…',off:'ออฟไลน์อยู่ ข้อมูลจะส่งขึ้นบัญชีเมื่อต่อเน็ต',exp:'ต้องเข้าสู่ระบบอีกครั้งเพื่อซิงค์ต่อ (เช่น หลังเปลี่ยนรหัสผ่านจากเครื่องอื่น)'},
   pick:'เลือกข้อมูลที่จะใช้',pickAsk:'ทั้งบัญชีนี้และเครื่องนี้มีข้อมูลอยู่ จะใช้ชุดไหน? อีกชุดจะถูกแทนที่',inAcc:'ในบัญชี',onDev:'ในเครื่องนี้',useAcc:'ใช้ข้อมูลในบัญชี',useDev:'ใช้ข้อมูลในเครื่องนี้',
   outAsk:'ออกจากระบบแล้ว ข้อมูลจะถูกลบออกจากเครื่องนี้ แต่ยังอยู่ในบัญชี เข้าสู่ระบบอีกครั้งเมื่อไรก็กลับมา',outUnsent:'ยังส่งข้อมูลล่าสุดขึ้นบัญชีไม่ได้ ถ้าออกตอนนี้ สิ่งที่บันทึกหลังจากซิงค์ครั้งล่าสุดจะหาย',outYes:'ออกจากระบบ',
   delAsk:'ลบบัญชีและข้อมูลทั้งหมด ทั้งบนเซิร์ฟเวอร์และในเครื่องนี้ทันที กู้คืนไม่ได้ ถ้าอยากเก็บไว้ ส่งออกไฟล์สำรองก่อน ใส่รหัสผ่านเพื่อยืนยัน',delYes:'ลบบัญชีถาวร',delDone:'ลบบัญชีและข้อมูลแล้ว',regStart:'สร้างบัญชีแล้วเริ่มเลย',gateT:'สร้างบัญชีก่อนเล่นต่อ',gateBody:'ตอนนี้อิ่มจังเก็บข้อมูลไว้ในบัญชี เปลี่ยนมือถือก็ไม่หาย สร้างบัญชีหรือเข้าสู่ระบบ แล้วข้อมูลในเครื่องนี้จะถูกเก็บเข้าบัญชีให้',gateExp:'เข้าสู่ระบบอีกครั้งเพื่อเล่นต่อ ข้อมูลในเครื่องนี้ยังอยู่ และจะซิงค์ต่อหลังเข้าสู่ระบบ',
   oldPw:'รหัสผ่านเดิม',newPw:'รหัสผ่านใหม่',pwDone:'เปลี่ยนรหัสผ่านแล้ว เครื่องอื่นต้องเข้าสู่ระบบใหม่',privacy:'นโยบายความเป็นส่วนตัว',
-  err:{name:'ชื่อต้องยาว 2–20 ตัวอักษร',nameChars:'ห้ามใช้อีเมล ลิงก์ หรืออักขระพิเศษในชื่อ',pw:'รหัสผ่านต้องยาว 6–72 ตัวอักษร',consent:'ติ๊กยินยอมก่อนสร้างบัญชี',taken:'ชื่อนี้มีคนใช้แล้ว ลองชื่ออื่น',wrong:'ชื่อหรือรหัสผ่านไม่ถูกต้อง',badPw:'รหัสผ่านไม่ถูกต้อง',oldPw:'รหัสผ่านเดิมไม่ถูกต้อง',tooMany:'ลองหลายครั้งเกินไป รอ 15 นาทีแล้วลองใหม่',net:'ต่อเซิร์ฟเวอร์ไม่ได้ ตรวจอินเทอร์เน็ตแล้วลองใหม่',x:'เกิดข้อผิดพลาด ลองใหม่อีกครั้ง'}},
+  err:{name:'ชื่อต้องยาว 2–20 ตัวอักษร',nameChars:'ห้ามใช้อีเมล ลิงก์ หรืออักขระพิเศษในชื่อ',pw:'รหัสผ่านต้องยาว 6–72 ตัวอักษร',consent:'ติ๊กยินยอมก่อนสร้างบัญชี',taken:'ชื่อนี้มีคนใช้แล้ว ลองชื่ออื่น',wrong:'ชื่อหรือรหัสผ่านไม่ถูกต้อง',badPw:'รหัสผ่านไม่ถูกต้อง',oldPw:'รหัสผ่านเดิมไม่ถูกต้อง',badCode:'ชื่อบัญชีหรือรหัสกู้คืนไม่ถูกต้อง',tooMany:'ลองหลายครั้งเกินไป รอ 15 นาทีแล้วลองใหม่',net:'ต่อเซิร์ฟเวอร์ไม่ได้ ตรวจอินเทอร์เน็ตแล้วลองใหม่',x:'เกิดข้อผิดพลาด ลองใหม่อีกครั้ง'}},
  dy:{water:'น้ำ',cups:'{n}/{g} แก้ว',cupL:'แก้วที่ {i}',move:'ขยับตัว',moveNone:'ยังไม่ได้ขยับ',moveSum:'{m} นาที · เผา {k} kcal',add:'เพิ่ม',less:'ลดน้ำ 1 แก้ว',more:'เพิ่มน้ำ 1 แก้ว'},
  waterDone:'ดื่มน้ำครบแล้ว! {n} สดชื่นเลย',goalPlus:'รวมที่ขยับตัว +{k}',
  mv:{title:'ขยับตัววันนี้',pick:'ทำอะไร',min:'กี่นาที',other:'อื่นๆ',save:'บันทึก',today:'วันนี้',none:'ยังไม่มี',
@@ -424,13 +424,13 @@ en:{
  ac:{t:'Account',hint:'Create an account to keep your data on the server. Changing phones or clearing the browser won\'t lose it, and you can use several devices.',reg:'Create account',in:'Sign in',out:'Sign out',pw:'Change password',del:'Delete account',as:'Account {n}',
   name:'Account name',nameHint:'2–20 characters. A nickname is fine; no e-mail needed.',pass:'Password',passHint:'At least 6 characters',
   consent:'I am 18 or older and agree to my app data, including weight and food, being stored as described in the <a href="privacy.html?lang=en" target="_blank" rel="noopener">privacy policy</a>.',
-  haveAcc:'Have an account? Sign in',noAcc:'No account yet? Create one',forgot:'Forgot your password? Ask the app\'s admin to set a new one.',
+  haveAcc:'Have an account? Sign in',rcT:'Recovery code',rcBody:'If you forget your password, this code lets you set a new one yourself. It is shown only this once: write it down or save it somewhere safe, and keep it private.',rcCopy:'Copy',rcCopied:'Copied',rcFile:'Save as file',rcOk:'I have kept this code',rcNext:'Continue',rcForgot:'Forgot password?',rcFT:'Set a new password',rcFBody:'Enter your account name and the recovery code you got when signing up, then a new password. Every device will need to sign in again.',rcCode:'Recovery code',rcNo:'No recovery code? Ask the app\'s admin to set a new password.',rcGo:'Set new password',rcNew:'New recovery code',rcNewBody:'Enter your password to make a new recovery code. The old one stops working.',rcFileText:'Imjang recovery code\nAccount: {n}\nCode: {c}\nUse it to set a new password if you forget it (Sign in > Forgot password?). Keep it private.\n',noAcc:'No account yet? Create one',forgot:'Forgot your password? Ask the app\'s admin to set a new one.',
   st:{ok:'Synced {t}',busy:'Syncing…',off:'Offline. Your data goes up when you\'re back online.',exp:'Sign in again to keep syncing (for example after the password was changed on another device).'},
   pick:'Choose your data',pickAsk:'Both this account and this device have data. Which one do you want to keep? The other is replaced.',inAcc:'In the account',onDev:'On this device',useAcc:'Use account data',useDev:'Use this device\'s data',
   outAsk:'Signing out removes the data from this device. It stays in your account; sign in again any time to get it back.',outUnsent:'Your latest changes haven\'t reached the account yet. Signing out now loses what you logged since the last sync.',outYes:'Sign out',
   delAsk:'This deletes your account and all its data, on the server and on this device, right away. It cannot be undone. To keep a copy, export a backup file first. Enter your password to confirm.',delYes:'Delete account forever',delDone:'Account and data deleted.',regStart:'Create account and start',gateT:'Create an account to continue',gateBody:'Imjang now keeps your data in an account, so changing phones won\'t lose it. Create an account or sign in, and the data on this device goes into it.',gateExp:'Sign in again to continue. Your data on this device is still here and syncs again once you sign in.',
   oldPw:'Current password',newPw:'New password',pwDone:'Password changed. Other devices need to sign in again.',privacy:'Privacy policy',
-  err:{name:'Name must be 2–20 characters',nameChars:'No e-mail, links or special characters in the name',pw:'Password must be 6–72 characters',consent:'Tick the consent box to create an account',taken:'That name is taken. Try another.',wrong:'Wrong name or password',badPw:'Wrong password',oldPw:'Current password is wrong',tooMany:'Too many tries. Wait 15 minutes and try again.',net:'Can\'t reach the server. Check your internet and try again.',x:'Something went wrong. Try again.'}},
+  err:{name:'Name must be 2–20 characters',nameChars:'No e-mail, links or special characters in the name',pw:'Password must be 6–72 characters',consent:'Tick the consent box to create an account',taken:'That name is taken. Try another.',wrong:'Wrong name or password',badPw:'Wrong password',oldPw:'Current password is wrong',badCode:'Wrong account name or recovery code',tooMany:'Too many tries. Wait 15 minutes and try again.',net:'Can\'t reach the server. Check your internet and try again.',x:'Something went wrong. Try again.'}},
  dy:{water:'Water',cups:'{n}/{g} glasses',cupL:'Glass {i}',move:'Activity',moveNone:'No activity yet',moveSum:'{m} min · {k} kcal burned',add:'Add',less:'One glass less',more:'One glass more'},
  waterDone:'Water goal done! {n} feels fresh',goalPlus:'includes activity +{k}',
  mv:{title:'Activity today',pick:'What did you do?',min:'How many minutes?',other:'Other',save:'Save',today:'Today',none:'Nothing yet',
@@ -937,7 +937,7 @@ function sheetAuth(mode,back,pre,then){
   <div class="err" id="ae" role="alert"></div>
   <button class="btn block" id="ago">${reg?a.reg:a.in}</button>
   <button class="lnk" id="asw" style="min-height:36px">${reg?a.haveAcc:a.noAcc}</button>
-  ${reg?'':`<div class="mute" style="font-size:13px;text-align:center">${a.forgot}</div>`}
+  ${reg?'':`<button class="lnk" id="afg" style="min-height:36px">${a.rcForgot}</button>`}
   <button class="btn ghost block" id="n">${t.no}</button>`);
   $('#n').onclick=back;
   $('#asw').onclick=()=>sheetAuth(reg?'in':'reg',back,$('#an').value,then);
@@ -949,11 +949,46 @@ function sheetAuth(mode,back,pre,then){
     b.disabled=false;
     if(r.s!==200){e.textContent=acErr(t,r);return}
     ACCT={tok:r.j.token,name:r.j.me.name,rev:0,ts:0};keepAcct();
+    if(reg&&r.j.recovery)return sheetRecovery(r.j.recovery,()=>acSignedIn(reg,back,then));
     acSignedIn(reg,back,then);
   };
+  const fg=$('#afg');if(fg)fg.onclick=()=>sheetForgot(back,then,$('#an').value);
   $('#ago').onclick=go2;
   $('#ap').onkeydown=e=>{if(e.key==='Enter')go2()};
   setTimeout(()=>{const i=$(pre?'#ap':'#an');if(i)i.focus()},50);
+}
+/* The recovery code, shown once (after sign-up, after using the old one, or on request). */
+function sheetRecovery(code,next){
+  const t=L(),a=t.ac,name=ACCT&&ACCT.name||'';
+  openSheet(`<h3 class="fd">🔑 ${a.rcT}</h3><p style="margin:0">${a.rcBody}</p>
+  <div class="rcode" id="rcv">${esc(code)}</div>
+  <div class="bkrow"><button class="btn ghost sm" id="rcc">${a.rcCopy}</button><button class="btn ghost sm" id="rcf">${a.rcFile}</button></div>
+  <label class="keep"><input type="checkbox" id="rcok"> <span>${a.rcOk}</span></label>
+  <button class="btn block" id="rcn" disabled>${a.rcNext}</button>`);
+  $('#rcc').onclick=async()=>{try{await navigator.clipboard.writeText(code);$('#rcc').textContent=a.rcCopied}catch(e){const r=document.createRange();r.selectNodeContents($('#rcv'));const s=getSelection();s.removeAllRanges();s.addRange(r)}};
+  $('#rcf').onclick=()=>saveFile('imjang-recovery-code.txt','text/plain',fmt(a.rcFileText,{n:name,c:code}));
+  $('#rcok').onchange=()=>{$('#rcn').disabled=!$('#rcok').checked};
+  $('#rcn').onclick=()=>{if($('#rcok').checked)next()};
+}
+function sheetForgot(back,then,pre){
+  const t=L(),a=t.ac;
+  openSheet(`<h3 class="fd">${a.rcFT}</h3><p style="margin:0;font-size:14px" class="mute">${a.rcFBody}</p>
+  <label class="fl"><b>${a.name}</b><input class="inp tx" id="fn" maxlength="20" autocomplete="username" autocapitalize="off" value="${esc(pre||'')}"></label>
+  <label class="fl"><b>${a.rcCode}</b><input class="inp tx rcin" id="fc" maxlength="24" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="XXXX-XXXX-XXXX-XXXX"></label>
+  <label class="fl"><b>${a.newPw}</b><input class="inp tx" id="fp" type="password" maxlength="72" autocomplete="new-password"><span class="mute">${a.passHint}</span></label>
+  <div class="err" id="ae" role="alert"></div>
+  <button class="btn block" id="fgo">${a.rcGo}</button>
+  <div class="mute" style="font-size:13px;text-align:center">${a.rcNo}</div>
+  <button class="btn ghost block" id="n">${t.no}</button>`);
+  $('#n').onclick=()=>sheetAuth('in',back,$('#fn').value,then);
+  $('#fgo').onclick=async()=>{
+    const b=$('#fgo');b.disabled=true;
+    let r;try{r=await api('POST','recover',{name:$('#fn').value,code:$('#fc').value,password:$('#fp').value})}catch(e){r={s:0,j:{}}}
+    b.disabled=false;
+    if(r.s!==200){$('#ae').textContent=acErr(t,r);return}
+    ACCT={tok:r.j.token,name:r.j.me.name,rev:0,ts:0};keepAcct();
+    sheetRecovery(r.j.recovery,()=>acSignedIn(false,back,then));
+  };
 }
 /* just signed in: decide whose data wins */
 async function acSignedIn(reg,back,then){
@@ -980,7 +1015,7 @@ function accountCard(t){
   <div class="bkrow"><button class="btn mint sm" id="acr">${a.reg}</button><button class="btn ghost sm" id="aci">${a.in}</button></div>
   <a class="mute" style="font-size:13px" href="privacy.html${S.lang==='en'?'?lang=en':''}" target="_blank" rel="noopener">${a.privacy}</a></div>`;
   return `<div class="card" style="padding:12px;display:grid;gap:8px"><div><b>☁️ ${fmt(a.as,{n:esc(ACCT.name)})}</b><div class="mute" style="font-size:13px" id="acst">${acStText(t)}</div></div>
-  ${ACCT.tok?`<div class="bkrow"><button class="btn ghost sm" id="acp">${a.pw}</button><button class="btn ghost sm" id="aco">${a.out}</button></div>`:`<div class="bkrow"><button class="btn mint sm" id="aci">${a.in}</button><button class="btn ghost sm" id="aco">${a.out}</button></div>`}
+  ${ACCT.tok?`<div class="bkrow"><button class="btn ghost sm" id="acp">${a.pw}</button><button class="btn ghost sm" id="aco">${a.out}</button></div><button class="btn ghost sm block" id="acrc">🔑 ${a.rcNew}</button>`:`<div class="bkrow"><button class="btn mint sm" id="aci">${a.in}</button><button class="btn ghost sm" id="aco">${a.out}</button></div>`}
   <div class="row" style="justify-content:space-between"><a class="mute" style="font-size:13px" href="privacy.html${S.lang==='en'?'?lang=en':''}" target="_blank" rel="noopener">${a.privacy}</a>${ACCT.tok?`<button class="lnk" id="acd" style="width:auto;min-height:36px;color:#D0452D">${a.del}</button>`:''}</div></div>`;
 }
 function bindAccount(t){
@@ -1015,6 +1050,22 @@ function bindAccount(t){
       if(r.s!==200){$('#ae').textContent=acErr(t,r);return}
       openSheet(`<h3 class="fd">${a.pw}</h3><p style="margin:0">${a.pwDone}</p><button class="btn block" id="n">${t.close}</button>`);
       $('#n').onclick=sheetSettings;
+    };
+  });
+  on('#acrc',()=>{
+    openSheet(`<h3 class="fd">🔑 ${a.rcNew}</h3><p style="margin:0">${a.rcNewBody}</p>
+    <input class="hidden" autocomplete="username" value="${esc(ACCT.name)}">
+    <label class="fl"><b>${a.pass}</b><input class="inp tx" id="rp" type="password" maxlength="72" autocomplete="current-password"></label>
+    <div class="err" id="ae" role="alert"></div>
+    <button class="btn block" id="y">${a.rcNew}</button><button class="btn ghost block" id="n">${t.no}</button>`);
+    $('#n').onclick=sheetSettings;
+    $('#y').onclick=async()=>{
+      const b=$('#y');b.disabled=true;
+      let r;try{r=await api('POST','recovery',{password:$('#rp').value})}catch(e){r={s:0,j:{}}}
+      b.disabled=false;
+      if(r.s===401)return acExpired();
+      if(r.s!==200){$('#ae').textContent=acErr(t,r);return}
+      sheetRecovery(r.j.recovery,sheetSettings);
     };
   });
   on('#acd',()=>{
@@ -1662,8 +1713,9 @@ function saveWeight(w){
 /* ============ SHEETS ============ */
 function openSheet(html){$('#sheet').innerHTML=html;$('#wrap').classList.remove('hidden')}
 function closeSheet(){$('#wrap').classList.add('hidden');$('#sheet').innerHTML=''}
-$('#scrim').onclick=()=>{closeSheet();if(view==='home')rHome()};
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!GATE&&!$('#pa'))closeSheet()});
+const sheetLocked=()=>GATE||!!$('#pa')||!!$('#rcok');
+$('#scrim').onclick=()=>{if(sheetLocked())return;closeSheet();if(view==='home')rHome()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!sheetLocked())closeSheet()});
 let sel=null,por=1,tab='list',q='',cat='all',mslot='s',photo={st:'idle',items:[],url:''},delArm=null,bc={st:'idle'},bcCode='';
 function sheetAdd(){sel=null;por=1;tab='list';q='';cat='all';mslot=slotNow();photo={st:'idle',items:[],url:''};delArm=null;bc={st:'idle'};bcCode='';drawAdd()}
 /* The user's kept foods, in the same row format as FOODS (category 'mine'), listed before the built-in foods. */

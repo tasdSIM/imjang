@@ -15,8 +15,8 @@
 # own folder (/opt/imjang), project (imjang), loopback port 8095 and its own Cloudflare tunnel
 # (route imjang.cpxsim.online -> http://web:8080, set in the Cloudflare dashboard).
 # Only committed code is sent, so commit first. Kept on the VM, never sent from git:
-# deploy/tunnel.env (the tunnel token) and docker-compose.override.yml (runs cloudflared next to
-# the app). A first install copies the local deploy/tunnel.env up and writes the override.
+# deploy/tunnel.env (the tunnel token), deploy/uptime.env (down alerts, deploy/install-uptime.sh) and
+# docker-compose.override.yml (runs cloudflared next to the app). A first install copies the local deploy/tunnel.env up and writes the override.
 #
 # VM_HOST is an ssh host alias (default "cpxsim", set in ~/.ssh/config). On Windows the
 # key's passphrase sits in the Windows ssh-agent, which only Windows' own ssh.exe can use.
@@ -77,7 +77,7 @@ vm 'cat > /tmp/imjang-backup.sh && bash /tmp/imjang-backup.sh deploy; s=$?; rm -
 
 echo "== Copying $REV"
 vm "find $APP_DIR -mindepth 1 -maxdepth 1 ! -name deploy ! -name docker-compose.override.yml -exec rm -rf {} + \
-  && find $APP_DIR/deploy -mindepth 1 ! -name .env ! -name tunnel.env -exec rm -rf {} +"
+  && find $APP_DIR/deploy -mindepth 1 ! -name .env ! -name tunnel.env ! -name uptime.env -exec rm -rf {} +"
 git archive --format=tar HEAD | vm "tar xf - -C $APP_DIR && echo $REV > $APP_DIR/REVISION"
 
 echo "== Building and restarting (tests run during the build)"
